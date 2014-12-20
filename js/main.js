@@ -62,7 +62,14 @@ $(function () {
 
 					// Place dragged after drop target.
 					var li = $(this).closest('li');
-					li.after(ui.draggable);
+					if ($(this).hasClass('before')) {
+
+						li.before(ui.draggable);
+					}
+					if ($(this).hasClass('after')) {
+
+						li.after(ui.draggable);
+					}
 					ui.draggable.css({
 						left: 0,
 						top: 0

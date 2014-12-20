@@ -1,7 +1,7 @@
 
 body {
 
-	background: #8cf url('noise-3percent.png');
+	background: #8cf; // url('noise-3percent.png');
 
 	// background: #8cf;
 	// background-image: linear-gradient(to bottom, #48e 0%, #8cf 100%);
@@ -16,10 +16,16 @@ body {
 	.task .drop-target {
 
 		position: absolute;
-		bottom: (16px - 2px) / 2;
 
-		content: "";
-		display: block;
+		&.before {
+
+			top: -(16px) / 2;
+		}
+		&.after {
+
+			bottom: (16px) / 2;
+		}
+
 		width: 100px;
 		height: 20px;
 		background: red;
