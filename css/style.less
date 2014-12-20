@@ -6,33 +6,60 @@ body {
 	// background: #8cf;
 	// background-image: linear-gradient(to bottom, #48e 0%, #8cf 100%);
 }
+
+
+@task-width: 200px;
+@task-margin: 16px;
+
 .tree-view {
 
 	margin: 50px;
 
+	li {
 
-	position: relative;
+		>.task {
 
-	.task .drop-target {
+			position: relative;
 
-		position: absolute;
+			>.drop-target {
 
-		&.before {
+				position: absolute;
 
-			top: -(16px) / 2;
+				width: @task-width;
+
+				// &.drop-hover {
+
+				// 	background: blue;
+				// }
+
+				&.before {
+
+					top: -@task-margin/2;
+					bottom: 50%;
+				}
+				&.after {
+
+					top: 50%;
+					bottom: -@task-margin/2;
+				}
+				&.child {
+
+					// Set it up to cover the entire area where a child
+					// would go, but don't show it only for leaf nodes.
+
+					display: none;
+					width: (@task-margin + @task-width);
+					right: -(@task-margin + @task-width);
+
+					top: -@task-margin/2;
+					bottom: -@task-margin/2;
+				}
+			}
 		}
-		&.after {
 
-			bottom: (16px) / 2;
-		}
+		&.leaf > .task > .drop-target.child {
 
-		width: 100px;
-		height: 20px;
-		background: red;
-
-		&.drop-hover {
-
-			background: blue;
+			display: block;
 		}
 	}
 }
@@ -78,12 +105,12 @@ body {
 
 			display: inline-block;
 
-			width: 200px;
+			width: @task-width;
 
 			// box-sizing: border-box;
 			// padding: 10px;
 			
-			margin: 0 16px 16px 0;
+			margin: 0 @task-margin @task-margin 0;
 			border-radius: 5px;
 
 			h1 {

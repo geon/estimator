@@ -17,14 +17,21 @@ $(function () {
 
 			function makeLi(task) {
 
-				var li = $template.clone();
+				var $li = $template.clone();
 
-				li.find('h1').text(task.title).end();
-				li.find('.task').addClass(task.color);
+				$li.find('h1').text(task.title).end();
+				$li.find('.task').addClass(task.color);
 
-				li.find('ul').append(task.tasks && task.tasks.map(makeLi));
+				if (task.tasks) {
 
-				return li;
+					$li.find('ul').append(task.tasks.map(makeLi));
+
+				} else {
+
+					$li.addClass('leaf');
+				}
+
+				return $li;
 			}
 
 
@@ -32,7 +39,9 @@ $(function () {
 			$('.tree-view ul li' ).draggable({
 
 				// handle: '.handle',
-				zIndex: 100
+				zIndex: 100,
+				revert: true,
+				revertDuration: 200
 			});
 
 			$('.task .drop-target').droppable({
@@ -60,7 +69,7 @@ $(function () {
 					// Stop indicating drop target.
 					$(this).toggleClass('drop-hover', false);
 
-					// Place dragged after drop target.
+					// Place dragged before/after drop target.
 					var li = $(this).closest('li');
 					if ($(this).hasClass('before')) {
 
@@ -69,6 +78,10 @@ $(function () {
 					if ($(this).hasClass('after')) {
 
 						li.after(ui.draggable);
+					}
+					if ($(this).hasClass('child')) {
+
+						li.children('ul').append(ui.draggable);
 					}
 					ui.draggable.css({
 						left: 0,
