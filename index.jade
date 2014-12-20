@@ -1,0 +1,61 @@
+doctype html5
+head
+	link(rel='stylesheet', href='css/style.css')
+#everything-but-footer
+	#header
+	#main
+		.tree-view
+			ul
+				li
+					.task
+						h1 Some work
+					ul
+						li
+							.task.black
+								h1 Build it
+							ul
+								li
+									.task
+										h1 Edit stuff
+								li
+									.task.yellow
+										h1 Clean up
+						li
+							.task.purple
+								h1 Edit stuff
+						li
+							.task.green
+								h1 Delete evidence
+						li
+							.task
+								h1 Clean up
+							ul
+								li
+									.task
+										h1 Edit stuff
+				li
+					.task.blue
+						h1 Delete evidence
+					ul
+						li
+							.task
+								h1 Edit stuff
+						li
+							.task
+								h1 Clean up
+						li
+							.task
+								h1 Clean up
+							ul
+								li.insert.after
+									.task.orange
+										h1 Clean up
+								li
+									.task.red
+										h1 Clean up
+				li
+					.task
+						h1 Clean up
+#footer
+script(src='js/vendor/jquery-1.10.1.min.js')
+script(src='js/main.js')
