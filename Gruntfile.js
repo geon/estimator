@@ -31,14 +31,15 @@ module.exports = function(grunt) {
 
 		// running `grunt watch` will watch for changes
 		watch: {
+
 			stylesless: {
-				options: { livereload: false },
+				options: { livereload: true },
 				files: ['./css/style.less'],
 				tasks: ['less:development']
 			},
 
 			jade: {
-				options: { livereload: false },
+				options: { livereload: true },
 				files: ['index.jade'],
 				tasks: ['jade']
 			}
