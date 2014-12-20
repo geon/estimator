@@ -1,0 +1,96 @@
+body {
+  background: #8cf;
+}
+.tree-view {
+  margin: 50px;
+}
+.tree-view li > .task {
+  position: relative;
+}
+.tree-view li > .task > .drop-target {
+  position: absolute;
+  width: 200px;
+}
+.tree-view li > .task > .drop-target.before {
+  top: -8px;
+  bottom: 50%;
+}
+.tree-view li > .task > .drop-target.after {
+  top: 50%;
+  bottom: -8px;
+}
+.tree-view li > .task > .drop-target.child {
+  display: none;
+  width: 216px;
+  right: -216px;
+  top: -8px;
+  bottom: -8px;
+}
+.tree-view li.leaf > .task > .drop-target.child {
+  display: block;
+}
+.tree-view ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tree-view ul li {
+  min-height: 30px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+}
+.tree-view ul li.insert.after {
+  margin-bottom: 10px;
+}
+.tree-view ul li div.task {
+  display: inline-block;
+  width: 200px;
+  margin: 0 16px 16px 0;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 0px 2px 0px 0px #e6e6e6;
+  color: black;
+}
+.tree-view ul li div.task h1 {
+  font-size: 20px;
+  font-weight: normal;
+  margin-left: 10px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.tree-view ul li div.task.black {
+  background: #333333;
+  box-shadow: 0px 2px 0px 0px #1a1a1a;
+  color: white;
+}
+.tree-view ul li div.task.blue {
+  background: #3388ff;
+  box-shadow: 0px 2px 0px 0px #2671d9;
+  color: white;
+}
+.tree-view ul li div.task.purple {
+  background: #aa2299;
+  box-shadow: 0px 2px 0px 0px #693062;
+  color: white;
+}
+.tree-view ul li div.task.red {
+  background: #ff4455;
+  box-shadow: 0px 2px 0px 0px #db3544;
+  color: white;
+}
+.tree-view ul li div.task.orange {
+  background: #ff8822;
+  box-shadow: 0px 2px 0px 0px #ca7124;
+  color: white;
+}
+.tree-view ul li div.task.yellow {
+  background: #ffff55;
+  box-shadow: 0px 2px 0px 0px #dede43;
+  color: black;
+}
+.tree-view ul li div.task.green {
+  background: #66ff22;
+  box-shadow: 0px 2px 0px 0px #57ca24;
+  color: black;
+}
