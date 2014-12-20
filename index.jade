@@ -1,5 +1,6 @@
 doctype html5
 head
+	link(rel='stylesheet', href='css/jquery-ui.min.css')
 	link(rel='stylesheet', href='css/style.css')
 #everything-but-footer
 	#header
@@ -9,17 +10,21 @@ head
 				li
 					.task
 						h1 Some work
+						.drop-target
 					ul
 						li
 							.task.black
 								h1 Build it
+								.drop-target
 							ul
 								li
 									.task
 										h1 Edit stuff
+										.drop-target
 								li
 									.task.yellow
 										h1 Clean up
+										.drop-target
 						li
 							.task.purple
 								h1 Edit stuff
@@ -47,7 +52,8 @@ head
 							.task
 								h1 Clean up
 							ul
-								li.insert.after
+								li
+									//- .insert.after
 									.task.orange
 										h1 Clean up
 								li
@@ -57,5 +63,7 @@ head
 					.task
 						h1 Clean up
 #footer
-script(src='js/vendor/jquery-1.10.1.min.js')
+script(src='js/vendor/jquery-2.1.3.min.js')
+script(src='js/vendor/jquery-ui-1.11.2.drag-drop.min.js')
+script(src='js/main.js')
 script(src='js/main.js')

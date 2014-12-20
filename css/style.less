@@ -6,6 +6,26 @@ body {
 .tree-view {
 
 	margin: 50px;
+
+
+	position: relative;
+
+	.task .drop-target {
+
+		position: absolute;
+		bottom: (16px - 2px) / 2;
+
+		content: "";
+		display: block;
+		width: 100px;
+		height: 20px;
+		background: red;
+
+		&.drop-hover {
+
+			background: blue;
+		}
+	}
 }
 
 
@@ -70,7 +90,7 @@ body {
 			@task-color-white: #fff;
 			@task-color-black: #333;
 			@task-color-blue: #38f;
-			@task-color-purple: #a69;
+			@task-color-purple: #a29;
 			@task-color-red: #f45;
 			@task-color-orange: #f82;
 			@task-color-yellow: #ff5;
@@ -79,6 +99,7 @@ body {
 			.task-color (@color) {
 
 				background: @color; // url(noise-5percent.png);
+				// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
 				box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
 				.contrasting-color(@color);
 			}
