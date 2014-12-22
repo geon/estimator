@@ -15,6 +15,16 @@ module.exports = function(grunt) {
 			}
 		},
 
+		// configure autoprefixing for compiled output css
+		autoprefixer: {
+			build: {
+				// expand: true,
+				// cwd: BUILD_DIR,
+				src: ['./css/style.css'],
+				// dest: BUILD_DIR
+			}
+		},
+
 		jade: {
 			compile: {
 				options: {
@@ -23,10 +33,10 @@ module.exports = function(grunt) {
 						debug: true
 					}
 				},
- 				files: {
- 					'index.html': 'index.jade'
- 				}
- 			}
+				files: {
+					'index.html': 'index.jade'
+				}
+			}
 		},
 
 		// running `grunt watch` will watch for changes
@@ -48,6 +58,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 };
