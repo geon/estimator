@@ -22,16 +22,16 @@ var ProjectTreeTaskView = Backbone.View.extend({
 
 			this.applyModel();
 
-			this.model.get('tasks').map(this.addSubTaskView, this);
+			this.model.get('tasks').map(function (model) { this.addSubTaskView(model, this.model.get('tasks'), {}); } , this);
 
 			this.model.on('change', this.applyModel, this);
 			this.model.get('tasks').on('add', this.addSubTaskView, this);
+			this.model.on('remove', this.remove, this);
 		};
 
 		// Run the initializer manually the first time.
 		ProjectTreeTaskView.prototype.initialize.apply(this, arguments);
 	},
-
 
 	setUpDragNDrop: function () {
 
@@ -42,6 +42,8 @@ var ProjectTreeTaskView = Backbone.View.extend({
 			revert: true,
 			revertDuration: 200
 		});
+
+		this.$el.data('model', this.model);
 
 		var THIS = this;
 		this.$task.find('.drop-target').droppable({
@@ -64,17 +66,24 @@ var ProjectTreeTaskView = Backbone.View.extend({
 				$(this).toggleClass('drop-hover', false);
 
 				// Place dragged before/after drop target.
+
+				// Remove from current collection.
+				var model = ui.draggable.data('model');
+				model.collection.remove(model);
+
+				// Insert into new.
+				var dropTargetIndex = THIS.model.index();
 				if ($(this).hasClass('before')) {
 
-					THIS.$el.before(ui.draggable);
+					THIS.model.collection.add(model, {at: dropTargetIndex});
 				}
 				if ($(this).hasClass('after')) {
 
-					THIS.$el.after(ui.draggable);
+					THIS.model.collection.add(model, {at: dropTargetIndex + 1});
 				}
 				if ($(this).hasClass('child')) {
 
-					THIS.$subTaskList.append(ui.draggable);
+					THIS.model.get('tasks').add(model);
 				}
 				ui.draggable.css({
 					left: 0,
@@ -92,13 +101,33 @@ var ProjectTreeTaskView = Backbone.View.extend({
 	},
 
 
-	addSubTaskView: function (model) {
+	addSubTaskView: function (model, collection, options) {
 
 		var view = new ProjectTreeTaskView({
 			model: model
 		});
 
-		this.$subTaskList.append(view.$el);
+		var children = this.$subTaskList.children();
+		if (children.length) {
+
+			//Find the position of the model in the collection.
+			var index = model.index();
+
+			// Insert at index.
+			var childAtIndex = children.get(index);
+			if (childAtIndex) {
+
+				$(childAtIndex).before(view.$el)
+
+			} else {
+
+				this.$subTaskList.append(view.$el)
+			}
+
+		} else {
+
+			this.$subTaskList.append(view.$el)
+		}
 	},
 
 

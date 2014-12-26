@@ -11,7 +11,12 @@ var Task = Backbone.Model.extend({
 
 	relations: {
 		tasks: Tasks
-	}	
+	},
+
+	index: function () {
+
+		return this.collection.models.indexOf(this);
+	}
 });
 
 // Complete the collection after the model's relations has used it.

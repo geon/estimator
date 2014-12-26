@@ -22,7 +22,27 @@ var ProjectTreeView = Backbone.View.extend({
 			model: model
 		});
 
-		this.$subTaskList.append(view.$el);
+		var children = this.$subTaskList.children();
+		if (children.length) {
+
+			//Find the position of the model in the collection.
+			var index = model.index();
+
+			// Insert at index.
+			var childAtIndex = children.get(index);
+			if (childAtIndex) {
+
+				$(childAtIndex).before(view.$el)
+
+			} else {
+
+				this.$subTaskList.append(view.$el)
+			}
+
+		} else {
+
+			this.$subTaskList.append(view.$el)
+		}
 	},
 
 
