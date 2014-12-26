@@ -123,6 +123,34 @@ body {
 			}
 
 
+			// Buttons
+			i.button {
+
+				position: absolute;
+				bottom: 7px;
+
+				font-size: 22px;
+
+				opacity: 0;
+				transition: opacity 0.1s;
+			}
+			&:hover i.button {
+
+				opacity: 1;
+				transition: opacity 0.2s;
+			}
+			i.add-sub-task {
+
+				right: 10px;
+			}
+			i.task-details {
+
+				right: 35px;
+			}
+
+
+			// Colors
+
 			@task-color-white: #fff;
 			@task-color-black: #333;
 			@task-color-blue: #38f;
@@ -138,6 +166,13 @@ body {
 				// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
 				box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
 				.contrasting-color(@color);
+
+				// Make the buttons visually stay on top of the title.
+				i.button {
+
+					background: @color;
+					box-shadow: 0px 0px 5px 5px @color;
+				}
 			}
 
 			.task-color(@task-color-white);

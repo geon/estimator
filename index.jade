@@ -1,11 +1,13 @@
 doctype html5
 head
 	link(rel='stylesheet', href='css/style.css')
+	link(rel='stylesheet', href='css/font-awesome-4.2.0.min.css')
 #everything-but-footer
 	#header
 	#main
 		.tree-view
 			h1
+			//- i.fa.fa-plus-square.js-add-sub-task
 			ul
 
 
@@ -29,6 +31,8 @@ script.js-task(type='template')
 	li
 		.task
 			h1
+			i.fa.fa-plus-square.button.add-sub-task.js-add-sub-task
+			i.fa.fa-cog.button.task-details.js-task-details
 			.drop-target.before(rel='before')
 			.drop-target.after(rel='after')
 			.drop-target.child(rel='child')
