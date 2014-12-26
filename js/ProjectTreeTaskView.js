@@ -30,6 +30,9 @@ var ProjectTreeTaskView = Backbone.View.extend({
 			}, this);
 
 			this.model.on('change', this.applyModel, this);
+			this.model.get('tasks').on('add', this.applyModel, this);
+			this.model.get('tasks').on('remove', this.applyModel, this);
+
 			this.model.get('tasks').on('add', this.addSubTaskView, this);
 			this.model.on('remove', this.remove, this);
 		};
@@ -135,8 +138,7 @@ var ProjectTreeTaskView = Backbone.View.extend({
 	applyModel: function () {
 
 		this.$title.text(this.model.get('title'));
-		// TODO: Make it work when changing color.
-		this.$task.addClass(this.model.get('color'));
+		this.$task.attr('data-color', this.model.get('color'));
 		this.$el.toggleClass('leaf', !this.model.get('tasks').length);
 	}
 });
