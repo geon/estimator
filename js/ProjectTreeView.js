@@ -22,25 +22,16 @@ var ProjectTreeView = Backbone.View.extend({
 			model: model
 		});
 
-		var children = this.$subTaskList.children();
-		if (children.length) {
-
-			//Find the position of the model in the collection.
-			var index = model.index();
+		// Find the DOM element Where the view element should be inserted.
+		var elAtIndex = this.$subTaskList.children().get(model.index());
+		if (elAtIndex) {
 
 			// Insert at index.
-			var childAtIndex = children.get(index);
-			if (childAtIndex) {
-
-				$(childAtIndex).before(view.$el)
-
-			} else {
-
-				this.$subTaskList.append(view.$el)
-			}
+			$(elAtIndex).before(view.$el)
 
 		} else {
 
+			// Just append.
 			this.$subTaskList.append(view.$el)
 		}
 	},
