@@ -5,6 +5,10 @@ var Tasks = Backbone.Collection.extend({});
 
 var Task = Backbone.Model.extend({
 
+	defaults: {
+		tasks: []
+	},
+
 	relations: {
 		tasks: Tasks
 	}	

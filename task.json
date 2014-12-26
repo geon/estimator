@@ -4,7 +4,8 @@
 	"tasks": [
 		{
 			"id": "795571db-8ccb-4718-af75-267574ad9b70",
-			"title": "Find out how to destroy it"
+			"title": "Find out how to destroy it",
+			"tasks": []
 		},
 		{
 			"id": "11780d5f-211f-4019-bc7a-4dfe2b7d0c5f",
@@ -12,15 +13,18 @@
 			"tasks": [
 				{
 					"id": "8d5084a6-0bd7-42a4-8e70-b03ba567d9bd",
-					"title": "Go to Rivendell"
+					"title": "Go to Rivendell",
+					"tasks": []
 				},
 				{
 					"id": "5cb1dcdb-85f2-4cb2-b2fe-28a025325054",
-					"title": "Sit in a circle"
+					"title": "Sit in a circle",
+					"tasks": []
 				},
 				{
 					"id": "7df372d1-8fc7-43a0-86ab-36b5f08cba47",
-					"title": "And my axe!"
+					"title": "And my axe!",
+					"tasks": []
 				}
 			]
 		},
@@ -30,16 +34,19 @@
 			"tasks": [
 				{
 					"id": "5828e644-4430-4854-ab81-800827f6c817",
-					"title": "Avoid Sauron"
+					"title": "Avoid Sauron",
+					"tasks": []
 				},
 				{
 					"id": "1e2b5153-6c4b-4654-9f0e-ed27a15d320f",
-					"title": "Walk a lot"
+					"title": "Walk a lot",
+					"tasks": []
 				},
 				{
 					"id": "5598eeab-56c8-4eb7-b696-fa1a49408d31",
 					"title": "Don't fly with eagles",
-					"color": "red"
+					"color": "red",
+					"tasks": []
 				}
 			]
 		},
@@ -55,28 +62,33 @@
 					"tasks": [
 						{
 							"id": "489f6123-acf3-475e-904c-1e3633dbd163",
-							"title": "Just throw it in"
+							"title": "Just throw it in",
+							"tasks": []
 						},
 						{
 							"id": "d308c6b3-0c3c-4d83-899d-2151301e06fb",
-							"title": "How hard can it be"
+							"title": "How hard can it be",
+							"tasks": []
 						},
 						{
 							"id": "eb8f865b-c7e9-4b24-bc9e-3825c387f752",
 							"title": "Seriously",
-							"color": "yellow"
+							"color": "yellow",
+							"tasks": []
 						}
 					]
 				},
 				{
 					"id": "6b190d23-647d-49cf-ae85-07b0a8b027b3",
-					"title": "Fight schizo"
+					"title": "Fight schizo",
+					"tasks": []
 				}
 			]
 		},
 		{
 			"id": "f2d96d92-93a6-4b39-b5df-7f207835da9b",
-			"title": "Fly home"
+			"title": "Fly home",
+			"tasks": []
 		}	
 	]
 }
