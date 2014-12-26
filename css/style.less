@@ -1,76 +1,5 @@
 
-body {
-
-	background: #8cf; // url('noise-3percent.png');
-
-	// background: #8cf;
-	// background-image: linear-gradient(to bottom, #48e 0%, #8cf 100%);
-}
-
-
-@task-width: 200px;
-@task-margin: 16px;
-
-.tree-view {
-
-	margin: 50px;
-
-	li {
-
-		>.task {
-
-			position: relative;
-
-			>.drop-target {
-
-				position: absolute;
-
-				width: @task-width;
-
-				// &.drop-hover {
-
-				// 	background: blue;
-				// }
-
-				&.before {
-
-					top: -@task-margin/2;
-					bottom: 50%;
-				}
-				&.after {
-
-					top: 50%;
-					bottom: -@task-margin/2;
-				}
-				&.child {
-
-					// Set it up to cover the entire area where a child
-					// would go, but don't show it only for leaf nodes.
-
-					display: none;
-					width: (@task-margin + @task-width);
-					right: -(@task-margin + @task-width);
-
-					top: -@task-margin/2;
-					bottom: -@task-margin/2;
-
-					// Make hovering not show the task buttons.
-					pointer-events: none;
-				}
-			}
-		}
-
-		&.leaf > .task > .drop-target.child {
-
-			display: block;
-		}
-	}
-}
-
-
-
-
-
+// Mixins
 
 .contrasting-color(@color) when (luma(@color) > 50%) {
 	color: black;
@@ -82,128 +11,179 @@ body {
 
 
 
+body {
 
-.tree-view ul {
+	background: #8cf; // url('noise-3percent.png');
 
-	margin: 0;
-	padding: 0;
-	list-style: none;
-
-	li {
-
-		min-height: 30px;
-
-		margin: 0;
-		padding: 0;
-
-		display: flex;
-		align-items: stretch;
-
-		&.insert.after {
-
-			margin-bottom: 10px;
-		}
-
-		div.task {
-
-			display: inline-block;
-
-			width: @task-width;
-
-			// box-sizing: border-box;
-			// padding: 10px;
-			
-			margin: 0 @task-margin @task-margin 0;
-			border-radius: 5px;
-
-			h1 {
-
-				font-size: 20px;
-				font-weight: normal;
-
-				margin-left: 10px;
-				font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-			}
-
-
-			// Buttons
-			i.button {
-
-				position: absolute;
-				bottom: 7px;
-
-				font-size: 22px;
-
-				opacity: 0;
-				transition: opacity 0.1s;
-			}
-			&:hover i.button {
-
-				opacity: 1;
-				transition: opacity 0.2s;
-			}
-			i.add-sub-task {
-
-				right: 10px;
-			}
-			i.task-details {
-
-				right: 35px;
-			}
-
-
-			// Colors
-
-			@task-color-white: #fff;
-			@task-color-black: #333;
-			@task-color-blue: #38f;
-			@task-color-purple: #a29;
-			@task-color-red: #f45;
-			@task-color-orange: #f82;
-			@task-color-yellow: #ff5;
-			@task-color-green: #6f2;
-
-			.task-color (@color) {
-
-				background: @color; // url(noise-5percent.png);
-				// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
-				box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
-				.contrasting-color(@color);
-
-				// Make the buttons visually stay on top of the title.
-				i.button {
-
-					background: @color;
-					box-shadow: 0px 0px 5px 5px @color;
-				}
-			}
-
-			.task-color(@task-color-white);
-			&[data-color='black'] {
-				.task-color(@task-color-black);
-			}
-			&[data-color='blue'] {
-				.task-color(@task-color-blue);
-			}
-			&[data-color='purple'] {
-				.task-color(@task-color-purple);
-			}
-			&[data-color='red'] {
-				.task-color(@task-color-red);
-			}
-			&[data-color='orange'] {
-				.task-color(@task-color-orange);
-			}
-			&[data-color='yellow'] {
-				.task-color(@task-color-yellow);
-			}
-			&[data-color='green'] {
-				.task-color(@task-color-green);
-			}
-		}
-	}
+	// background: #8cf;
+	// background-image: linear-gradient(to bottom, #48e 0%, #8cf 100%);
 }
 
 
 
-		
+.tree-view {
+
+	margin: 50px;
+
+	ul {
+
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+
+			min-height: 30px;
+
+			margin: 0;
+			padding: 0;
+
+			display: flex;
+			align-items: stretch;
+
+			&.insert.after {
+
+				margin-bottom: 10px;
+			}
+
+			>div.task {
+
+				@task-width: 200px;
+				@task-margin: 16px;
+
+				display: inline-block;
+
+				width: @task-width;
+
+				// box-sizing: border-box;
+				// padding: 10px;
+				
+				margin: 0 @task-margin @task-margin 0;
+				border-radius: 5px;
+
+				h1 {
+
+					font-size: 20px;
+					font-weight: normal;
+
+					margin-left: 10px;
+					font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+				}
+
+
+				// Buttons
+				i.button {
+
+					position: absolute;
+					bottom: 7px;
+
+					font-size: 22px;
+
+					opacity: 0;
+					transition: opacity 0.1s;
+				}
+				&:hover i.button {
+
+					opacity: 1;
+					transition: opacity 0.2s;
+				}
+				i.add-sub-task {
+
+					right: 10px;
+				}
+				i.task-details {
+
+					right: 35px;
+				}
+
+
+				// Colors
+				@task-color-white: #fff;
+				@task-color-black: #333;
+				@task-color-blue: #38f;
+				@task-color-purple: #a29;
+				@task-color-red: #f45;
+				@task-color-orange: #f82;
+				@task-color-yellow: #ff5;
+				@task-color-green: #6f2;
+				.task-color (@color) {
+
+					background: @color; // url(noise-5percent.png);
+					// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
+					box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
+					.contrasting-color(@color);
+
+					// Make the buttons visually stay on top of the title.
+					i.button {
+
+						background: @color;
+						box-shadow: 0px 0px 5px 5px @color;
+					}
+				}
+				.task-color(@task-color-white);
+				&[data-color='black'] {
+					.task-color(@task-color-black);
+				}
+				&[data-color='blue'] {
+					.task-color(@task-color-blue);
+				}
+				&[data-color='purple'] {
+					.task-color(@task-color-purple);
+				}
+				&[data-color='red'] {
+					.task-color(@task-color-red);
+				}
+				&[data-color='orange'] {
+					.task-color(@task-color-orange);
+				}
+				&[data-color='yellow'] {
+					.task-color(@task-color-yellow);
+				}
+				&[data-color='green'] {
+					.task-color(@task-color-green);
+				}
+
+
+				// Drop targets
+				position: relative;
+				>.drop-target {
+
+					position: absolute;
+
+					width: @task-width;
+
+					&.before {
+
+						top: -@task-margin/2;
+						bottom: 50%;
+					}
+					&.after {
+
+						top: 50%;
+						bottom: -@task-margin/2;
+					}
+					&.child {
+
+						// Set it up to cover the entire area where a child
+						// would go, but don't show it only for leaf nodes.
+
+						display: none;
+						width: (@task-margin + @task-width);
+						right: -(@task-margin + @task-width);
+
+						top: -@task-margin/2;
+						bottom: -@task-margin/2;
+
+						// Make hovering not show the task buttons.
+						pointer-events: none;
+					}
+				}
+			}
+
+			&.leaf > .task > .drop-target.child {
+
+				display: block;
+			}
+		}
+	}
+}
