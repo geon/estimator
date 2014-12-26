@@ -62,8 +62,10 @@ var ProjectTreeTaskView = Backbone.View.extend({
 
 			drop: function( event, ui ) {
 
+				var $dropTarget = $(this);
+
 				// Stop indicating drop target.
-				$(this).toggleClass('drop-hover', false);
+				$dropTarget.toggleClass('drop-hover', false);
 
 				// Place dragged before/after drop target.
 
@@ -73,18 +75,27 @@ var ProjectTreeTaskView = Backbone.View.extend({
 
 				// Insert into new.
 				var dropTargetIndex = THIS.model.index();
-				if ($(this).hasClass('before')) {
+				switch ($dropTarget.attr('rel')) {
 
-					THIS.model.collection.add(model, {at: dropTargetIndex});
-				}
-				if ($(this).hasClass('after')) {
+					case 'before': {
+						
+						THIS.model.collection.add(model, {at: dropTargetIndex});
 
-					THIS.model.collection.add(model, {at: dropTargetIndex + 1});
-				}
-				if ($(this).hasClass('child')) {
+					} break;
 
-					THIS.model.get('tasks').add(model);
+					case 'after': {
+						
+						THIS.model.collection.add(model, {at: dropTargetIndex + 1});
+
+					} break;
+
+					case 'child': {
+						
+						THIS.model.get('tasks').add(model);
+
+					} break;
 				}
+
 				ui.draggable.css({
 					left: 0,
 					top: 0
