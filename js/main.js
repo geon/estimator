@@ -1,11 +1,13 @@
+"use strict";
+
 $(function () {
 
 
 	var $template = $($.parseHTML($('script.js-task[type=template]').text()));
 	var $treeView = $('.tree-view');
 
-
-	$.ajax({
+	var task = new Task();
+	task.fetch({
 		url: 'task.json',
 		dataType: 'json',
 		error: function () {
@@ -13,18 +15,18 @@ $(function () {
 		},
 		success: function (task) {
 
-			$treeView.find('ul').append(task.tasks.map(makeLi));
+			$treeView.find('ul').append(task.get('tasks').map(makeLi));
 
 			function makeLi(task) {
 
 				var $li = $template.clone();
 
-				$li.find('h1').text(task.title).end();
-				$li.find('.task').addClass(task.color);
+				$li.find('h1').text(task.get('title')).end();
+				$li.find('.task').addClass(task.get('color'));
 
-				if (task.tasks) {
+				if (task.get('tasks')) {
 
-					$li.find('ul').append(task.tasks.map(makeLi));
+					$li.find('ul').append(task.get('tasks').map(makeLi));
 
 				} else {
 
