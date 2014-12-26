@@ -7,7 +7,9 @@ var ProjectTreeTaskView = Backbone.View.extend({
 		// On first run, set the template.
 		// Can't be done outside this initializer, since
 		// it must be run after document.ready, but before the app starts. 
-		ProjectTreeTaskView.prototype.$template = $($.parseHTML($('script.js-task[type=template]').text()));
+		ProjectTreeTaskView.prototype.$template = $($.parseHTML(
+			$('script.js-task[type=template]').text()
+		));
 
 		// Replace the initializer with the normal code.
 		ProjectTreeTaskView.prototype.initialize = function (options) {
@@ -22,7 +24,10 @@ var ProjectTreeTaskView = Backbone.View.extend({
 
 			this.applyModel();
 
-			this.model.get('tasks').map(function (model) { this.addSubTaskView(model, this.model.get('tasks'), {}); } , this);
+			this.model.get('tasks').map(function (model) {
+
+				this.addSubTaskView(model, this.model.get('tasks'), {});
+			}, this);
 
 			this.model.on('change', this.applyModel, this);
 			this.model.get('tasks').on('add', this.addSubTaskView, this);
@@ -79,13 +84,19 @@ var ProjectTreeTaskView = Backbone.View.extend({
 
 					case 'before': {
 						
-						THIS.model.collection.add(model, {at: dropTargetIndex});
+						THIS.model.collection.add(
+							model,
+							{at: dropTargetIndex}
+						);
 
 					} break;
 
 					case 'after': {
 						
-						THIS.model.collection.add(model, {at: dropTargetIndex + 1});
+						THIS.model.collection.add(
+							model,
+							{at: dropTargetIndex + 1}
+						);
 
 					} break;
 
