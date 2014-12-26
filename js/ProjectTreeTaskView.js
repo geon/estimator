@@ -95,18 +95,6 @@ var ProjectTreeTaskView = Backbone.View.extend({
 
 					} break;
 				}
-
-				ui.draggable.css({
-					left: 0,
-					top: 0
-				});
-
-				// Re-enable draggable.
-				THIS.$el.draggable({
-
-					// handle: '.handle',
-					zIndex: 100
-				});
 			}
 		});
 	},
