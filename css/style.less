@@ -68,7 +68,8 @@ body {
 				margin: 0 @task-margin @task-margin 0;
 				border-radius: 5px;
 
-				@title-margin: 10px;
+				@title-margin-h: 13.400px; // Some default value for h1. It looked ok.
+				@title-margin-v: 10px;
 
 				h1, input {
 
@@ -80,18 +81,18 @@ body {
 
 				h1 {
 
-					margin: @title-margin;
+					margin: @title-margin-h @title-margin-v;
 				}
 
 				input {
 
 					display: none;
 
-					width: @task-width - @title-margin;
+					width: @task-width - @title-margin-v;
 					border: none;
 
-					padding: @title-margin/2 - 1px;
-					margin: @title-margin/2;
+					padding: @title-margin-h/2 - 1px @title-margin-v/2 - 1px;
+					margin: @title-margin-h/2 @title-margin-v/2;
 
 					background: transparent;
 					color: inherit;
