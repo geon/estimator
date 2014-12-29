@@ -2,10 +2,12 @@
 
 var ProjectTreeSubTaskView = Backbone.View.extend({
 
-	initialize: function () {
+	initialize: function (options) {
 
 		this.$title = this.$el.find('h1');
 		this.$task  = this.$el.find('.task');
+
+		this.treeEventReciever = options.treeEventReciever;
 
 		this.setUpDragNDrop();
 
@@ -20,7 +22,8 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		this.subTaskListView = new ProjectTreeSubTaskListView({
 			el: this.$el.find('ul'),
-			collection: this.model.get('tasks')
+			collection: this.model.get('tasks'),
+			treeEventReciever: this.treeEventReciever
 		});
 	},
 
@@ -32,7 +35,17 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 			// handle: '.handle',
 			zIndex: 100,
 			revert: true,
-			revertDuration: 200
+			revertDuration: 200,
+
+			start: function () {
+
+				this.treeEventReciever.trigger('dragStart');
+			}.bind(this),
+
+			stop: function () {
+
+				this.treeEventReciever.trigger('dragStop');
+			}.bind(this)
 		});
 
 		this.$el.data('model', this.model);
@@ -42,57 +55,51 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 			tolerance: 'pointer',
 
-			over: function ( event, ui ) {
+			drop: function(event, ui) {
 
-				$(this).toggleClass('drop-hover', true);
-			},
+				// Wait until next frame, or the draggable `stop` event doesn't fire. Ugly.
+				setTimeout(function () {
 
-			out: function ( event ) {
+					var $dropTarget = $(this);
 
-				$(this).toggleClass('drop-hover', false);
-			},
+					// Stop indicating drop target.
+					$dropTarget.toggleClass('drop-hover', false);
 
-			drop: function( event, ui ) {
+					// Place dragged before/after drop target.
 
-				var $dropTarget = $(this);
+					// Remove from current collection.
+					var model = ui.draggable.data('model');
+					model.collection.remove(model);
 
-				// Stop indicating drop target.
-				$dropTarget.toggleClass('drop-hover', false);
+					// Insert into new collection.
+					var dropTargetIndex = THIS.model.index();
+					switch ($dropTarget.attr('rel')) {
 
-				// Place dragged before/after drop target.
+						case 'before': {
+							
+							THIS.model.collection.add(
+								model,
+								{at: dropTargetIndex}
+							);
 
-				// Remove from current collection.
-				var model = ui.draggable.data('model');
-				model.collection.remove(model);
+						} break;
 
-				// Insert into new.
-				var dropTargetIndex = THIS.model.index();
-				switch ($dropTarget.attr('rel')) {
+						case 'after': {
+							
+							THIS.model.collection.add(
+								model,
+								{at: dropTargetIndex + 1}
+							);
 
-					case 'before': {
-						
-						THIS.model.collection.add(
-							model,
-							{at: dropTargetIndex}
-						);
+						} break;
 
-					} break;
+						case 'child': {
+							
+							THIS.model.get('tasks').add(model);
 
-					case 'after': {
-						
-						THIS.model.collection.add(
-							model,
-							{at: dropTargetIndex + 1}
-						);
-
-					} break;
-
-					case 'child': {
-						
-						THIS.model.get('tasks').add(model);
-
-					} break;
-				}
+						} break;
+					}
+				}.bind(this), 0);
 			}
 		});
 	},

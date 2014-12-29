@@ -2,7 +2,7 @@
 
 var ProjectTreeSubTaskListView = Backbone.View.extend({
 
-	initialize: function () {
+	initialize: function (options) {
 
 		// On first run, set the template.
 		// Can't be done outside this initializer, since
@@ -13,6 +13,8 @@ var ProjectTreeSubTaskListView = Backbone.View.extend({
 
 		// Replace the initializer with the normal code.
 		ProjectTreeSubTaskListView.prototype.initialize = function (options) {
+
+			this.treeEventReciever = options.treeEventReciever;
 
 			this.collection.map(this.addSubTaskView, this);
 
@@ -43,7 +45,8 @@ var ProjectTreeSubTaskListView = Backbone.View.extend({
 
 		var view = new ProjectTreeSubTaskView({
 			el: $el,
-			model: model
+			model: model,
+			treeEventReciever: this.treeEventReciever
 		});
 	}
 });

@@ -165,9 +165,10 @@ body {
 					&.child {
 
 						// Set it up to cover the entire area where a child
-						// would go, but don't show it only for leaf nodes.
+						// would go, but show it only for leaf nodes.
 
 						display: none;
+
 						width: (@task-margin + @task-width);
 						right: -(@task-margin + @task-width);
 
@@ -185,5 +186,16 @@ body {
 				display: block;
 			}
 		}
+	}
+
+	// Make the drop targets only show up while dragging.
+	// (Leaf nodes child-targets are still visible, but they don't overlap the task.)
+	.drop-target {
+
+		display: none;
+	}
+	&.dragging .drop-target {
+
+		display: block;
 	}
 }

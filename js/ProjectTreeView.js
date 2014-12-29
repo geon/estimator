@@ -6,13 +6,31 @@ var ProjectTreeView = Backbone.View.extend({
 
 		this.$title = this.$el.find('h1');
 
+		this.treeEventReciever = _.extend({}, Backbone.Events);
+
 		this.applyModel();
 		this.model.on('change', this.applyModel, this);
 
+		this.treeEventReciever.on('dragStart', this.onDragStart, this);
+		this.treeEventReciever.on('dragStop',  this.onDragStop,  this);
+
 		this.subTaskListView = new ProjectTreeSubTaskListView({
 			el: this.$el.find('ul'),
-			collection: this.model.get('tasks')
+			collection: this.model.get('tasks'),
+			treeEventReciever: this.treeEventReciever
 		});
+	},
+
+
+	onDragStart: function () {
+
+		this.$el.toggleClass('dragging', true);
+	},
+
+
+	onDragStop: function () {
+
+		this.$el.toggleClass('dragging', false);
 	},
 
 
