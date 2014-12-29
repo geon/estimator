@@ -6,7 +6,9 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		'click h1': 'onTitleClick',
 		'blur input': 'onInputBlur',
-		'keyup input': 'onInputKeyUp'
+		'keyup input': 'onInputKeyUp',
+
+		'click .js-add-sub-task': 'addSubtask'
 	},
 
 
@@ -27,6 +29,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		this.model.get('tasks').on('add', this.applyModel, this);
 		this.model.get('tasks').on('remove', this.applyModel, this);
 
+		this.model.on('focus', this.onTitleClick, this);
 		this.model.on('remove', this.remove, this);
 
 		this.subTaskListView = new ProjectTreeSubTaskListView({
@@ -39,7 +42,10 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 	onTitleClick: function (event) {
 
-		event.stopPropagation();
+		if (event) {
+
+			event.stopPropagation();
+		}
 
 		this.$input.val(this.model.get('title'));
 		this.$task.toggleClass('editing-title', true);
@@ -63,6 +69,16 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 			this.onInputBlur(event);
 		}
+	},
+
+
+	addSubtask: function (event) {
+
+		event.stopPropagation();
+
+		var model = new Task();
+		this.model.get('tasks').add(model);
+		model.trigger('focus');
 	},
 
 
@@ -145,7 +161,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 	applyModel: function () {
 
-		this.$title.text(this.model.get('title'));
+		this.$title.text(this.model.get('title') || String.fromCharCode(160)); // 160: &nbsp;
 		this.$task.attr('data-color', this.model.get('color'));
 		this.$el.toggleClass('leaf', !this.model.get('tasks').length);
 	}
