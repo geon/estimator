@@ -2,9 +2,18 @@
 
 var ProjectTreeSubTaskView = Backbone.View.extend({
 
+	events: {
+
+		'click h1': 'onTitleClick',
+		'blur input': 'onInputBlur',
+		'keyup input': 'onInputKeyUp'
+	},
+
+
 	initialize: function (options) {
 
 		this.$title = this.$el.find('h1');
+		this.$input = this.$el.find('input');
 		this.$task  = this.$el.find('.task');
 
 		this.treeEventReciever = options.treeEventReciever;
@@ -25,6 +34,35 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 			collection: this.model.get('tasks'),
 			treeEventReciever: this.treeEventReciever
 		});
+	},
+
+
+	onTitleClick: function (event) {
+
+		event.stopPropagation();
+
+		this.$input.val(this.model.get('title'));
+		this.$task.toggleClass('editing-title', true);
+
+		this.$input.focus();
+	},
+
+
+	onInputBlur: function (event) {
+
+		event.stopPropagation();
+
+		this.model.set({title: this.$input.val()});
+		this.$task.toggleClass('editing-title', false);
+	},
+
+
+	onInputKeyUp: function (event) {
+
+		if (event.keyCode == 13) {
+
+			this.onInputBlur(event);
+		}
 	},
 
 

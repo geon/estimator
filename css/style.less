@@ -1,19 +1,26 @@
 
 // Mixins
 
-.contrasting-color(@color) when (luma(@color) > 50%) {
-	color: black;
+.return-contrasting-color(@color) when (luma(@color) > 50%) {
+	@contrasting-color: black;
 }
-.contrasting-color(@color) when (luma(@color) =< 50%) {
-	color: white;
+.return-contrasting-color(@color) when (luma(@color) =< 50%) {
+	@contrasting-color: white;
+}
+
+.contrasting-color(@color) {
+
+	.return-contrasting-color(@color);
+
+	color: @contrasting-color;
 }
 
 
-
+@body-background-color: #8cf;
 
 body {
 
-	background: #8cf; // url('noise-3percent.png');
+	background: @body-background-color; // url('noise-3percent.png');
 
 	// background: #8cf;
 	// background-image: linear-gradient(to bottom, #48e 0%, #8cf 100%);
@@ -61,15 +68,52 @@ body {
 				margin: 0 @task-margin @task-margin 0;
 				border-radius: 5px;
 
-				h1 {
+				@title-margin: 10px;
+
+				h1, input {
 
 					font-size: 20px;
 					font-weight: normal;
 
-					margin-left: 10px;
 					font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 				}
 
+				h1 {
+
+					margin: @title-margin;
+				}
+
+				input {
+
+					display: none;
+
+					width: @task-width - @title-margin;
+					border: none;
+
+					padding: @title-margin/2 - 1px;
+					margin: @title-margin/2;
+
+					background: transparent;
+					color: inherit;
+
+					border-radius: 3px;
+					border: 1px solid;
+
+					// Disable the default focus-style.
+					&:focus {
+
+						outline: none;
+					}
+				}
+
+				&.editing-title h1 {
+
+					display: none;
+				}
+				&.editing-title input {
+
+					display: block;
+				}
 
 				// Buttons
 				i.button {
@@ -86,6 +130,10 @@ body {
 
 					opacity: 1;
 					transition: opacity 0.2s;
+				}
+				&.editing-title i.button {
+
+					display: none;
 				}
 				i.add-sub-task {
 
