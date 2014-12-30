@@ -2,16 +2,25 @@ doctype html5
 head
 	link(rel='stylesheet', href='css/style.css')
 	link(rel='stylesheet', href='css/font-awesome-4.2.0.min.css')
-#everything-but-footer
-	#header
-	#main
-		.tree-view
-			h1
-			//- i.fa.fa-plus-square.js-add-sub-task
-			ul
+body
+	#page
+		#everything-but-footer
+			#header
+			#main
+				.tree-view
+					h1
+					//- i.fa.fa-plus-square.js-add-sub-task
+					ul
+		#footer
 
-
-#footer
+	#modal-overlay.js-task-edit-dialog
+		.dialog
+			h1 The title
+			input.js-estimate-from
+			input.js-estimate-to
+			input.js-actual
+			p Some description. Maybe a few lines of text, you know. Just to get it.
+			button.js-delete
 
 script(src='//localhost:35729/livereload.js')
 

@@ -8,7 +8,8 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		'blur input': 'onInputBlur',
 		'keyup input': 'onInputKeyUp',
 
-		'click .js-add-sub-task': 'addSubtask'
+		'click .js-add-sub-task': 'addSubtask',
+		'click .js-task-details': 'taskDetails'
 	},
 
 
@@ -79,6 +80,12 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		var model = new Task();
 		this.model.get('tasks').add(model);
 		model.trigger('focus');
+	},
+
+
+	taskDetails: function () {
+
+		$('body').addClass('modal-overlay');
 	},
 
 
