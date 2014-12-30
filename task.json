@@ -1,65 +1,94 @@
 {
+	"id": "8f89bb1c-75a7-4fba-97ad-cc005953a3e6",
 	"title": "Destroy the ring",
 	"tasks": [
 		{
-			"title": "Find out how to destroy it"
+			"id": "795571db-8ccb-4718-af75-267574ad9b70",
+			"title": "Find out how to destroy it",
+			"tasks": []
 		},
 		{
+			"id": "11780d5f-211f-4019-bc7a-4dfe2b7d0c5f",
 			"title": "Assemble team",
 			"tasks": [
 				{
-					"title": "Go to Rivendell"
+					"id": "8d5084a6-0bd7-42a4-8e70-b03ba567d9bd",
+					"title": "Go to Rivendell",
+					"tasks": []
 				},
 				{
-					"title": "Sit in a circle"
+					"id": "5cb1dcdb-85f2-4cb2-b2fe-28a025325054",
+					"title": "Sit in a circle",
+					"tasks": []
 				},
 				{
-					"title": "And my axe!"
+					"id": "7df372d1-8fc7-43a0-86ab-36b5f08cba47",
+					"title": "And my axe!",
+					"tasks": []
 				}
 			]
 		},
 		{
+			"id": "08aa56f9-0db5-45a4-8ecb-9777d9f92198",
 			"title": "Travel to Mount Doom",
 			"tasks": [
 				{
-					"title": "Avoid Sauron"
+					"id": "5828e644-4430-4854-ab81-800827f6c817",
+					"title": "Avoid Sauron",
+					"tasks": []
 				},
 				{
-					"title": "Walk a lot"
+					"id": "1e2b5153-6c4b-4654-9f0e-ed27a15d320f",
+					"title": "Walk a lot",
+					"tasks": []
 				},
 				{
+					"id": "5598eeab-56c8-4eb7-b696-fa1a49408d31",
 					"title": "Don't fly with eagles",
-					"color": "red"
+					"color": "red",
+					"tasks": []
 				}
 			]
 		},
 		{
+			"id": "2948325c-ad85-4b8a-ad44-9790ce83e22f",
 			"title": "Throw in the ring",
 			"color": "blue",
 			"tasks": [
 				{
+					"id": "1f4b92fb-421f-460a-b7f6-c8dfec31a297",
 					"title": "Fight self",
 					"color": "black",
 					"tasks": [
 						{
-							"title": "Just throw it in"
+							"id": "489f6123-acf3-475e-904c-1e3633dbd163",
+							"title": "Just throw it in",
+							"tasks": []
 						},
 						{
-							"title": "How hard can it be"
+							"id": "d308c6b3-0c3c-4d83-899d-2151301e06fb",
+							"title": "How hard can it be",
+							"tasks": []
 						},
 						{
+							"id": "eb8f865b-c7e9-4b24-bc9e-3825c387f752",
 							"title": "Seriously",
-							"color": "yellow"
+							"color": "yellow",
+							"tasks": []
 						}
 					]
 				},
 				{
-					"title": "Fight schizo"
+					"id": "6b190d23-647d-49cf-ae85-07b0a8b027b3",
+					"title": "Fight schizo",
+					"tasks": []
 				}
 			]
 		},
 		{
-			"title": "Fly home"
+			"id": "f2d96d92-93a6-4b39-b5df-7f207835da9b",
+			"title": "Fly home",
+			"tasks": []
 		}	
 	]
 }

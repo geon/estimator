@@ -1,33 +1,8 @@
 body {
-  background: #8cf;
+  background: #88ccff;
 }
 .tree-view {
   margin: 50px;
-}
-.tree-view li > .task {
-  position: relative;
-}
-.tree-view li > .task > .drop-target {
-  position: absolute;
-  width: 200px;
-}
-.tree-view li > .task > .drop-target.before {
-  top: -8px;
-  bottom: 50%;
-}
-.tree-view li > .task > .drop-target.after {
-  top: 50%;
-  bottom: -8px;
-}
-.tree-view li > .task > .drop-target.child {
-  display: none;
-  width: 216px;
-  right: -216px;
-  top: -8px;
-  bottom: -8px;
-}
-.tree-view li.leaf > .task > .drop-target.child {
-  display: block;
 }
 .tree-view ul {
   margin: 0;
@@ -38,65 +13,190 @@ body {
   min-height: 30px;
   margin: 0;
   padding: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: stretch;
-  -webkit-align-items: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
+  align-items: stretch;
 }
 .tree-view ul li.insert.after {
   margin-bottom: 10px;
 }
-.tree-view ul li div.task {
+.tree-view ul li > div.task {
   display: inline-block;
   width: 200px;
   margin: 0 16px 16px 0;
   border-radius: 5px;
   background: #ffffff;
   box-shadow: 0px 2px 0px 0px #e6e6e6;
-  color: black;
+  color: #000000;
+  position: relative;
 }
-.tree-view ul li div.task h1 {
+.tree-view ul li > div.task h1,
+.tree-view ul li > div.task input {
   font-size: 20px;
   font-weight: normal;
-  margin-left: 10px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-.tree-view ul li div.task.black {
+.tree-view ul li > div.task h1 {
+  margin: 13.4px 10px;
+}
+.tree-view ul li > div.task input {
+  display: none;
+  width: calc(100% - 10px);
+  border: none;
+  padding: 5.7px 4px;
+  margin: 6.7px 5px;
+  background: transparent;
+  color: inherit;
+  border-radius: 3px;
+  border: 1px solid;
+}
+.tree-view ul li > div.task input:focus {
+  outline: none;
+}
+.tree-view ul li > div.task.editing-title h1 {
+  display: none;
+}
+.tree-view ul li > div.task.editing-title input {
+  display: block;
+}
+.tree-view ul li > div.task i.button {
+  position: absolute;
+  bottom: 7px;
+  font-size: 22px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.tree-view ul li > div.task:hover i.button {
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+.tree-view ul li > div.task.editing-title i.button {
+  display: none;
+}
+.tree-view ul li > div.task i.add-sub-task {
+  right: 10px;
+}
+.tree-view ul li > div.task i.task-details {
+  right: 35px;
+}
+.tree-view ul li > div.task i.button {
+  background: #ffffff;
+  box-shadow: 0px 0px 5px 5px #ffffff;
+}
+.tree-view ul li > div.task[data-color='black'] {
   background: #333333;
   box-shadow: 0px 2px 0px 0px #1a1a1a;
-  color: white;
+  color: #ffffff;
 }
-.tree-view ul li div.task.blue {
+.tree-view ul li > div.task[data-color='black'] i.button {
+  background: #333333;
+  box-shadow: 0px 0px 5px 5px #333333;
+}
+.tree-view ul li > div.task[data-color='blue'] {
   background: #3388ff;
   box-shadow: 0px 2px 0px 0px #2671d9;
-  color: white;
+  color: #ffffff;
 }
-.tree-view ul li div.task.purple {
+.tree-view ul li > div.task[data-color='blue'] i.button {
+  background: #3388ff;
+  box-shadow: 0px 0px 5px 5px #3388ff;
+}
+.tree-view ul li > div.task[data-color='purple'] {
   background: #aa2299;
   box-shadow: 0px 2px 0px 0px #693062;
-  color: white;
+  color: #ffffff;
 }
-.tree-view ul li div.task.red {
+.tree-view ul li > div.task[data-color='purple'] i.button {
+  background: #aa2299;
+  box-shadow: 0px 0px 5px 5px #aa2299;
+}
+.tree-view ul li > div.task[data-color='red'] {
   background: #ff4455;
   box-shadow: 0px 2px 0px 0px #db3544;
-  color: white;
+  color: #ffffff;
 }
-.tree-view ul li div.task.orange {
+.tree-view ul li > div.task[data-color='red'] i.button {
+  background: #ff4455;
+  box-shadow: 0px 0px 5px 5px #ff4455;
+}
+.tree-view ul li > div.task[data-color='orange'] {
   background: #ff8822;
   box-shadow: 0px 2px 0px 0px #ca7124;
-  color: white;
+  color: #ffffff;
 }
-.tree-view ul li div.task.yellow {
+.tree-view ul li > div.task[data-color='orange'] i.button {
+  background: #ff8822;
+  box-shadow: 0px 0px 5px 5px #ff8822;
+}
+.tree-view ul li > div.task[data-color='yellow'] {
   background: #ffff55;
   box-shadow: 0px 2px 0px 0px #dede43;
-  color: black;
+  color: #000000;
 }
-.tree-view ul li div.task.green {
+.tree-view ul li > div.task[data-color='yellow'] i.button {
+  background: #ffff55;
+  box-shadow: 0px 0px 5px 5px #ffff55;
+}
+.tree-view ul li > div.task[data-color='green'] {
   background: #66ff22;
   box-shadow: 0px 2px 0px 0px #57ca24;
-  color: black;
+  color: #000000;
+}
+.tree-view ul li > div.task[data-color='green'] i.button {
+  background: #66ff22;
+  box-shadow: 0px 0px 5px 5px #66ff22;
+}
+.tree-view ul li > div.task > .drop-target {
+  position: absolute;
+  width: 200px;
+}
+.tree-view ul li > div.task > .drop-target.before {
+  top: -8px;
+  bottom: 50%;
+}
+.tree-view ul li > div.task > .drop-target.after {
+  top: 50%;
+  bottom: -8px;
+}
+.tree-view ul li > div.task > .drop-target.child {
+  display: none;
+  width: 216px;
+  right: -216px;
+  top: -8px;
+  bottom: -8px;
+  pointer-events: none;
+}
+.tree-view ul li.leaf > .task > .drop-target.child {
+  display: block;
+}
+.tree-view .drop-target {
+  display: none;
+}
+.tree-view.dragging .drop-target {
+  display: block;
+}
+body #modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5) url('noise-3percent.png');
+  align-items: center;
+  justify-content: center;
+}
+body #modal-overlay .dialog {
+  max-width: 500px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.2);
+}
+body.modal-overlay #page {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+body.modal-overlay #modal-overlay {
+  display: flex;
 }
