@@ -38,6 +38,8 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 			collection: this.model.get('tasks'),
 			treeEventReciever: this.treeEventReciever
 		});
+
+		this.editDialog = ModalDialogView.getInstance();
 	},
 
 
@@ -83,9 +85,11 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 	},
 
 
-	taskDetails: function () {
+	taskDetails: function (event) {
 
-		$('body').addClass('modal-overlay');
+		event.stopPropagation();
+
+		this.editDialog.show();
 	},
 
 

@@ -13,14 +13,15 @@ body
 					ul
 		#footer
 
-	#modal-overlay.js-task-edit-dialog
-		.dialog
+	#modal-overlay
+		.dialog.js-edit-task-dialog
 			h1 The title
 			input.js-estimate-from
 			input.js-estimate-to
 			input.js-actual
 			p Some description. Maybe a few lines of text, you know. Just to get it.
-			button.js-delete
+			button.js-delete Delete
+			i.fa.fa-close.button.close.js-close
 
 script(src='//localhost:35729/livereload.js')
 
@@ -29,6 +30,9 @@ script(src='js/vendor/jquery-ui-1.11.2.drag-drop.min.js')
 script(src='js/vendor/underscore-1.7.0.min.js')
 script(src='js/vendor/backbone-1.1.2.min.js')
 script(src='js/vendor/backbone-nested-0.7.0.min.js')
+
+script(src='js/ModalOverlayView.js')
+script(src='js/ModalDialogView.js')
 
 script(src='js/ProjectTreeView.js')
 script(src='js/ProjectTreeSubTaskView.js')
