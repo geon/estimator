@@ -13,8 +13,14 @@ body {
   min-height: 30px;
   margin: 0;
   padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  align-items: stretch;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 .tree-view ul li.insert.after {
   margin-bottom: 10px;
@@ -63,11 +69,13 @@ body {
   bottom: 7px;
   font-size: 22px;
   opacity: 0;
-  transition: opacity 0.1s;
+  -webkit-transition: opacity 0.1s;
+          transition: opacity 0.1s;
 }
 .tree-view ul li > div.task:hover i.button {
   opacity: 1;
-  transition: opacity 0.2s;
+  -webkit-transition: opacity 0.2s;
+          transition: opacity 0.2s;
 }
 .tree-view ul li > div.task.editing-title i.button {
   display: none;
@@ -182,8 +190,14 @@ body #modal-overlay {
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.5) url('noise-3percent.png');
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 body #modal-overlay .dialog {
   max-width: 500px;
@@ -198,5 +212,8 @@ body.modal-overlay #page {
   filter: blur(5px);
 }
 body.modal-overlay #modal-overlay {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
 }
