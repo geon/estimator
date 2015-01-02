@@ -19,6 +19,11 @@ var ModalOverlayView = Backbone.View.extend({
 
 		this.depthCount--;
 		this.$el.toggleClass('modal-overlay', !!this.depthCount);
+
+		if (this.depthCount < 0) {
+
+			console.error('Last modal overlay already hidden.');
+		}
 	}
 });
 

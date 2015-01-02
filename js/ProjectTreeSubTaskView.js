@@ -39,7 +39,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 			treeEventReciever: this.treeEventReciever
 		});
 
-		this.editDialog = ModalDialogView.getInstance();
+		this.editDialog = null;
 	},
 
 
@@ -89,7 +89,11 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		event.stopPropagation();
 
-		this.editDialog.show();
+		var editDialog = new ModalTaskEditDialogView({
+			model: this.model
+		});
+
+		editDialog.show();
 	},
 
 

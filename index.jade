@@ -14,14 +14,6 @@ body
 		#footer
 
 	#modal-overlay
-		.dialog.js-edit-task-dialog
-			h1 The title
-			input.js-estimate-from
-			input.js-estimate-to
-			input.js-actual
-			p Some description. Maybe a few lines of text, you know. Just to get it.
-			button.js-delete Delete
-			i.fa.fa-close.button.close.js-close
 
 script(src='//localhost:35729/livereload.js')
 
@@ -33,6 +25,7 @@ script(src='js/vendor/backbone-nested-0.7.0.min.js')
 
 script(src='js/ModalOverlayView.js')
 script(src='js/ModalDialogView.js')
+script(src='js/ModalTaskEditDialogView.js')
 
 script(src='js/ProjectTreeView.js')
 script(src='js/ProjectTreeSubTaskView.js')
@@ -52,3 +45,25 @@ script.js-task(type='template')
 			.drop-target.after(rel='after')
 			.drop-target.child(rel='child')
 		ul
+
+script.js-edit-task-dialog(type='template')
+	.dialog.js-edit-task-dialog
+
+		input.js-title
+
+		.colors
+			each color in ['white', 'black', 'blue', 'purple', 'red', 'orange', 'yellow', 'green']
+				label
+					input(type='radio', name='color', value=color)
+					= color
+
+		.estimates
+			input.from.js-from
+			input.to.js-to
+			input.actual.js-actual
+
+		textarea.js-description
+
+		button.js-delete Delete
+
+		i.fa.fa-close.button.close.js-close

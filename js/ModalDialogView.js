@@ -4,18 +4,27 @@ var ModalDialogView = Backbone.View.extend({
 
 	events: {
 
-		'click .js-close': 'hide'
+		'click .js-close': 'hide',
+		'click': 'stopClickRomPropagatingToOverlay'
 	},
 
 
 	initialize: function (options) {
 
-		this.visible = false;
-
 		// Listen globally. Kind of ugly, but OK.
-		$(document).on('keydown', this.onKeyDown.bind(this));
+		this.boundHide      = this.hide.bind(this);
+		this.boundOnKeyDown = this.onKeyDown.bind(this);
+		$('#modal-overlay').on('click',   this.boundHide);
+		$(document        ).on('keydown', this.boundOnKeyDown);
 
 		this.overlay = ModalOverlayView.getInstance();
+	},
+
+
+	stopClickRomPropagatingToOverlay: function (event) {
+
+		// Clicks within the dialog should not propagate further, causing it to close.
+		event.stopPropagation();
 	},
 
 
@@ -33,37 +42,18 @@ var ModalDialogView = Backbone.View.extend({
 
 	show: function () {
 
-		if (!this.visible) {
-
-			this.$el.show();
-			this.overlay.show();
-
-			this.visible = true;
-		}
+		this.$el.show();
+		this.overlay.show();
 	},
 
 
 	hide: function () {
 
-		if (this.visible) {
+		this.remove();
+		this.overlay.hide();
 
-			this.$el.hide();
-			this.overlay.hide();
-
-			this.visible = false;
-		}
+		// Remove global event handlers.
+		$('#modal-overlay').off('click',   this.boundHide);
+		$(document        ).off('keydown', this.boundOnKeyDown);
 	}
 });
-
-
-ModalDialogView.getInstance = function () {
-
-	if (!this._instance) {
-		
-		this._instance = new this({
-			el: $('.js-edit-task-dialog')
-		});
-	}
-
-	return this._instance;
-}
