@@ -14,6 +14,9 @@
 				{
 					"id": "8d5084a6-0bd7-42a4-8e70-b03ba567d9bd",
 					"title": "Go to Rivendell",
+					"from": "48",
+					"to": "72",
+					"actual": "36",
 					"tasks": []
 				},
 				{
@@ -40,6 +43,8 @@
 				{
 					"id": "1e2b5153-6c4b-4654-9f0e-ed27a15d320f",
 					"title": "Walk a lot",
+					"description": "Seriously, there's like 10 minutes left of the movie if you cut that out.",
+					"actual": "2:48",
 					"tasks": []
 				},
 				{
@@ -54,6 +59,10 @@
 			"id": "2948325c-ad85-4b8a-ad44-9790ce83e22f",
 			"title": "Throw in the ring",
 			"color": "blue",
+			"description": "The ring needs to melt in the lava. Or is it magma? <a href='http://xkcd.com/1405/' target='_blank'>Randall?</a>",
+			"from": "0",
+			"to": "0:01",
+			"actual": "0:20",
 			"tasks": [
 				{
 					"id": "1f4b92fb-421f-460a-b7f6-c8dfec31a297",
