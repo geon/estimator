@@ -30,6 +30,8 @@ body {
   width: 200px;
   margin: 0 16px 16px 0;
   border-radius: 5px;
+  -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
+          transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
   position: relative;
 }
 .tree-view ul li > div.task h1,
@@ -375,13 +377,21 @@ body.modal-overlay #modal-overlay {
   height: 16px;
   border-radius: 8px;
   margin: 4px;
+  -webkit-transition: -webkit-transform .2s;
+          transition: transform .2s;
   box-shadow: inset 0px 0px 2px 0px #cccccc;
 }
+.dialog.edit-task .colors label.white span:hover {
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: -webkit-transform .1s;
+          transition: transform .1s;
+}
 .dialog.edit-task .colors label.white input:checked + span {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin: 0;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
 }
 .dialog.edit-task .colors label.black span {
   content: '';
@@ -391,12 +401,20 @@ body.modal-overlay #modal-overlay {
   height: 16px;
   border-radius: 8px;
   margin: 4px;
+  -webkit-transition: -webkit-transform .2s;
+          transition: transform .2s;
+}
+.dialog.edit-task .colors label.black span:hover {
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: -webkit-transform .1s;
+          transition: transform .1s;
 }
 .dialog.edit-task .colors label.black input:checked + span {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin: 0;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
 }
 .dialog.edit-task .colors label.blue span {
   content: '';
@@ -406,12 +424,20 @@ body.modal-overlay #modal-overlay {
   height: 16px;
   border-radius: 8px;
   margin: 4px;
+  -webkit-transition: -webkit-transform .2s;
+          transition: transform .2s;
+}
+.dialog.edit-task .colors label.blue span:hover {
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: -webkit-transform .1s;
+          transition: transform .1s;
 }
 .dialog.edit-task .colors label.blue input:checked + span {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin: 0;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
 }
 .dialog.edit-task .colors label.purple span {
   content: '';
@@ -421,12 +447,20 @@ body.modal-overlay #modal-overlay {
   height: 16px;
   border-radius: 8px;
   margin: 4px;
+  -webkit-transition: -webkit-transform .2s;
+          transition: transform .2s;
+}
+.dialog.edit-task .colors label.purple span:hover {
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: -webkit-transform .1s;
+          transition: transform .1s;
 }
 .dialog.edit-task .colors label.purple input:checked + span {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin: 0;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
 }
 .dialog.edit-task .colors label.red span {
   content: '';
@@ -436,12 +470,20 @@ body.modal-overlay #modal-overlay {
   height: 16px;
   border-radius: 8px;
   margin: 4px;
+  -webkit-transition: -webkit-transform .2s;
+          transition: transform .2s;
+}
+.dialog.edit-task .colors label.red span:hover {
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: -webkit-transform .1s;
+          transition: transform .1s;
 }
 .dialog.edit-task .colors label.red input:checked + span {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin: 0;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
 }
 .dialog.edit-task .colors label.orange span {
   content: '';
@@ -451,12 +493,20 @@ body.modal-overlay #modal-overlay {
   height: 16px;
   border-radius: 8px;
   margin: 4px;
+  -webkit-transition: -webkit-transform .2s;
+          transition: transform .2s;
+}
+.dialog.edit-task .colors label.orange span:hover {
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: -webkit-transform .1s;
+          transition: transform .1s;
 }
 .dialog.edit-task .colors label.orange input:checked + span {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin: 0;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
 }
 .dialog.edit-task .colors label.yellow span {
   content: '';
@@ -466,13 +516,21 @@ body.modal-overlay #modal-overlay {
   height: 16px;
   border-radius: 8px;
   margin: 4px;
+  -webkit-transition: -webkit-transform .2s;
+          transition: transform .2s;
   box-shadow: inset 0px 0px 2px 0px #d6d618;
 }
+.dialog.edit-task .colors label.yellow span:hover {
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: -webkit-transform .1s;
+          transition: transform .1s;
+}
 .dialog.edit-task .colors label.yellow input:checked + span {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin: 0;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
 }
 .dialog.edit-task .colors label.green span {
   content: '';
@@ -482,13 +540,21 @@ body.modal-overlay #modal-overlay {
   height: 16px;
   border-radius: 8px;
   margin: 4px;
+  -webkit-transition: -webkit-transform .2s;
+          transition: transform .2s;
   box-shadow: inset 0px 0px 2px 0px #41a813;
 }
+.dialog.edit-task .colors label.green span:hover {
+  -webkit-transform: scale(1.25);
+      -ms-transform: scale(1.25);
+          transform: scale(1.25);
+  -webkit-transition: -webkit-transform .1s;
+          transition: transform .1s;
+}
 .dialog.edit-task .colors label.green input:checked + span {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin: 0;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
 }
 .dialog.edit-task button.delete {
   margin: 0 auto;
