@@ -15,9 +15,11 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 	initialize: function (options) {
 
-		this.$title = this.$el.find('h1');
-		this.$input = this.$el.find('input');
-		this.$task  = this.$el.find('.task');
+		this.$task = this.$el.find('.js-task');
+
+		this.$title       = this.$task.find('h1');
+		this.$input       = this.$task.find('input');
+		this.$description = this.$task.find('.js-description');
 
 		this.treeEventReciever = options.treeEventReciever;
 
@@ -38,6 +40,8 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 			collection: this.model.get('tasks'),
 			treeEventReciever: this.treeEventReciever
 		});
+
+		this.editDialog = null;
 	},
 
 
@@ -83,9 +87,15 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 	},
 
 
-	taskDetails: function () {
+	taskDetails: function (event) {
 
-		$('body').addClass('modal-overlay');
+		event.stopPropagation();
+
+		var editDialog = new ModalTaskEditDialogView({
+			model: this.model
+		});
+
+		editDialog.show();
 	},
 
 
@@ -171,5 +181,8 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		this.$title.text(this.model.get('title') || String.fromCharCode(160)); // 160: &nbsp;
 		this.$task.attr('data-color', this.model.get('color'));
 		this.$el.toggleClass('leaf', !this.model.get('tasks').length);
+		this.$description
+			.html(this.model.get('description'))
+			.toggle(!!this.model.get('description'));
 	}
 });

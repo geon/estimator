@@ -30,9 +30,6 @@ body {
   width: 200px;
   margin: 0 16px 16px 0;
   border-radius: 5px;
-  background: #ffffff;
-  box-shadow: 0px 2px 0px 0px #e6e6e6;
-  color: #000000;
   position: relative;
 }
 .tree-view ul li > div.task h1,
@@ -40,16 +37,22 @@ body {
   font-size: 20px;
   font-weight: normal;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 6px 4px;
+  margin: 7px 5px;
 }
 .tree-view ul li > div.task h1 {
-  margin: 13.4px 10px;
+  border: 1px solid transparent;
+}
+.tree-view ul li > div.task div.description {
+  font-size: 14px;
+  font-weight: normal;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 14px 10px;
+  margin-top: 0;
 }
 .tree-view ul li > div.task input {
   display: none;
   width: calc(100% - 10px);
-  border: none;
-  padding: 5.7px 4px;
-  margin: 6.7px 5px;
   background: transparent;
   color: inherit;
   border-radius: 3px;
@@ -86,14 +89,33 @@ body {
 .tree-view ul li > div.task i.task-details {
   right: 35px;
 }
-.tree-view ul li > div.task i.button {
+.tree-view ul li > div.task[data-color='white'] {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0px 2px 0px 0px #e6e6e6;
+}
+.tree-view ul li > div.task[data-color='white'] div.description {
+  color: rgba(0, 0, 0, 0.75);
+}
+.tree-view ul li > div.task[data-color='white'] div.description a {
+  color: #000000;
+  text-decoration: none;
+}
+.tree-view ul li > div.task[data-color='white'] i.button {
   background: #ffffff;
   box-shadow: 0px 0px 5px 5px #ffffff;
 }
 .tree-view ul li > div.task[data-color='black'] {
   background: #333333;
-  box-shadow: 0px 2px 0px 0px #1a1a1a;
   color: #ffffff;
+  box-shadow: 0px 2px 0px 0px #1a1a1a;
+}
+.tree-view ul li > div.task[data-color='black'] div.description {
+  color: rgba(255, 255, 255, 0.75);
+}
+.tree-view ul li > div.task[data-color='black'] div.description a {
+  color: #ffffff;
+  text-decoration: none;
 }
 .tree-view ul li > div.task[data-color='black'] i.button {
   background: #333333;
@@ -101,8 +123,15 @@ body {
 }
 .tree-view ul li > div.task[data-color='blue'] {
   background: #3388ff;
-  box-shadow: 0px 2px 0px 0px #2671d9;
   color: #ffffff;
+  box-shadow: 0px 2px 0px 0px #2671d9;
+}
+.tree-view ul li > div.task[data-color='blue'] div.description {
+  color: rgba(255, 255, 255, 0.75);
+}
+.tree-view ul li > div.task[data-color='blue'] div.description a {
+  color: #ffffff;
+  text-decoration: none;
 }
 .tree-view ul li > div.task[data-color='blue'] i.button {
   background: #3388ff;
@@ -110,8 +139,15 @@ body {
 }
 .tree-view ul li > div.task[data-color='purple'] {
   background: #aa2299;
-  box-shadow: 0px 2px 0px 0px #693062;
   color: #ffffff;
+  box-shadow: 0px 2px 0px 0px #693062;
+}
+.tree-view ul li > div.task[data-color='purple'] div.description {
+  color: rgba(255, 255, 255, 0.75);
+}
+.tree-view ul li > div.task[data-color='purple'] div.description a {
+  color: #ffffff;
+  text-decoration: none;
 }
 .tree-view ul li > div.task[data-color='purple'] i.button {
   background: #aa2299;
@@ -119,8 +155,15 @@ body {
 }
 .tree-view ul li > div.task[data-color='red'] {
   background: #ff4455;
-  box-shadow: 0px 2px 0px 0px #db3544;
   color: #ffffff;
+  box-shadow: 0px 2px 0px 0px #db3544;
+}
+.tree-view ul li > div.task[data-color='red'] div.description {
+  color: rgba(255, 255, 255, 0.75);
+}
+.tree-view ul li > div.task[data-color='red'] div.description a {
+  color: #ffffff;
+  text-decoration: none;
 }
 .tree-view ul li > div.task[data-color='red'] i.button {
   background: #ff4455;
@@ -128,8 +171,15 @@ body {
 }
 .tree-view ul li > div.task[data-color='orange'] {
   background: #ff8822;
-  box-shadow: 0px 2px 0px 0px #ca7124;
   color: #ffffff;
+  box-shadow: 0px 2px 0px 0px #ca7124;
+}
+.tree-view ul li > div.task[data-color='orange'] div.description {
+  color: rgba(255, 255, 255, 0.75);
+}
+.tree-view ul li > div.task[data-color='orange'] div.description a {
+  color: #ffffff;
+  text-decoration: none;
 }
 .tree-view ul li > div.task[data-color='orange'] i.button {
   background: #ff8822;
@@ -137,8 +187,15 @@ body {
 }
 .tree-view ul li > div.task[data-color='yellow'] {
   background: #ffff55;
-  box-shadow: 0px 2px 0px 0px #dede43;
   color: #000000;
+  box-shadow: 0px 2px 0px 0px #dede43;
+}
+.tree-view ul li > div.task[data-color='yellow'] div.description {
+  color: rgba(0, 0, 0, 0.75);
+}
+.tree-view ul li > div.task[data-color='yellow'] div.description a {
+  color: #000000;
+  text-decoration: none;
 }
 .tree-view ul li > div.task[data-color='yellow'] i.button {
   background: #ffff55;
@@ -146,8 +203,15 @@ body {
 }
 .tree-view ul li > div.task[data-color='green'] {
   background: #66ff22;
-  box-shadow: 0px 2px 0px 0px #57ca24;
   color: #000000;
+  box-shadow: 0px 2px 0px 0px #57ca24;
+}
+.tree-view ul li > div.task[data-color='green'] div.description {
+  color: rgba(0, 0, 0, 0.75);
+}
+.tree-view ul li > div.task[data-color='green'] div.description a {
+  color: #000000;
+  text-decoration: none;
 }
 .tree-view ul li > div.task[data-color='green'] i.button {
   background: #66ff22;
@@ -200,7 +264,6 @@ body #modal-overlay {
           justify-content: center;
 }
 body #modal-overlay .dialog {
-  max-width: 500px;
   margin: 0 auto;
   background: white;
   padding: 30px;
@@ -216,4 +279,248 @@ body.modal-overlay #modal-overlay {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+.dialog.edit-task {
+  width: 400px;
+  position: relative;
+}
+.dialog.edit-task input.title {
+  font-size: 20px;
+  width: 100%;
+}
+.dialog.edit-task .estimates {
+  margin: 20px 0 0 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.dialog.edit-task .estimates label {
+  width: 280px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: normal;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.dialog.edit-task .estimates label input {
+  width: 130px;
+  margin-left: 20px;
+}
+.dialog.edit-task textarea {
+  margin: 20px 0;
+  font-size: 14px;
+  width: 100%;
+  height: 100px;
+  resize: none;
+}
+.dialog.edit-task textarea:focus {
+  resize: vertical;
+}
+.dialog.edit-task input.title,
+.dialog.edit-task .estimates input,
+.dialog.edit-task textarea {
+  font-weight: normal;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: transparent;
+  color: inherit;
+  border-radius: 3px;
+  border: 1px solid transparent;
+}
+.dialog.edit-task input.title:focus,
+.dialog.edit-task .estimates input:focus,
+.dialog.edit-task textarea:focus {
+  outline: none;
+  border-color: inherit;
+}
+.dialog.edit-task .estimates input,
+.dialog.edit-task textarea {
+  font-size: 14px;
+}
+.dialog.edit-task .colors {
+  margin: 20px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.dialog.edit-task .colors label {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+.dialog.edit-task .colors label input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+.dialog.edit-task .colors label.white span {
+  content: '';
+  display: block;
+  background: #ffffff;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 4px;
+  box-shadow: inset 0px 0px 2px 0px #cccccc;
+}
+.dialog.edit-task .colors label.white input:checked + span {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+}
+.dialog.edit-task .colors label.black span {
+  content: '';
+  display: block;
+  background: #333333;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 4px;
+}
+.dialog.edit-task .colors label.black input:checked + span {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+}
+.dialog.edit-task .colors label.blue span {
+  content: '';
+  display: block;
+  background: #3388ff;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 4px;
+}
+.dialog.edit-task .colors label.blue input:checked + span {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+}
+.dialog.edit-task .colors label.purple span {
+  content: '';
+  display: block;
+  background: #aa2299;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 4px;
+}
+.dialog.edit-task .colors label.purple input:checked + span {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+}
+.dialog.edit-task .colors label.red span {
+  content: '';
+  display: block;
+  background: #ff4455;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 4px;
+}
+.dialog.edit-task .colors label.red input:checked + span {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+}
+.dialog.edit-task .colors label.orange span {
+  content: '';
+  display: block;
+  background: #ff8822;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 4px;
+}
+.dialog.edit-task .colors label.orange input:checked + span {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+}
+.dialog.edit-task .colors label.yellow span {
+  content: '';
+  display: block;
+  background: #ffff55;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 4px;
+  box-shadow: inset 0px 0px 2px 0px #d6d618;
+}
+.dialog.edit-task .colors label.yellow input:checked + span {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+}
+.dialog.edit-task .colors label.green span {
+  content: '';
+  display: block;
+  background: #66ff22;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 4px;
+  box-shadow: inset 0px 0px 2px 0px #41a813;
+}
+.dialog.edit-task .colors label.green input:checked + span {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+}
+.dialog.edit-task button.delete {
+  margin: 0 auto;
+  display: block;
+  font-size: 20px;
+  font-weight: normal;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-shadow: 0 -1px 0 #dd2000;
+  color: #ffffff;
+  background: #ff3311 -webkit-linear-gradient(bottom, #f12200, #ff3311, #ff4d30);
+  background: #ff3311 linear-gradient(to top, #f12200, #ff3311, #ff4d30);
+  border-radius: 5px;
+  padding: 6px 20px;
+  border: none;
+}
+.dialog.edit-task button.delete:active {
+  background: #ff3311;
+}
+.dialog.edit-task button.delete:focus {
+  outline: none;
+}
+.dialog.edit-task i.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 22px;
+  color: #ccc;
+  -webkit-transition: color 0.1s;
+          transition: color 0.1s;
+}
+.dialog.edit-task i.close:hover {
+  color: #aaa;
+  -webkit-transition: color 0.2s;
+          transition: color 0.2s;
 }
