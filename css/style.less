@@ -224,7 +224,8 @@ body {
 				&[data-color='green'] {
 					.task-color(@task-color-green);
 				}
-				transition: color .3s, background-color .3s;
+				@fade-time: .3s;
+				transition: color @fade-time, background-color @fade-time, box-shadow @fade-time;
 
 
 				// Drop targets
