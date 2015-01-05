@@ -224,6 +224,7 @@ body {
 				&[data-color='green'] {
 					.task-color(@task-color-green);
 				}
+				transition: color .3s, background-color .3s;
 
 
 				// Drop targets
@@ -452,6 +453,8 @@ body {
 					border-radius: @size/2;
 					margin: (@selected-size - @size)/2;
 
+					transition: transform .2s;
+
 					// Add extra contrast around bleak colors.
 					& when (luma(@color) > 50%) {
 
@@ -463,12 +466,14 @@ body {
 				// completely separate element where I control the content.
 				// Much more flexible than input::before.
 				// Thanks, Heydon! http://www.sitepoint.com/replacing-radio-buttons-without-replacing-radio-buttons/
+				span:hover {
+
+					transform: scale(unit((@selected-size+@size)/2/@size));
+					transition: transform .1s;
+				}
 				input:checked + span {
 
-					width: @selected-size;
-					height: @selected-size;
-					border-radius: @selected-size/2;
-					margin: 0;
+					transform: scale(unit(@selected-size/@size));
 				}
 			}
 			&.white {
