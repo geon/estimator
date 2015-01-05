@@ -34,6 +34,9 @@
 		{
 			"id": "08aa56f9-0db5-45a4-8ecb-9777d9f92198",
 			"title": "Travel to Mount Doom",
+			"from": "4 days",
+			"to": "1 week, 1 day",
+			"actual": "3 days, 6 h, 30 min",
 			"tasks": [
 				{
 					"id": "5828e644-4430-4854-ab81-800827f6c817",

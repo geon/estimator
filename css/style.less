@@ -1,4 +1,19 @@
 
+@body-background-color: #8cf;
+
+@task-color-white: #fff;
+@task-color-black: #333;
+@task-color-blue: #38f;
+@task-color-purple: #a29;
+@task-color-red: #f45;
+@task-color-orange: #f82;
+@task-color-yellow: #ff5;
+@task-color-green: #6f2;
+
+
+
+
+
 // Mixins
 
 .return-contrasting-color(@color) when (luma(@color) > 50%) {
@@ -16,7 +31,9 @@
 }
 
 
-@body-background-color: #8cf;
+
+
+
 
 body {
 
@@ -102,7 +119,6 @@ body {
 					display: none;
 
 					width: calc(~"100% -" @title-margin-v);
-					border: none;
 
 					background: transparent;
 					color: inherit;
@@ -157,14 +173,6 @@ body {
 
 
 				// Colors
-				@task-color-white: #fff;
-				@task-color-black: #333;
-				@task-color-blue: #38f;
-				@task-color-purple: #a29;
-				@task-color-red: #f45;
-				@task-color-orange: #f82;
-				@task-color-yellow: #ff5;
-				@task-color-green: #6f2;
 				.task-color (@color) {
 
 					.return-contrasting-color(@color);
@@ -192,7 +200,9 @@ body {
 						box-shadow: 0px 0px 5px 5px @color;
 					}
 				}
-				.task-color(@task-color-white);
+				&[data-color='white'] {
+					.task-color(@task-color-white);
+				}
 				&[data-color='black'] {
 					.task-color(@task-color-black);
 				}
@@ -296,7 +306,6 @@ body {
 
 		.dialog {
 
-			max-width: 500px;
 			margin: 0 auto;
 
 			background: white;
@@ -327,26 +336,204 @@ body {
 
 .dialog.edit-task {
 
+	width: 400px;
+
 	input.title {
 
+		font-size: 20px;
 		width: 100%;
 	}
 
-	.estimates input {
+	.estimates {
 
-		width: 100%/3;
+		margin: 20px 0 0 0;
+
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+
+		label {
+
+			width: 280px;
+			text-align: right;
+
+			font-size: 14px;
+			font-weight: normal;
+			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+			input {
+
+				width: 130px;
+				margin-left: 20px;
+			}
+		}
 	}
 
 	textarea {
 
+		margin: 20px 0;
+
+		font-size: 14px;
+
 		width: 100%;
+		height: 100px;
+		resize: none;
+
+		&:focus {
+
+			resize: vertical;
+		}
 	}
 
-	button {
+	input.title, .estimates input, textarea {
 
+		font-weight: normal;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+		background: transparent;
+		color: inherit;
+
+		border-radius: 3px;
+		border: 1px solid transparent;
+
+		&:focus {
+
+			// Disable the default focus-style.
+			outline: none;
+
+			border-color: inherit;
+		}
+	}
+
+	.estimates input, textarea {
+
+		font-size: 14px;
+	}
+
+	.colors {
+
+		margin: 20px 0;
+
+		display: flex;
+		justify-content: center;
+
+		label {
+
+			@size: 16px;
+			@selected-size: 24px;
+
+			// Make it large.
+			width: @selected-size;
+			height: @selected-size;
+
+			margin: 0;
+
+			input {
+
+				// Hide the default widget.
+				// Opacity makes it tabbable & arrowable.
+				opacity: 0;
+				width: 0;
+				height: 0;
+				margin: 0;
+			}
+
+			// Colors
+			.task-color (@color) {
+
+				span {
+
+					content: '';
+					display: block;
+					background: @color;
+
+					width: @size;
+					height: @size;
+					border-radius: @size/2;
+					margin: (@selected-size - @size)/2;
+
+					// Add extra contrast around bleak colors.
+					& when (luma(@color) > 50%) {
+
+						box-shadow: inset 0px 0px 2px 0px darken(desaturate(@color, 20%), 20%);
+					}
+				}
+
+				// The sibling selector lets me apply a :checked style to a
+				// completely separate element where I control the content.
+				// Much more flexible than input::before.
+				// Thanks, Heydon! http://www.sitepoint.com/replacing-radio-buttons-without-replacing-radio-buttons/
+				input:checked + span {
+
+					width: @selected-size;
+					height: @selected-size;
+					border-radius: @selected-size/2;
+					margin: 0;
+				}
+			}
+			&.white {
+				.task-color(@task-color-white);
+			}
+			&.black {
+				.task-color(@task-color-black);
+			}
+			&.blue {
+				.task-color(@task-color-blue);
+			}
+			&.purple {
+				.task-color(@task-color-purple);
+			}
+			&.red {
+				.task-color(@task-color-red);
+			}
+			&.orange {
+				.task-color(@task-color-orange);
+			}
+			&.yellow {
+				.task-color(@task-color-yellow);
+			}
+			&.green {
+				.task-color(@task-color-green);
+			}
+		}
+	}
+
+	button.delete {
+
+		margin: 0 auto;
 		display: block;
-		margin-left: auto;
-		margin-right: auto;
+
+		font-size: 20px;
+		font-weight: normal;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+		@button-color-red: #f31;
+		@bulge: 6%;
+		@letterpress-ammount: 10%;
+
+		& when (luma(@button-color-red) > 50%) {
+
+			text-shadow: 0 1px 0 lighten(@button-color-red, @letterpress-ammount);
+		}
+		& when (luma(@button-color-red) <= 50%) {
+
+			text-shadow: 0 -1px 0 darken(@button-color-red, @letterpress-ammount);
+		}
+		.contrasting-color(@button-color-red);
+		background: @button-color-red linear-gradient(to top, darken(@button-color-red, @bulge), @button-color-red, lighten(@button-color-red, @bulge));
+		border-radius: 5px;
+		padding: 6px 20px;
+		border: none;
+
+		&:active {
+
+			background: @button-color-red;
+		}
+
+		&:focus {
+
+			outline: none;
+		}
 	}
 
 	position: relative;
@@ -356,5 +543,13 @@ body {
 		right: 10px;
 		top: 10px;
 		font-size: 22px;
+
+		color: #ccc;
+		transition: color 0.1s;
+		&:hover {
+
+			color: #aaa;
+			transition: color 0.2s;
+		}
 	}
 }

@@ -53,18 +53,26 @@ script.js-edit-task-dialog(type='template')
 		input.title.js-title
 
 		.colors
-			each color in ['white', 'black', 'blue', 'purple', 'red', 'orange', 'yellow', 'green']
-				label
+			each color in ['white', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'purple']
+				label(class=color)
 					input(type='radio', name='color', value=color)
-					= color
+					span
 
 		.estimates
-			input.from.js-from
-			input.to.js-to
-			input.actual.js-actual
+			label
+				span Min estimate
+				input.from.js-from(placeholder='Unknown')
+			label
+				span Max estimate
+				input.to.js-to(placeholder='Unknown')
+			label
+				span Actual
+				input.actual.js-actual(placeholder='Unknown')
 
 		textarea.js-description
 
-		button.js-delete Delete
+		button.delete.js-delete
+			i.fa.fa-remove
+			|  Delete
 
 		i.fa.fa-close.button.close.js-close
