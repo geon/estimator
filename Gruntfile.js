@@ -1,3 +1,6 @@
+
+// Inspired by http://anthonydel.com/my-personal-gruntfile-for-front-end-experiments/
+
 module.exports = function(grunt) {
 
 	grunt.initConfig({
@@ -45,7 +48,7 @@ module.exports = function(grunt) {
 			stylesless: {
 				options: { livereload: true },
 				files: ['./css/style.less'],
-				tasks: ['less:development']
+				tasks: ['less:development', 'autoprefixer']
 			},
 
 			jade: {
