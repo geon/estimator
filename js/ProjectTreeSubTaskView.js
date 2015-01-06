@@ -7,6 +7,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		'click h1': 'onTitleClick',
 		'blur input': 'onInputBlur',
 		'keyup input': 'onInputKeyUp',
+		'paste input': 'collectData',
 
 		'click .js-add-sub-task': 'addSubtask',
 		'click .js-task-details': 'taskDetails'
@@ -63,7 +64,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		event.stopPropagation();
 
-		this.model.set({title: this.$input.val()});
+		this.collectData();
 		this.$task.toggleClass('editing-title', false);
 	},
 
@@ -182,5 +183,14 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		this.$description
 			.html(this.model.get('description'))
 			.toggle(!!this.model.get('description'));
+	},
+
+
+	collectData: function (){
+
+		// Save data.
+		this.model.set({
+			title: this.$input.val()
+		});
 	}
 });

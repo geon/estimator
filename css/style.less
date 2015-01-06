@@ -45,6 +45,35 @@ body {
 
 
 
+
+#main {
+
+	input.title {
+
+		font-size: 30px;
+		font-weight: normal;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+		background: transparent;
+		color: inherit;
+
+		border-radius: 3px;
+		border: 1px solid transparent;
+
+		padding: 8px;
+
+		&:focus {
+
+			// Disable the default focus-style.
+			outline: none;
+
+			border-color: inherit;
+		}
+	}
+}
+
+
+
 .tree-view {
 
 	@task-width: 200px;

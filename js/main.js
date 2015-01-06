@@ -2,14 +2,14 @@
 
 $(function () {
 
-	var task = new Task();
+	var project = new Task();
 
-	var treeView = new ProjectTreeView({
-		el: $('.tree-view'),
-		model: task
+	var projectView = new ProjectView({
+		el: $('#main'),
+		model: project
 	});
 
-	task.fetch({
+	project.fetch({
 		url: 'task.json',
 		dataType: 'json'
 	});
