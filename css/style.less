@@ -47,6 +47,10 @@ body {
 
 .tree-view {
 
+	@task-width: 200px;
+	@task-margin: 16px;
+	@task-radius: 5px;
+
 	margin: 50px;
 
 	ul {
@@ -72,9 +76,6 @@ body {
 
 			>div.task {
 
-				@task-width: 200px;
-				@task-margin: 16px;
-
 				display: inline-block;
 
 				width: @task-width;
@@ -83,7 +84,7 @@ body {
 				// padding: 10px;
 				
 				margin: 0 @task-margin @task-margin 0;
-				border-radius: 5px;
+				border-radius: @task-radius;
 
 				@title-margin-h: 14px;
 				@title-margin-v: 10px;
@@ -280,6 +281,33 @@ body {
 	&.dragging .drop-target {
 
 		display: block;
+	}
+
+	button.add-sub-task {
+
+		opacity: .75;
+		display: block;
+		height: 52px;
+		width: @task-width;
+
+		font-size: 20px;
+		font-weight: normal;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+		@letterpress-ammount: 10%;
+
+		& when (luma(@body-background-color) > 50%) {
+
+			text-shadow: 0 -1px 0 darken(@body-background-color, @letterpress-ammount);
+		}
+		& when (luma(@body-background-color) <= 50%) {
+
+			text-shadow: 0 1px 0 lighten(@body-background-color, @letterpress-ammount);
+		}
+		.contrasting-color(#fff - @body-background-color);
+		background: transparent;
+		border-radius: @task-radius;
+		border: 2px dotted;
 	}
 }
 

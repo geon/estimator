@@ -2,6 +2,12 @@
 
 var ProjectTreeView = Backbone.View.extend({
 
+	events: {
+
+		'click button.add-sub-task': 'onClickAdd'
+	},
+
+
 	initialize: function (options) {
 
 		this.$title = this.$el.find('h1');
@@ -19,6 +25,12 @@ var ProjectTreeView = Backbone.View.extend({
 			collection: this.model.get('tasks'),
 			treeEventReciever: this.treeEventReciever
 		});
+	},
+
+
+	onClickAdd: function () {
+
+		this.model.get('tasks').create();
 	},
 
 

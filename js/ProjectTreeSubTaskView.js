@@ -81,9 +81,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		event.stopPropagation();
 
-		var model = new Task();
-		this.model.get('tasks').add(model);
-		model.trigger('focus');
+		this.model.get('tasks').create();
 	},
 
 
