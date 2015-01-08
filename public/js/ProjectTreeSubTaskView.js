@@ -189,7 +189,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 	collectData: function (){
 
 		// Save data.
-		this.model.set({
+		this.model.save({
 			title: this.$input.val()
 		});
 	}

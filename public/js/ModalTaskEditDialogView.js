@@ -77,8 +77,6 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 		if (this.model) {
 
-			this.collectData();
-
 			// Clean up.
 			this.model.off(null, this.boundOnModelDestroy);
 		}
@@ -90,13 +88,13 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 	collectData: function (){
 
 		// Save data.
-		this.model.set({
+		this.model.save({
 			title: this.$title.val(),
 			description: this.$description.val(),
 			color: this.$colorInputs.filter(':checked').val(),
-			from: this.$from.val(),
-			to: this.$to.val(),
-			actual: this.$actual.val()
+			from: parseInt(this.$from.val(), 10),
+			to: parseInt(this.$to.val(), 10),
+			actual: parseInt(this.$actual.val(), 10)
 		});
 	},
 

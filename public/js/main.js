@@ -9,6 +9,11 @@ $(function () {
 		model: project
 	});
 
+	project.once('sync', function () {
+
+		project.get('tasks').trigger('loadProject');
+	});
+
 	project.fetch({
 		url: 'task.json',
 		dataType: 'json'

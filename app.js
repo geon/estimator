@@ -25,6 +25,16 @@ app.use(require('connect-jade-static')({
   jade: { pretty: false }
 }));
 
+
+var apiRouter = express.Router();
+var apiRoutes = require('./routes/api.js');
+apiRouter.post(  '/tasks',     apiRoutes.tasks.create);
+apiRouter.get(   '/tasks/:id', apiRoutes.tasks.read);
+apiRouter.put(   '/tasks/:id', apiRoutes.tasks.update);
+apiRouter.delete('/tasks/:id', apiRoutes.tasks.delete);
+app.use('/api', apiRouter);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
