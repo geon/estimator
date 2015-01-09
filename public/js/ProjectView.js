@@ -18,6 +18,8 @@ var ProjectView = Backbone.View.extend({
 		this.applyModel();
 		this.model.on('change', this.applyModel, this);
 
+		this.model.on('focus', function () { this.$title.focus(); }, this);
+
 		this.treeView = new ProjectTreeView({
 			el: this.$('.tree-view'),
 			model: this.model

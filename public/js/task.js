@@ -172,8 +172,28 @@ var Task = Backbone.Model.extend({
 			.map(function (child) { return child.numTasksRecursive(); })
 			.reduce(function (soFar, next) { return soFar + next; }, 0)
 			+ 1;
+	},
+
+
+	createProject: function () {
+
+		if (!this.isNew()) {
+
+			throw new Error('You need an unused Taks to create a project.');
+		}
+
+		var projectId = makeGuid();
+
+		this.set({
+			id: projectId,
+			projectId: projectId,
+			parentId: null
+		});
+
+		this.trigger('focus');
 	}
 });
+
 
 // Complete the collection after the model's relations has used it.
 Tasks.prototype.model = Task;
