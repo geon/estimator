@@ -68,7 +68,7 @@ module.exports = {
 
 					tasks.forEach(function (task) {
 
-						if (!task.parentId) {
+						if (task.id === req.params.id) {
 
 							delete task.parentId;
 							delete task.projectId;
