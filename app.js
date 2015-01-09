@@ -28,8 +28,6 @@ app.use(require('connect-jade-static')({
 
 var apiRouter = express.Router();
 var apiRoutes = require('./routes/api.js');
-// apiRouter.post(  '/tasks',     apiRoutes.tasks.create);
-// apiRouter.get(   '/tasks/:id', apiRoutes.tasks.read);
 apiRouter.put(   '/tasks/:id',    apiRoutes.tasks.update);
 apiRouter.delete('/tasks/:id',    apiRoutes.tasks.delete);
 apiRouter.get(   '/projects/:id', apiRoutes.projects.read);
