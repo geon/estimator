@@ -2,10 +2,14 @@
 
 $(function () {
 
+	var $projectTemplate = $($.parseHTML(
+		$('script.js-project[type=template]').text()
+	));
+
 	var project = new Task();
 
 	var projectView = new ProjectView({
-		el: $('#main'),
+		el: $projectTemplate.clone().appendTo($('#page')),
 		model: project
 	});
 

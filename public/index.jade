@@ -4,13 +4,15 @@ head
 	link(rel='stylesheet', href='css/font-awesome-4.2.0.min.css')
 body
 	#page
-		#header
-		#main
-			input.title.js-title
-			.tree-view
-				ul
-				button.add-sub-task.js-add-sub-task: i.fa.fa-plus
 	#modal-overlay
+
+
+script.js-project(type='template')
+	.project
+		input.title.js-title
+		.tree-view
+			ul
+			button.add-sub-task.js-add-sub-task: i.fa.fa-plus
 
 
 script.js-task(type='template')

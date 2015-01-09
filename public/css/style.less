@@ -46,7 +46,7 @@ body {
 
 
 
-#main {
+.project {
 
 	input.title {
 
@@ -70,276 +70,273 @@ body {
 			border-color: inherit;
 		}
 	}
-}
 
+	.tree-view {
 
+		@task-width: 200px;
+		@task-margin: 16px;
+		@task-radius: 5px;
 
-.tree-view {
+		margin: 50px;
 
-	@task-width: 200px;
-	@task-margin: 16px;
-	@task-radius: 5px;
-
-	margin: 50px;
-
-	ul {
-
-		margin: 0;
-		padding: 0;
-		list-style: none;
-
-		li {
-
-			min-height: 30px;
+		ul {
 
 			margin: 0;
 			padding: 0;
+			list-style: none;
 
-			display: flex;
-			align-items: stretch;
+			li {
 
-			&.insert.after {
+				min-height: 30px;
 
-				margin-bottom: 10px;
-			}
+				margin: 0;
+				padding: 0;
 
-			>div.task {
+				display: flex;
+				align-items: stretch;
 
-				display: inline-block;
+				&.insert.after {
 
-				width: @task-width;
-
-				// box-sizing: border-box;
-				// padding: 10px;
-				
-				margin: 0 @task-margin @task-margin 0;
-				border-radius: @task-radius;
-
-				@title-margin-h: 14px;
-				@title-margin-v: 10px;
-
-				h1, input {
-
-					font-size: 20px;
-					font-weight: normal;
-
-					font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-					padding: @title-margin-h/2 - 1px @title-margin-v/2 - 1px;
-					margin: @title-margin-h/2 @title-margin-v/2;
+					margin-bottom: 10px;
 				}
 
-				h1 {
+				>div.task {
 
-					border: 1px solid transparent;
-				}
-
-				div.description {
-
-					font-size: 14px;
-					font-weight: normal;
-					font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-					margin: @title-margin-h @title-margin-v;
-					margin-top: 0;
-				}
-
-				input {
-
-					display: none;
-
-					width: calc(~"100% -" @title-margin-v);
-
-					background: transparent;
-					color: inherit;
-
-					border-radius: 3px;
-					border: 1px solid;
-
-					// Disable the default focus-style.
-					&:focus {
-
-						outline: none;
-					}
-				}
-
-				&.editing-title h1 {
-
-					display: none;
-				}
-				&.editing-title input {
-
-					display: block;
-				}
-
-				// Buttons
-				i.button {
-
-					position: absolute;
-					bottom: 7px;
-
-					font-size: 22px;
-
-					opacity: 0;
-					transition: opacity 0.1s;
-				}
-				&:hover i.button {
-
-					opacity: 1;
-					transition: opacity 0.2s;
-				}
-				&.editing-title i.button {
-
-					display: none;
-				}
-				i.add-sub-task {
-
-					right: 10px;
-				}
-				i.task-details {
-
-					right: 35px;
-				}
-
-
-				// Colors
-				.task-color (@color) {
-
-					.return-contrasting-color(@color);
-
-					background: @color; // url(noise-5percent.png);
-					color: @contrasting-color;
-					// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
-					box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
-
-					// Make the description text less prominent, except for links.
-					div.description {
-
-						color: fade(@contrasting-color, 75%);
-
-						a {
-							color: @contrasting-color;
-							text-decoration: none;
-						}
-					}
-
-					// Make the buttons visually stay on top of the title.
-					i.button {
-
-						background: @color;
-						box-shadow: 0px 0px 5px 5px @color;
-					}
-				}
-				// Use a default color, or they will fade in from transparent when they are created. :-/.
-				.task-color(@task-color-white);
-				&[data-color='black'] {
-					.task-color(@task-color-black);
-				}
-				&[data-color='blue'] {
-					.task-color(@task-color-blue);
-				}
-				&[data-color='purple'] {
-					.task-color(@task-color-purple);
-				}
-				&[data-color='red'] {
-					.task-color(@task-color-red);
-				}
-				&[data-color='orange'] {
-					.task-color(@task-color-orange);
-				}
-				&[data-color='yellow'] {
-					.task-color(@task-color-yellow);
-				}
-				&[data-color='green'] {
-					.task-color(@task-color-green);
-				}
-				@fade-time: .3s;
-				transition: color @fade-time, background-color @fade-time, box-shadow @fade-time;
-
-
-				// Drop targets
-				position: relative;
-				>.drop-target {
-
-					position: absolute;
+					display: inline-block;
 
 					width: @task-width;
 
-					&.before {
+					// box-sizing: border-box;
+					// padding: 10px;
+					
+					margin: 0 @task-margin @task-margin 0;
+					border-radius: @task-radius;
 
-						top: -@task-margin/2;
-						bottom: 50%;
+					@title-margin-h: 14px;
+					@title-margin-v: 10px;
+
+					h1, input {
+
+						font-size: 20px;
+						font-weight: normal;
+
+						font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+						padding: @title-margin-h/2 - 1px @title-margin-v/2 - 1px;
+						margin: @title-margin-h/2 @title-margin-v/2;
 					}
-					&.after {
 
-						top: 50%;
-						bottom: -@task-margin/2;
+					h1 {
+
+						border: 1px solid transparent;
 					}
-					&.child {
 
-						// Set it up to cover the entire area where a child
-						// would go, but show it only for leaf nodes.
+					div.description {
+
+						font-size: 14px;
+						font-weight: normal;
+						font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+						margin: @title-margin-h @title-margin-v;
+						margin-top: 0;
+					}
+
+					input {
 
 						display: none;
 
-						width: (@task-margin + @task-width);
-						right: -(@task-margin + @task-width);
+						width: calc(~"100% -" @title-margin-v);
 
-						top: -@task-margin/2;
-						bottom: -@task-margin/2;
+						background: transparent;
+						color: inherit;
 
-						// Make hovering not show the task buttons.
-						pointer-events: none;
+						border-radius: 3px;
+						border: 1px solid;
+
+						// Disable the default focus-style.
+						&:focus {
+
+							outline: none;
+						}
+					}
+
+					&.editing-title h1 {
+
+						display: none;
+					}
+					&.editing-title input {
+
+						display: block;
+					}
+
+					// Buttons
+					i.button {
+
+						position: absolute;
+						bottom: 7px;
+
+						font-size: 22px;
+
+						opacity: 0;
+						transition: opacity 0.1s;
+					}
+					&:hover i.button {
+
+						opacity: 1;
+						transition: opacity 0.2s;
+					}
+					&.editing-title i.button {
+
+						display: none;
+					}
+					i.add-sub-task {
+
+						right: 10px;
+					}
+					i.task-details {
+
+						right: 35px;
+					}
+
+
+					// Colors
+					.task-color (@color) {
+
+						.return-contrasting-color(@color);
+
+						background: @color; // url(noise-5percent.png);
+						color: @contrasting-color;
+						// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
+						box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
+
+						// Make the description text less prominent, except for links.
+						div.description {
+
+							color: fade(@contrasting-color, 75%);
+
+							a {
+								color: @contrasting-color;
+								text-decoration: none;
+							}
+						}
+
+						// Make the buttons visually stay on top of the title.
+						i.button {
+
+							background: @color;
+							box-shadow: 0px 0px 5px 5px @color;
+						}
+					}
+					// Use a default color, or they will fade in from transparent when they are created. :-/.
+					.task-color(@task-color-white);
+					&[data-color='black'] {
+						.task-color(@task-color-black);
+					}
+					&[data-color='blue'] {
+						.task-color(@task-color-blue);
+					}
+					&[data-color='purple'] {
+						.task-color(@task-color-purple);
+					}
+					&[data-color='red'] {
+						.task-color(@task-color-red);
+					}
+					&[data-color='orange'] {
+						.task-color(@task-color-orange);
+					}
+					&[data-color='yellow'] {
+						.task-color(@task-color-yellow);
+					}
+					&[data-color='green'] {
+						.task-color(@task-color-green);
+					}
+					@fade-time: .3s;
+					transition: color @fade-time, background-color @fade-time, box-shadow @fade-time;
+
+
+					// Drop targets
+					position: relative;
+					>.drop-target {
+
+						position: absolute;
+
+						width: @task-width;
+
+						&.before {
+
+							top: -@task-margin/2;
+							bottom: 50%;
+						}
+						&.after {
+
+							top: 50%;
+							bottom: -@task-margin/2;
+						}
+						&.child {
+
+							// Set it up to cover the entire area where a child
+							// would go, but show it only for leaf nodes.
+
+							display: none;
+
+							width: (@task-margin + @task-width);
+							right: -(@task-margin + @task-width);
+
+							top: -@task-margin/2;
+							bottom: -@task-margin/2;
+
+							// Make hovering not show the task buttons.
+							pointer-events: none;
+						}
 					}
 				}
+
+				&.leaf > .task > .drop-target.child {
+
+					display: block;
+				}
 			}
+		}
 
-			&.leaf > .task > .drop-target.child {
+		// Make the drop targets only show up while dragging.
+		// (Leaf nodes child-targets are still visible, but they don't overlap the task.)
+		.drop-target {
 
-				display: block;
+			display: none;
+		}
+		&.dragging .drop-target {
+
+			display: block;
+		}
+
+		button.add-sub-task {
+
+			opacity: .75;
+			display: block;
+			height: 52px;
+			width: @task-width;
+
+			font-size: 20px;
+			font-weight: normal;
+			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+			@letterpress-ammount: 10%;
+
+			& when (luma(@body-background-color) > 50%) {
+
+				text-shadow: 0 -1px 0 darken(@body-background-color, @letterpress-ammount);
 			}
+			& when (luma(@body-background-color) <= 50%) {
+
+				text-shadow: 0 1px 0 lighten(@body-background-color, @letterpress-ammount);
+			}
+			.contrasting-color(#fff - @body-background-color);
+			background: transparent;
+			border-radius: @task-radius;
+			border: 2px dotted;
 		}
-	}
-
-	// Make the drop targets only show up while dragging.
-	// (Leaf nodes child-targets are still visible, but they don't overlap the task.)
-	.drop-target {
-
-		display: none;
-	}
-	&.dragging .drop-target {
-
-		display: block;
-	}
-
-	button.add-sub-task {
-
-		opacity: .75;
-		display: block;
-		height: 52px;
-		width: @task-width;
-
-		font-size: 20px;
-		font-weight: normal;
-		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-		@letterpress-ammount: 10%;
-
-		& when (luma(@body-background-color) > 50%) {
-
-			text-shadow: 0 -1px 0 darken(@body-background-color, @letterpress-ammount);
-		}
-		& when (luma(@body-background-color) <= 50%) {
-
-			text-shadow: 0 1px 0 lighten(@body-background-color, @letterpress-ammount);
-		}
-		.contrasting-color(#fff - @body-background-color);
-		background: transparent;
-		border-radius: @task-radius;
-		border: 2px dotted;
 	}
 }
-
 
 
 // Modal
