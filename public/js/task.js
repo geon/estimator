@@ -42,8 +42,17 @@ var Tasks = Backbone.Collection.extend({
 
 		// Same as default, but auto-create the guid locally, and trigger 'focus' event.
 
+		var topCollection = this;
+		while (topCollection.parent.collection) {
+			topCollection = topCollection.parent.collection;
+		}
+
 		var _arguments = _.toArray(arguments);
-		_arguments[0] = _arguments[0] || {id: makeGuid()};
+		_arguments[0] = _arguments[0] || {
+			id: makeGuid(),
+			parentId: this.parent.id,
+			projectId: topCollection.parent.id
+		};
 		Backbone.Collection.prototype.create.apply(this, _arguments).trigger('focus');
 	},
 
