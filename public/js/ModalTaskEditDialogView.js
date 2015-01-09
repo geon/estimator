@@ -5,57 +5,48 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 	// Can't define events here. Add them in initialization.
 
 
+	$template: $($.parseHTML(
+		$('script.js-edit-task-dialog[type=template]').text()
+	)),
+	
+
 	initialize: function (options) {
 
-		// On first run, set the template.
-		// Can't be done outside this initializer, since
-		// it must be run after document.ready, but before the app starts. 
-		ModalTaskEditDialogView.prototype.$template = $($.parseHTML(
-			$('script.js-edit-task-dialog[type=template]').text()
-		));
+		_.extend(this.events, {
+			// Update the other views in realtime.
+			'change': 'collectData',
+			'keyup':  'collectData',
+			'paste':  'collectData',
 
-		// Replace the initializer with the normal code.
-		ModalTaskEditDialogView.prototype.initialize = function (options) {
+			'click button.js-delete': 'onClickDelete'
+		});
 
-			_.extend(this.events, {
-				// Update the other views in realtime.
-				'change': 'collectData',
-				'keyup':  'collectData',
-				'paste':  'collectData',
+		// TODO: Send $el as option to the superclass constructor instead.
+		this.$el = this.$template.clone();
+		this.el = this.$el.get(0);
 
-				'click button.js-delete': 'onClickDelete'
-			});
+		ModalDialogView.prototype.initialize.apply(this, arguments);
 
-			// TODO: Send $el as option to the superclass constructor instead.
-			this.$el = this.$template.clone();
-			this.el = this.$el.get(0);
+		this.$title = this.$('input.js-title');
+		this.$description = this.$('textarea.js-description');
+		this.$colorInputs = this.$('input[name="color"]');
 
-			ModalDialogView.prototype.initialize.apply(this, arguments);
+		this.$from = this.$('input.js-from');
+		this.$to = this.$('input.js-to');
+		this.$actual = this.$('input.js-actual');
 
-			this.$title = this.$('input.js-title');
-			this.$description = this.$('textarea.js-description');
-			this.$colorInputs = this.$('input[name="color"]');
+		this.applyModel();
 
-			this.$from = this.$('input.js-from');
-			this.$to = this.$('input.js-to');
-			this.$actual = this.$('input.js-actual');
-
-			this.applyModel();
-
-			$('#modal-overlay').append(this.$el);
+		$('#modal-overlay').append(this.$el);
 
 
-			this.boundOnModelDestroy = function() {
+		this.boundOnModelDestroy = function() {
 
-				this.model = null;
-				this.hide();
+			this.model = null;
+			this.hide();
 
-			}.bind(this);
-			this.model.once('destroy', this.boundOnModelDestroy);
-		};
-
-		// Run the initializer manually the first time.
-		ModalTaskEditDialogView.prototype.initialize.apply(this, arguments);
+		}.bind(this);
+		this.model.once('destroy', this.boundOnModelDestroy);
 	},
 
 
