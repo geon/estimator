@@ -15,7 +15,7 @@ $(function () {
 	});
 
 	project.fetch({
-		url: 'task.json',
+		url: '/api/projects/8f89bb1c-75a7-4fba-97ad-cc005953a3e6',
 		dataType: 'json'
 	});
 });
