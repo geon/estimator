@@ -100,7 +100,40 @@ var Task = Backbone.Model.extend({
 		this.get('tasks').parent = this;
 
 		// Replace save with a locally debounced version for each instance.
-		this.save = _.debounce(this.save, 3000);
+		// Like _.debounce, but uses the *last* arguments.
+		// Also, *set* the data immediately.
+		var timer = null;
+		var originalSave = this.save;
+		var THIS = this;
+		this.save = function () {
+
+			var outerArguments = arguments;
+
+			THIS.set.apply(THIS, outerArguments);
+
+			if (timer) {
+
+				clearTimeout(timer);
+				timer = null;
+			}
+
+			timer = setTimeout(function () {
+
+				timer = null;
+				originalSave.apply(THIS, outerArguments);
+
+			}, 3000);
+		};
+		// Prevent debounce from re-saving after delete.
+		this.on('destroy', function () {
+
+			// The collection listens to this event and removes as well,
+			// but the remove event triggers a save...
+			THIS.collection.remove(THIS);
+
+			clearTimeout(timer);
+			timer = null;
+		});
 	},
 
 
