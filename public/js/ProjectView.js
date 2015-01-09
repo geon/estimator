@@ -18,7 +18,9 @@ var ProjectView = Backbone.View.extend({
 		this.applyModel();
 		this.model.on('change', this.applyModel, this);
 
+		// TODO: Does this cause leaks? Use this.listenTo(model, 'eventName', callback) instead?
 		this.model.on('focus', function () { this.$title.focus(); }, this);
+		this.model.on('close', this.remove, this);
 
 		this.treeView = new ProjectTreeView({
 			el: this.$('.tree-view'),
