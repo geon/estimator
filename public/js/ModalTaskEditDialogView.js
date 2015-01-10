@@ -54,7 +54,7 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 	applyModel: function () {
 
-		this.$title.val(this.model.get('title') || String.fromCharCode(160)); // 160: &nbsp;
+		this.$title.val(this.model.get('title'));
 		this.$description.val(this.model.get('description'));
 		this.$colorInputs.filter('[value="' + this.model.get('color') + '"]').prop('checked', true);
 
