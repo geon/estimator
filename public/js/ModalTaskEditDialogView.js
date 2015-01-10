@@ -14,9 +14,9 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 		_.extend(this.events, {
 			// Update the other views in realtime.
-			'change': 'collectData',
-			'keyup':  'collectData',
-			'paste':  'collectData',
+			'change input.js-title, textarea.js-description, .js-estimates input, input[name="color"]': 'collectData',
+			'keyup input.js-title, textarea.js-description': 'collectData',
+			'paste input.js-title, textarea.js-description': 'collectData',
 
 			'click button.js-delete': 'onClickDelete'
 		});
@@ -47,6 +47,8 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 		}.bind(this);
 		this.model.once('destroy', this.boundOnModelDestroy);
+
+		this.model.on('change', this.applyModel, this);
 	},
 
 
@@ -56,9 +58,9 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.$description.val(this.model.get('description'));
 		this.$colorInputs.filter('[value="' + this.model.get('color') + '"]').prop('checked', true);
 
-		this.$from.val(this.model.get('from'));
-		this.$to.val(this.model.get('to'));
-		this.$actual.val(this.model.get('actual'));
+		this.$from.val(Task.formatEstimate(this.model.get('from')));
+		this.$to.val(Task.formatEstimate(this.model.get('to')));
+		this.$actual.val(Task.formatEstimate(this.model.get('actual')));
 
 		// this.$task.attr('data-color', this.model.get('color'));
 	},
@@ -83,9 +85,9 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 			title: this.$title.val(),
 			description: this.$description.val(),
 			color: this.$colorInputs.filter(':checked').val(),
-			from: parseInt(this.$from.val(), 10),
-			to: parseInt(this.$to.val(), 10),
-			actual: parseInt(this.$actual.val(), 10)
+			from: Task.parseEstimate(this.$from.val()),
+			to: Task.parseEstimate(this.$to.val()),
+			actual: Task.parseEstimate(this.$actual.val())
 		});
 	},
 

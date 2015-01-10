@@ -195,5 +195,121 @@ var Task = Backbone.Model.extend({
 });
 
 
+// Units
+var minute = 60;
+var hour = 60 * minute;
+var day = 8 * hour;
+var week = 5 * day;
+var month = 4 * week;
+var year = 45 * week;
+
+
+Task.parseEstimate = function (text) {
+
+	text = text.trim();
+
+	var sum = 0;
+	
+	var timePattern = /((\d+)([.,:]))?(\d+)(\s*(years?|y|months?|mn|weeks?|w|days?|d|h|min|m))?\s*,?\s*/g;
+	var matches;
+	while ((matches = timePattern.exec(text)) !== null) {
+
+		var value;
+		if (matches[2]) {
+
+			var integer = matches[2];
+			var separator = matches[3];
+			var decimals = matches[4];
+
+			if (separator == ':') {
+
+				value = parseInt(integer, 10) + parseInt(decimals, 10) / 60;
+
+			} else {
+
+				value = parseFloat(integer+'.'+decimals, 10);
+			}
+
+		} else {
+
+			value = parseInt(matches[4], 10);
+		}
+
+		switch (matches[6]) {
+
+			case 'year':
+			case 'y':
+				value *= year;
+				break;
+
+			case 'month':
+			case 'mn':
+				value *= month;
+				break;
+
+			case 'week':
+			case 'w':
+				value *= week;
+				break;
+
+			case 'day':
+			case 'd':
+				value *= day;
+				break;
+
+			case 'hour':
+			case 'h':
+				value *= hour;
+				break;
+
+			case 'minute':
+			case 'm':
+				value *= minute;
+				break;
+
+			default: 
+				value *= hour;
+				break;
+		}
+
+		sum += value;
+	}
+
+	return sum;
+};
+
+
+Task.formatEstimate = function (seconds) {
+
+	var text = '';
+	var left = seconds;
+
+	[
+		[year, 'year'],
+		[month, 'month'],
+		[week, 'week'],
+		[day, 'day'],
+		[hour, 'h'],
+		[minute, 'min'],
+	].forEach(function (size) {
+
+		var value = Math.floor(left / size[0]);
+
+		if (value) {
+
+			if (text.length) {
+				text += ', ';
+			}
+
+			text += value.toString() + ' ' + size[1];
+
+			left -= value * size[0];
+		}
+	});
+
+	return text;
+};
+
+
 // Complete the collection after the model's relations has used it.
 Tasks.prototype.model = Task;
