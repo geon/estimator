@@ -9,7 +9,7 @@ body
 
 script.js-project(type='template')
 	.project
-		input.title.js-title
+		input.title.js-title(placeholder='Project title')
 		.tree-view
 			ul
 			button.add-sub-task.js-add-sub-task: i.fa.fa-plus
@@ -19,7 +19,7 @@ script.js-task(type='template')
 	li
 		.task.js-task
 			h1
-			input
+			input(placeholder='Task title')
 			.description.js-description
 			i.fa.fa-plus-square.button.add-sub-task.js-add-sub-task
 			i.fa.fa-cog.button.task-details.js-task-details
@@ -32,7 +32,7 @@ script.js-task(type='template')
 script.js-edit-task-dialog(type='template')
 	.dialog.edit-task
 
-		input.title.js-title
+		input.title.js-title(placeholder='Task title')
 
 		.colors
 			each color in ['white', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'purple']
@@ -51,7 +51,7 @@ script.js-edit-task-dialog(type='template')
 				span Actual
 				input.actual.js-actual(placeholder='Unknown')
 
-		textarea.js-description
+		textarea.js-description(placeholder='Description')
 
 		button.delete.js-delete
 			i.fa.fa-remove
