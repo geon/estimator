@@ -64,36 +64,33 @@ module.exports = {
 					.order(tasks.parentId, tasks.ordering)
 				).then(function (tasks) {
 
-					var root;
+					// Build lookup table.
+					var tasksById = {};
+					tasks.forEach(function (task) {
+
+						tasksById[task.id] = task;
+					})
 
 					tasks.forEach(function (task) {
 
-						if (task.id === req.params.id) {
+						// Attach each task to it's parent.
+						var parent = tasksById[task.parentId];
+						if (parent) {
 
-							delete task.parentId;
-							delete task.projectId;
-							root = task;
-						}
+							if (!parent.tasks) {
 
-						for (var i = 0; i < tasks.length; i++) {
-
-							if (tasks[i].id === task.parentId) {
-
-								if (!tasks[i].tasks) {
-
-									tasks[i].tasks = [];
-								}
-
-								delete task.parentId;
-								delete task.projectId;
-								tasks[i].tasks.push(task);
-
-								break;
+								parent.tasks = [];
 							}
+							
+							parent.tasks.push(task)
 						}
+
+						// No point in sending this.
+						delete task.parentId;
+						delete task.projectId;
 					});
 
-					res.json(root);
+					res.json(tasksById[req.params.id]);
 				});
 
 			}).done(null, function (error) {
