@@ -16,7 +16,8 @@
     "less-middleware": "1.0.x",
     "connect-jade-static": "^0.1.4",
     "progres-convenience": "0.0.0",
-    "sql": "^0.43.0"
+    "sql": "^0.43.0",
+    "moment": "^2.9.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

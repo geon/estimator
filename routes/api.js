@@ -1,5 +1,6 @@
 
 var progres = require('progres-convenience');
+var moment = require('moment');
 var tasks = require('../table-definitions.js').tasks;
 var config = require('../config.json');
 
@@ -29,7 +30,7 @@ module.exports = {
 			}).done(null, function (error) {
 
 				res.sendStatus(500);
-				console.error(new Date(), 'update', error);
+				console.error(moment().format(), 'update', error);
 			});
 		},
 
@@ -46,7 +47,7 @@ module.exports = {
 			}).done(null, function (error) {
 
 				res.sendStatus(500);
-				console.error(new Date(), 'update', error);
+				console.error(moment().format(), 'delete', error);
 			});
 		}
 	},
@@ -81,7 +82,7 @@ module.exports = {
 
 								parent.tasks = [];
 							}
-							
+
 							parent.tasks.push(task)
 						}
 
@@ -96,7 +97,7 @@ module.exports = {
 			}).done(null, function (error) {
 
 				res.sendStatus(500);
-				console.error(new Date(), 'read', error);
+				console.error(moment().format(), 'read', error);
 			});
 		}
 	}
