@@ -263,7 +263,7 @@ Task.parseEstimate = function (text) {
 				value *= hour;
 				break;
 
-			case 'minute':
+			case 'min':
 			case 'm':
 				value *= minute;
 				break;
