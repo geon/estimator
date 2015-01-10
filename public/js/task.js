@@ -208,7 +208,8 @@ Task.parseEstimate = function (text) {
 
 	text = text.trim();
 
-	var sum = 0;
+	// Default is null. (Empty string.)
+	var sum = null;
 	
 	var timePattern = /((\d+)([.,:]))?(\d+)(\s*(years?|y|months?|mn|weeks?|w|days?|d|h|min|m))?\s*,?\s*/g;
 	var matches;
@@ -280,6 +281,16 @@ Task.parseEstimate = function (text) {
 
 
 Task.formatEstimate = function (seconds) {
+
+	if (!_.isNumber(seconds)) {
+
+		return '';
+	}
+
+	if (!seconds) {
+
+		return '0 h';
+	}
 
 	var text = '';
 	var left = seconds;
