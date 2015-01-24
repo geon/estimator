@@ -320,17 +320,33 @@ Task.parseDuration = function (text) {
 
 Task.formatDuration = function (seconds) {
 
-	if (!_.isNumber(seconds)) {
+	return Task.formatDurationParts(Task.splitDurationToParts(seconds));
+};
+
+
+Task.formatDurationParts = function (parts) {
+
+	if (!parts) {
 
 		return '';
 	}
 
-	if (!seconds) {
+	if (!parts.length) {
 
 		return '0 h';
 	}
 
-	var text = '';
+	return parts.map(function (duration) {
+
+		return duration.value + ' ' + duration.unit + (duration.value != 1 && duration.unit != 'min' && duration.unit != 'h' ? 's' : '');
+
+	}).join(', ');
+};
+
+
+Task.splitDurationToParts = function (seconds) {
+
+	var parts = [];
 	var left = seconds;
 
 	[
@@ -346,17 +362,13 @@ Task.formatDuration = function (seconds) {
 
 		if (value) {
 
-			if (text.length) {
-				text += ', ';
-			}
-
-			text += value.toString() + ' ' + size[1];
+			parts.push({value: value, unit: size[1]});
 
 			left -= value * size[0];
 		}
 	});
 
-	return text;
+	return parts;
 };
 
 
