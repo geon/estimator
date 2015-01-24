@@ -190,8 +190,8 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		this.$estimate
 			.find('.js-value')
 				.text(
-					'From ' + Task.formatEstimate(this.model.get('from')) +
-					' to ' + Task.formatEstimate(this.model.get('to'))
+					'From ' + Task.formatDuration(this.model.get('from')) +
+					' to ' + Task.formatDuration(this.model.get('to'))
 				)
 				.end()
 			.toggle(!this.model.get('actual'))
@@ -201,8 +201,8 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		this.$projection
 			.find('.js-value')
 				.text(projection ? (
-					'From ' + Task.formatEstimate(projection.min) +
-					' to ' + Task.formatEstimate(projection.max)
+					'From ' + Task.formatDuration(projection.min) +
+					' to ' + Task.formatDuration(projection.max)
 				) : 'no projection')
 				.end()
 			.toggle(!this.model.get('actual'))
@@ -210,7 +210,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		this.$actual
 			.find('.js-value')
-				.text(Task.formatEstimate(this.model.get('actual')))
+				.text(Task.formatDuration(this.model.get('actual')))
 				.end()
 			.toggle(!!this.model.get('actual'))
 		;

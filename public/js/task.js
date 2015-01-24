@@ -242,7 +242,7 @@ var month = 4 * week;
 var year = 45 * week;
 
 
-Task.parseEstimate = function (text) {
+Task.parseDuration = function (text) {
 
 	text = text.trim();
 
@@ -318,7 +318,7 @@ Task.parseEstimate = function (text) {
 };
 
 
-Task.formatEstimate = function (seconds) {
+Task.formatDuration = function (seconds) {
 
 	if (!_.isNumber(seconds)) {
 

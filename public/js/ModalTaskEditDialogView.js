@@ -58,9 +58,9 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.$description.val(this.model.get('description'));
 		this.$colorInputs.filter('[value="' + this.model.get('color') + '"]').prop('checked', true);
 
-		this.$from.val(Task.formatEstimate(this.model.get('from')));
-		this.$to.val(Task.formatEstimate(this.model.get('to')));
-		this.$actual.val(Task.formatEstimate(this.model.get('actual')));
+		this.$from.val(Task.formatDuration(this.model.get('from')));
+		this.$to.val(Task.formatDuration(this.model.get('to')));
+		this.$actual.val(Task.formatDuration(this.model.get('actual')));
 
 		// this.$task.attr('data-color', this.model.get('color'));
 	},
@@ -85,9 +85,9 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 			title: this.$title.val(),
 			description: this.$description.val(),
 			color: this.$colorInputs.filter(':checked').val(),
-			from: Task.parseEstimate(this.$from.val()),
-			to: Task.parseEstimate(this.$to.val()),
-			actual: Task.parseEstimate(this.$actual.val())
+			from: Task.parseDuration(this.$from.val()),
+			to: Task.parseDuration(this.$to.val()),
+			actual: Task.parseDuration(this.$actual.val())
 		});
 	},
 
