@@ -233,13 +233,65 @@ var Task = Backbone.Model.extend({
 });
 
 
-// Units
-var minute = 60;
-var hour = 60 * minute;
-var day = 8 * hour;
-var week = 5 * day;
-var month = 4 * week;
-var year = 45 * week;
+var units = [
+	{
+		names: ['year', 'y'],
+		plurals: ['years', 'y'],
+		multiple: 45,
+		basedOn: 'week'
+	},
+	{
+		names: ['month', 'mn'],
+		plurals: ['months', 'mn'],
+		multiple: 4,
+		basedOn: 'week'
+	},
+	{
+		names: ['week', 'w'],
+		plurals: ['weeks', 'w'],
+		multiple: 5,
+		basedOn: 'day'
+	},
+	{
+		names: ['day', 'd'],
+		plurals: ['days', 'd'],
+		multiple: 8,
+		basedOn: 'h'
+	},
+	{
+		names: ['h', 'hour'],
+		plurals: ['h', 'hours'],
+		multiple: 60,
+		basedOn: 'm'
+	},
+	{
+		names: ['m', 'minute'],
+		plurals: ['m', 'minutes'],
+		size: 60
+	}
+];
+var unitsByName = {}
+units.forEach(function (unit) {
+
+	function addName (name) {
+		
+		unitsByName[name] = unit;
+	}
+
+	unit.names.forEach(addName);
+	unit.plurals.forEach(addName);
+});
+units.forEach(function (unit) {
+
+	function findSizeRecursively (unit) {
+
+		return unit.size ||
+			unit.multiple *
+			findSizeRecursively(unitsByName[unit.basedOn]);
+	}
+
+	unit.size = findSizeRecursively(unit);
+});
 
 
 Task.parseDuration = function (text) {
@@ -274,44 +326,16 @@ Task.parseDuration = function (text) {
 			value = parseInt(matches[4], 10);
 		}
 
-		switch (matches[6]) {
+		var parsedUnit = unitsByName[matches[6]];
+		if (parsedUnit) {
 
-			case 'year':
-			case 'y':
-				value *= year;
-				break;
+			sum += value * parsedUnit.size;
+			
+		} else {
 
-			case 'month':
-			case 'mn':
-				value *= month;
-				break;
-
-			case 'week':
-			case 'w':
-				value *= week;
-				break;
-
-			case 'day':
-			case 'd':
-				value *= day;
-				break;
-
-			case 'hour':
-			case 'h':
-				value *= hour;
-				break;
-
-			case 'min':
-			case 'm':
-				value *= minute;
-				break;
-
-			default: 
-				value *= hour;
-				break;
+			// TODO: Return null on invalid data, so the field can show an error.
 		}
 
-		sum += value;
 	}
 
 	return sum;
@@ -321,6 +345,16 @@ Task.parseDuration = function (text) {
 Task.formatDuration = function (seconds) {
 
 	return Task.formatDurationParts(Task.splitDurationToParts(seconds));
+};
+
+
+Task.formatDurationRounded = function (seconds) {
+
+	var parts = Task.splitDurationToParts(seconds);
+
+	// TODO: round the data in parts. Use only one unit + opyoionaly the next in size. Add the next to *that* one the the next and round up.
+
+	return Task.formatDurationParts(parts);
 };
 
 
@@ -338,7 +372,7 @@ Task.formatDurationParts = function (parts) {
 
 	return parts.map(function (duration) {
 
-		return duration.value + ' ' + duration.unit + (duration.value != 1 && duration.unit != 'min' && duration.unit != 'h' ? 's' : '');
+		return duration.value + ' ' + (duration.value == 1 ? duration.unit.names[0] : duration.unit.plurals[0]);
 
 	}).join(', ');
 };
@@ -349,22 +383,15 @@ Task.splitDurationToParts = function (seconds) {
 	var parts = [];
 	var left = seconds;
 
-	[
-		[year, 'year'],
-		[month, 'month'],
-		[week, 'week'],
-		[day, 'day'],
-		[hour, 'h'],
-		[minute, 'min'],
-	].forEach(function (size) {
+	units.forEach(function (unit) {
 
-		var value = Math.floor(left / size[0]);
+		var value = Math.floor(left / unit.size);
 
 		if (value) {
 
-			parts.push({value: value, unit: size[1]});
+			parts.push({value: value, unit: unit});
 
-			left -= value * size[0];
+			left -= value * unit.size;
 		}
 	});
 
