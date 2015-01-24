@@ -326,7 +326,7 @@ Task.parseDuration = function (text) {
 			value = parseInt(matches[4], 10);
 		}
 
-		var parsedUnit = unitsByName[matches[6]];
+		var parsedUnit = unitsByName[matches[6] || 'h'];
 		if (parsedUnit) {
 
 			sum += value * parsedUnit.size;
