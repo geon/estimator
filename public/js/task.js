@@ -350,6 +350,11 @@ Task.formatDuration = function (seconds) {
 
 Task.formatDurationRounded = function (seconds) {
 
+	if (seconds === null) {
+
+		return Task.formatDurationParts(seconds);
+	}
+
 	var parts = Task.splitDurationToParts(seconds);
 
 	var firstUsedPartIndex;
@@ -389,12 +394,12 @@ Task.formatDurationRounded = function (seconds) {
 
 Task.formatDurationParts = function (parts) {
 
-	var partsWithValue = _.filter(parts, function (part) { return !!part.value; });
-
-	if (!partsWithValue) {
+	if (!parts) {
 
 		return '';
 	}
+
+	var partsWithValue = _.filter(parts, function (part) { return !!part.value; });
 
 	if (!partsWithValue.length) {
 
@@ -410,6 +415,11 @@ Task.formatDurationParts = function (parts) {
 
 
 Task.splitDurationToParts = function (seconds) {
+
+	if (seconds === null) {
+
+		return null;
+	}
 
 	var parts = [];
 	var left = seconds;
