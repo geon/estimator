@@ -194,7 +194,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 					' to ' + Duration.formatRounded(this.model.get('to'))
 				)
 				.end()
-			.toggle(!this.model.get('actual'))
+			.toggle(!this.model.get('actual') && !!this.model.get('from') && !!this.model.get('to'))
 		;
 
 		var projection = this.model.get('projection');
@@ -205,7 +205,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 					' to ' + Duration.formatRounded(projection.max)
 				) : 'no projection')
 				.end()
-			.toggle(!this.model.get('actual'))
+			.toggle(!this.model.get('actual') && !!projection)
 		;
 
 		this.$actual
