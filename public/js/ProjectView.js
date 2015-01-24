@@ -61,8 +61,8 @@ var ProjectView = Backbone.View.extend({
 
 		var projection = this.model.get('projection');
 		this.$projection.text(projection ? (
-			'From ' + Task.formatDurationRounded(projection.min) +
-			' to ' + Task.formatDurationRounded(projection.max)
+			'From ' + Duration.formatRounded(projection.min) +
+			' to ' + Duration.formatRounded(projection.max)
 		) : 'no projection');
 	},
 
