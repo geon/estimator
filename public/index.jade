@@ -10,6 +10,7 @@ body
 script.js-project(type='template')
 	.project
 		input.title.js-title(placeholder='Project title')
+		p.estimate
 		.tree-view
 			ul
 			button.add-sub-task.js-add-sub-task: i.fa.fa-plus
@@ -21,6 +22,18 @@ script.js-task(type='template')
 			h1
 			input(placeholder='Task title')
 			.description.js-description
+			p.estimate.js-estimate(title='Estimate')
+				i.fa.fa-question-circle
+				| 
+				span.js-value
+			p.projection.js-projection(title='Projection')
+				i.fa.fa-exclamation-circle
+				| 
+				span.js-value
+			p.actual.js-actual(title='Actual')
+				i.fa.fa-check-circle
+				| 
+				span.js-value
 			i.fa.fa-plus-square.button.add-sub-task.js-add-sub-task
 			i.fa.fa-cog.button.task-details.js-task-details
 			.drop-target.before(rel='before')

@@ -12,6 +12,7 @@ var ProjectView = Backbone.View.extend({
 	initialize: function (options) {
 
 		this.$title = this.$el.find('input.js-title');
+		this.$projection = this.$el.find('p.estimate');
 
 		this.treeEventReciever = _.extend({}, Backbone.Events);
 
@@ -26,6 +27,10 @@ var ProjectView = Backbone.View.extend({
 			el: this.$('.tree-view'),
 			model: this.model
 		});
+		this.model.once('sync', function (model) {
+
+			model.calculateProjection();
+		})
 	},
 
 
@@ -53,6 +58,12 @@ var ProjectView = Backbone.View.extend({
 	applyModel: function () {
 
 		this.$title.val(this.model.get('title'));
+
+		var projection = this.model.get('projection');
+		this.$projection.text(projection ? (
+			'From ' + Task.formatEstimate(projection.min) +
+			' to ' + Task.formatEstimate(projection.max)
+		) : 'no projection');
 	},
 
 

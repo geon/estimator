@@ -92,6 +92,7 @@ var Task = Backbone.Model.extend({
 
 		// But some stuff shouldn't be sent.
 		delete attributes.tasks;
+		delete attributes.projection;
 
 		// Override what gets sent to the server.
 		options = options || {};
@@ -143,6 +144,15 @@ var Task = Backbone.Model.extend({
 			clearTimeout(timer);
 			timer = null;
 		});
+
+		this.on('change:from change:to', function (model) {
+
+			model.calculateProjection();
+		});
+		this.on('change:projection', function (model) {
+
+			model.collection && model.collection.parent.calculateProjection();
+		});
 	},
 
 
@@ -191,6 +201,34 @@ var Task = Backbone.Model.extend({
 		});
 
 		this.trigger('focus');
+	},
+
+
+	calculateProjection: function () {
+
+		// Calculate the projections of the child tasks.
+		this.get('tasks').each(function (child) {
+
+			if (!child.get('projection')) {
+
+				child.calculateProjection();
+			}
+		});
+
+		// Sum up the projections.
+		var childProjections = _.filter(this.get('tasks').pluck('projection'), function (projection) { return !!projection; });
+		var childSumMin = _.pluck(childProjections, 'min').reduce(function (a, b) { return a + b; }, null);
+		var childSumMax = _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, null);
+		var min = childSumMin === null ? this.get('from') : Math.max(this.get('from'), childSumMin);
+		var max = childSumMax === null ? this.get('to')   : Math.max(this.get('to'),   childSumMax);
+
+		this.set('projection', min && max ? {
+			min: min,
+			max: max
+		} : null);
+
+		// Set the projections for the undefined children.
+		// TODO
 	}
 });
 
