@@ -181,7 +181,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		this.$task.attr('data-color', this.model.get('color'));
 		this.$el.toggleClass('leaf', !this.model.get('tasks').length);
 		this.$description
-			.html(this.model.get('description'))
+			.html(escapeHtml(this.model.get('description')).replace(/\n/g, '<br>'))
 			.toggle(!!this.model.get('description'));
 	},
 
@@ -194,3 +194,10 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		});
 	}
 });
+
+
+function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+};
