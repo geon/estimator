@@ -330,7 +330,7 @@ Task.parseDuration = function (text) {
 		if (parsedUnit) {
 
 			sum += value * parsedUnit.size;
-			
+
 		} else {
 
 			// TODO: Return null on invalid data, so the field can show an error.
@@ -352,25 +352,56 @@ Task.formatDurationRounded = function (seconds) {
 
 	var parts = Task.splitDurationToParts(seconds);
 
-	// TODO: round the data in parts. Use only one unit + opyoionaly the next in size. Add the next to *that* one the the next and round up.
+	var firstUsedPartIndex;
+	for (var i = 0; i < parts.length; i++) {
+		
+		if (parts[i].value) {
 
-	return Task.formatDurationParts(parts);
+			firstUsedPartIndex = i;
+			break;
+		}
+	}
+
+	var first  = parts[firstUsedPartIndex];
+	var second = parts[firstUsedPartIndex + 1];
+	var third  = parts[firstUsedPartIndex + 2];
+
+	if (second && third) {
+
+		second.value = Math.round(second.value + third.value / second.unit.multiple);
+	}
+
+	var roundedParts = [];
+	if (first) {
+
+		roundedParts.push(first);
+	}
+	if (second) {
+
+		roundedParts.push(second);
+	}
+
+	// TODO: Bubble up unit overflows.
+
+	return Task.formatDurationParts(roundedParts);
 };
 
 
 Task.formatDurationParts = function (parts) {
 
-	if (!parts) {
+	var partsWithValue = _.filter(parts, function (part) { return !!part.value; });
+
+	if (!partsWithValue) {
 
 		return '';
 	}
 
-	if (!parts.length) {
+	if (!partsWithValue.length) {
 
 		return '0 h';
 	}
 
-	return parts.map(function (duration) {
+	return partsWithValue.map(function (duration) {
 
 		return duration.value + ' ' + (duration.value == 1 ? duration.unit.names[0] : duration.unit.plurals[0]);
 
@@ -387,12 +418,9 @@ Task.splitDurationToParts = function (seconds) {
 
 		var value = Math.floor(left / unit.size);
 
-		if (value) {
+		parts.push({value: value, unit: unit});
 
-			parts.push({value: value, unit: unit});
-
-			left -= value * unit.size;
-		}
+		left -= value * unit.size;
 	});
 
 	return parts;
