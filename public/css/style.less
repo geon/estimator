@@ -10,24 +10,34 @@
 @task-color-yellow: #ff5;
 @task-color-green: #6f2;
 
-
+@text-color-dark: #000;
+@text-color-light: #fff;
 
 
 
 // Mixins
 
-.return-contrasting-color(@color) when (luma(@color) > 50%) {
-	@contrasting-color: black;
+.return-contrasting-color(@color, @dark: @text-color-dark, @light: @text-color-light) when (luma(@color) > 50%) {
+	@contrasting-color: @dark;
 }
-.return-contrasting-color(@color) when (luma(@color) =< 50%) {
-	@contrasting-color: white;
+.return-contrasting-color(@color, @dark: @text-color-dark, @light: @text-color-light) when (luma(@color) =< 50%) {
+	@contrasting-color: @light;
 }
+.contrasting-color(@color, @dark: @text-color-dark, @light: @text-color-light) when (luma(@color) > 50%) {
 
-.contrasting-color(@color) {
+	color: @dark;
+}
+.contrasting-color(@color, @dark: @text-color-dark, @light: @text-color-light) when (luma(@color) =< 50%) {
 
-	.return-contrasting-color(@color);
+	// Webkit on OS X has a rendering bug, causing light text on dark to be slightly bolder. (Not just the illusion.)
+	// https://web.archive.org/web/20131019233655/http://tanookilabs.com/your-fonts-look-bad-in-chrome-heres-the-fix
+	-webkit-font-smoothing: antialiased;
 
-	color: @contrasting-color;
+	color: @light;
+}
+.contrasting-color-faded(@color, @amount: 75%, @dark: @text-color-dark, @light: @text-color-light) {
+
+	.contrasting-color(@color, fade(@dark, @amount), fade(@light, @amount));
 }
 
 
@@ -240,20 +250,19 @@ body {
 					// Colors
 					.task-color (@color) {
 
-						.return-contrasting-color(@color);
-
+						.contrasting-color(@color);
 						background: @color; // url(noise-5percent.png);
-						color: @contrasting-color;
+
 						// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
 						box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
 
 						// Make the description text less prominent, except for links.
 						div.description {
 
-							color: fade(@contrasting-color, 75%);
+							.contrasting-color-faded(@color);
 
 							a {
-								color: @contrasting-color;
+								.contrasting-color(@color);
 								text-decoration: none;
 							}
 						}
