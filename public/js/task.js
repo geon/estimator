@@ -204,6 +204,21 @@ var Task = Backbone.Model.extend({
 	},
 
 
+	getDefaultEstimateMax: function () {
+
+		return this.get('from') * 1.5;
+	},
+
+
+	getEstimate: function () {
+
+		return this.get('from') ? {
+			min: this.get('from'),
+			max: this.get('to') || this.getDefaultEstimateMax()
+		} : null;
+	},
+
+
 	calculateProjection: function () {
 
 		// This is a cached value. Only recalculate if cleared.
@@ -220,15 +235,33 @@ var Task = Backbone.Model.extend({
 
 			// Sum up the projections.
 			var childProjections = _.filter(this.get('tasks').pluck('projection'), function (projection) { return !!projection; });
-			var childSumMin = _.pluck(childProjections, 'min').reduce(function (a, b) { return a + b; }, null);
-			var childSumMax = _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, null);
-			var min = childSumMin === null ? this.get('from') : Math.max(this.get('from'), childSumMin);
-			var max = childSumMax === null ? this.get('to')   : Math.max(this.get('to'),   childSumMax);
+			var childProjectionSum = childProjections.length ? {
+				min: _.pluck(childProjections, 'min').reduce(function (a, b) { return a + b; }, 0),
+				max: _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, 0)
+			} : null;
 
-			this.set('projection', min && max ? {
-				min: min,
-				max: max
-			} : null);
+			var estimate = this.getEstimate();
+
+// TODO: Use actual data when avaible.
+
+			// Use the largest numbers of whatever information is available.
+			var projection;
+			if (childProjectionSum && estimate) {
+
+				projection = {
+					min: Math.max(estimate.min, childSumMin),
+					max: Math.max(estimate.min, childSumMax)
+				};
+
+			} else if (estimate) {
+
+				projection = estimate;
+
+			} else {
+
+				projection = childProjectionSum;
+			}
+			this.set('projection', projection);
 
 			// Set the projections for the undefined children.
 			this.calculateProjectionDown();

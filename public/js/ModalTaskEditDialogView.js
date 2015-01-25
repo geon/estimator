@@ -59,7 +59,9 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.$colorInputs.filter('[value="' + this.model.get('color') + '"]').prop('checked', true);
 
 		this.$from.val(Duration.format(this.model.get('from')));
-		this.$to.val(Duration.format(this.model.get('to')));
+		this.$to
+			.attr('placeholder', Duration.format(this.model.getDefaultEstimateMax()))
+			.val(Duration.format(this.model.get('to')));
 		this.$actual.val(Duration.format(this.model.get('actual')));
 
 		// this.$task.attr('data-color', this.model.get('color'));
