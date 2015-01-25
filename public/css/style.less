@@ -1,6 +1,12 @@
 
 @body-background-color: #8cf;
 
+@text-color-dark: #000;
+@text-color-light: #fff;
+
+@font-size: 16px;
+@line-height: 1.5em;
+
 @task-color-white: #fff;
 @task-color-black: #333;
 @task-color-blue: #38f;
@@ -10,8 +16,6 @@
 @task-color-yellow: #ff5;
 @task-color-green: #6f2;
 
-@text-color-dark: #000;
-@text-color-light: #fff;
 
 
 
@@ -43,20 +47,81 @@
 
 
 
+@import (css) 'cssreset-min.css';
 
+// Set global font for everything.
+* {
+
+	font-family: inherit;
+	font-family: inherit;
+}
 html {
 
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif, FontAwesome;
+	font-size: @font-size;
+	letter-spacing: 0.03em; // The font is just a *tiiiny* bit too cramped.
 }
-
 
 body {
 
+	.contrasting-color(@body-background-color);
 	background: @body-background-color; // url('noise-3percent.png');
-
-	// background: #8cf;
-	// background-image: linear-gradient(to bottom, #48e 0%, #8cf 100%);
 }
+
+h1, h2, h3, p, hr {
+
+	margin-top: @line-height;
+}
+
+h1 {
+
+	font-size: 1.5em;
+}
+
+h2 {
+
+	font-size: 1.25em;
+}
+
+h3 {
+
+	font-size: 1em;
+	font-weight: bold;
+}
+
+h3 + p {
+
+	margin-top: 0;
+}
+
+p {
+
+	line-height: @line-height;
+}
+
+a {
+
+	// TODO: color
+	text-decoration: none;
+
+	&:hover {
+
+		text-decoration: underline;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -65,9 +130,7 @@ body {
 
 	input.title {
 
-		font-size: 30px;
-		font-weight: normal;
-		font-family: inherit;
+		font-size: 2em;
 
 		background: transparent;
 		color: inherit;
@@ -132,10 +195,7 @@ body {
 
 					h1, input {
 
-						font-size: 20px;
-						font-weight: normal;
-
-						font-family: inherit;
+						font-size: 1.25em;
 
 						padding: @title-margin-h/2 - 1px @title-margin-v/2 - 1px;
 						margin: @title-margin-h/2 @title-margin-v/2;
@@ -149,8 +209,6 @@ body {
 					div.description {
 
 						font-size: 14px;
-						font-weight: normal;
-						font-family: inherit;
 
 						margin: @title-margin-h @title-margin-v;
 						margin-top: 0;
@@ -363,9 +421,7 @@ body {
 			height: 52px;
 			width: @task-width;
 
-			font-size: 20px;
-			font-weight: normal;
-			font-family: inherit;
+			font-size: 1.25em;
 
 			@letterpress-amount: 10%;
 
@@ -442,7 +498,7 @@ body {
 
 	input.title {
 
-		font-size: 20px;
+		font-size: 1.25em;
 		width: 100%;
 	}
 
@@ -460,8 +516,6 @@ body {
 			text-align: right;
 
 			font-size: 14px;
-			font-weight: normal;
-			font-family: inherit;
 
 			input {
 
@@ -488,9 +542,6 @@ body {
 	}
 
 	input.title, .estimates input, textarea {
-
-		font-weight: normal;
-		font-family: inherit;
 
 		background: transparent;
 		color: inherit;
@@ -609,9 +660,8 @@ body {
 		margin: 0 auto;
 		display: block;
 
-		font-size: 20px;
-		font-weight: normal;
-		font-family: inherit;
+		font-size: 1.25em;
+		font-weight: bold;
 
 		@button-color-red: #f31;
 		@bulge: 6%;
