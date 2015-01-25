@@ -367,15 +367,15 @@ body {
 			font-weight: normal;
 			font-family: inherit;
 
-			@letterpress-ammount: 10%;
+			@letterpress-amount: 10%;
 
 			& when (luma(@body-background-color) > 50%) {
 
-				text-shadow: 0 -1px 0 darken(@body-background-color, @letterpress-ammount);
+				text-shadow: 0 -1px 0 darken(@body-background-color, @letterpress-amount);
 			}
 			& when (luma(@body-background-color) <= 50%) {
 
-				text-shadow: 0 1px 0 lighten(@body-background-color, @letterpress-ammount);
+				text-shadow: 0 1px 0 lighten(@body-background-color, @letterpress-amount);
 			}
 			.contrasting-color(#fff - @body-background-color);
 			background: transparent;
@@ -615,15 +615,15 @@ body {
 
 		@button-color-red: #f31;
 		@bulge: 6%;
-		@letterpress-ammount: 10%;
+		@letterpress-amount: 10%;
 
 		& when (luma(@button-color-red) > 50%) {
 
-			text-shadow: 0 1px 0 lighten(@button-color-red, @letterpress-ammount);
+			text-shadow: 0 1px 0 lighten(@button-color-red, @letterpress-amount);
 		}
 		& when (luma(@button-color-red) <= 50%) {
 
-			text-shadow: 0 -1px 0 darken(@button-color-red, @letterpress-ammount);
+			text-shadow: 0 -1px 0 darken(@button-color-red, @letterpress-amount);
 		}
 		.contrasting-color(@button-color-red);
 		background: @button-color-red linear-gradient(to top, darken(@button-color-red, @bulge), @button-color-red, lighten(@button-color-red, @bulge));
