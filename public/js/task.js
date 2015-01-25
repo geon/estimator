@@ -206,30 +206,45 @@ var Task = Backbone.Model.extend({
 
 	calculateProjection: function () {
 
-		// Calculate the projections of the child tasks.
-		this.get('tasks').each(function (child) {
+		// This is a cached value. Only recalculate if cleared.
+		if (!this.get('projection')) {
 
-			if (!child.get('projection')) {
+			// Calculate the projections of the child tasks.
+			this.get('tasks').each(function (child) {
 
-				child.calculateProjection();
-			}
-		});
+				if (!child.get('projection')) {
 
-		// Sum up the projections.
-		var childProjections = _.filter(this.get('tasks').pluck('projection'), function (projection) { return !!projection; });
-		var childSumMin = _.pluck(childProjections, 'min').reduce(function (a, b) { return a + b; }, null);
-		var childSumMax = _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, null);
-		var min = childSumMin === null ? this.get('from') : Math.max(this.get('from'), childSumMin);
-		var max = childSumMax === null ? this.get('to')   : Math.max(this.get('to'),   childSumMax);
+					child.calculateProjection();
+				}
+			});
 
-		this.set('projection', min && max ? {
-			min: min,
-			max: max
-		} : null);
+			// Sum up the projections.
+			var childProjections = _.filter(this.get('tasks').pluck('projection'), function (projection) { return !!projection; });
+			var childSumMin = _.pluck(childProjections, 'min').reduce(function (a, b) { return a + b; }, null);
+			var childSumMax = _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, null);
+			var min = childSumMin === null ? this.get('from') : Math.max(this.get('from'), childSumMin);
+			var max = childSumMax === null ? this.get('to')   : Math.max(this.get('to'),   childSumMax);
 
-		// Set the projections for the undefined children.
-		// TODO
-	}
+			this.set('projection', min && max ? {
+				min: min,
+				max: max
+			} : null);
+
+			// Set the projections for the undefined children.
+			this.calculateProjectionDown();
+		}
+	},
+
+	calculateProjectionDown: function () {
+
+		// TODO:
+
+		// Count un-estimated and sum partial estimates.
+
+		// Calculate un-estimated missing time in children.
+
+		// Spread equally.
+	}	
 });
 
 
