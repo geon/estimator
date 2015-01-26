@@ -243,22 +243,19 @@ var Task = Backbone.Model.extend({
 		});
 
 
-		// Sum up the projections.
+		// Sum up the childrens projections.
 		var childProjections = _.filter(this.get('tasks').pluck('projection'), function (projection) { return !!projection; });
+		var numProjected = childProjections.length;
+		var factorProjectedChildren = numProjected / this.get('tasks').length;
 		var childProjectionSum = childProjections.length ? {
 			min: _.pluck(childProjections, 'min').reduce(function (a, b) { return a + b; }, 0),
 			max: _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, 0)
 		} : null;
-
 		if (childProjectionSum) {
 
-			// Calculate un-projected missing time in children.
-			var numProjected = childProjections.length;
-			var factorProjected = numProjected / this.get('tasks').length;
-
 			// Add the extrapolated time from un-estimated siblings.
-			childProjectionSum.min /= factorProjected;
-			childProjectionSum.max /= factorProjected;
+			childProjectionSum.min /= factorProjectedChildren;
+			childProjectionSum.max /= factorProjectedChildren;
 		}
 
 
@@ -297,19 +294,38 @@ var Task = Backbone.Model.extend({
 		}
 		this.set('projection', projection);
 
+
 		// Set the projections for the undefined children.
-		this.calculateProjectionDown();
+		var unprojectedTotal = projection ? {
+			min: projection.min * (1 - factorProjectedChildren),
+			max: projection.max * (1 - factorProjectedChildren)
+		} : null;
+		this.calculateProjectionDown(unprojectedTotal);
 	},
 
-	calculateProjectionDown: function () {
+	calculateProjectionDown: function (unprojectedTotal) {
 
-		// TODO:
+		if (!unprojectedTotal) {
 
-		// Count un-estimated and sum partial estimates.
+			return;
+		}
 
-		// Calculate un-estimated missing time in children.
+		// Find the child-tasks without projections.
+		var unprojected = this.get('tasks').filter(function (task) {
+
+			return !task.get('projection');
+		});
 
 		// Spread equally.
+		var unprojectedDivided = {
+			min: unprojectedTotal.min / unprojected.length,
+			max: unprojectedTotal.max / unprojected.length
+		};
+		unprojected.forEach(function (task) {
+
+			task.set('projection', unprojectedDivided);
+			task.calculateProjectionDown(unprojectedDivided);
+		});
 	}	
 });
 
