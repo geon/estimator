@@ -33,8 +33,8 @@ var units = [
 		basedOn: 'm'
 	},
 	{
-		names: ['m', 'minute'],
-		plurals: ['m', 'minutes'],
+		names: ['min', 'm', 'minute'],
+		plurals: ['min', 'm', 'minutes'],
 		size: 60
 	}
 ];
