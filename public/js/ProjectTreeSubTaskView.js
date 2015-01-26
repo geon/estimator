@@ -190,24 +190,24 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		var estimate = this.model.getEstimate();
 		this.$estimate
 			.text(estimate ? (
-				'From ' + Duration.formatRounded(estimate.min) +
-				' to ' + Duration.formatRounded(estimate.max)
-			) : 'no estimate')
-			.toggle(!!this.model.getEstimate() && !this.model.get('actual'))
+				Duration.formatRounded(estimate.min) +
+				' - ' + Duration.formatRounded(estimate.max)
+			) : 'No estimate')
+			// .toggle(!!this.model.getEstimate() && !this.model.get('actual'))
 		;
 
 		var projection = this.model.get('projection');
 		this.$projection
 			.text(projection ? (
-				'From ' + Duration.formatRounded(projection.min) +
-				' to ' + Duration.formatRounded(projection.max)
-			) : 'no projection')
-			.toggle(!!projection && !this.model.get('actual'))
+				Duration.formatRounded(projection.min) +
+				' - ' + Duration.formatRounded(projection.max)
+			) : 'No projection')
+			// .toggle(!!projection && !this.model.get('actual'))
 		;
 
 		this.$actual
-			.text(Duration.formatRounded(this.model.get('actual')))
-			.toggle(!!this.model.get('actual'))
+			.text(Duration.formatRounded(this.model.get('actual')) || 'No actual')
+			// .toggle(!!this.model.get('actual'))
 		;
 	},
 
