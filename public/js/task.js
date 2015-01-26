@@ -242,24 +242,34 @@ var Task = Backbone.Model.extend({
 
 			var estimate = this.getEstimate();
 
-// TODO: Use actual data when avaible.
+			var actual = this.get('actual');
 
-			// Use the largest numbers of whatever information is available.
+			// Use actual data, otherwise the largest numbers of whatever information is available.
 			var projection;
-			if (childProjectionSum && estimate) {
+			if (actual !== null) {
 
 				projection = {
-					min: Math.max(estimate.min, childSumMin),
-					max: Math.max(estimate.min, childSumMax)
+					min: actual,
+					max: actual
 				};
-
-			} else if (estimate) {
-
-				projection = estimate;
 
 			} else {
 
-				projection = childProjectionSum;
+				if (childProjectionSum && estimate) {
+
+					projection = {
+						min: Math.max(estimate.min, childSumMin),
+						max: Math.max(estimate.min, childSumMax)
+					};
+
+				} else if (estimate) {
+
+					projection = estimate;
+
+				} else {
+
+					projection = childProjectionSum;
+				}
 			}
 			this.set('projection', projection);
 
