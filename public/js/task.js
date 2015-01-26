@@ -145,13 +145,24 @@ var Task = Backbone.Model.extend({
 			timer = null;
 		});
 
-		this.on('change:from change:to', function (model) {
+		this.on('change:from change:to change:actual', function (model) {
 
-			model.calculateProjection();
-		});
-		this.on('change:projection', function (model) {
+			// Clear the now obsolete projection all the way up the tree.
+			var currentTask = model;
+			while (true) {
 
-			model.collection && model.collection.parent.calculateProjection();
+				currentTask.set('projection', null);
+
+				if (!currentTask.collection) {
+
+					break;
+				}
+
+				currentTask = currentTask.collection.parent;
+			}
+
+			// Recalculate projections from the top.
+			currentTask.calculateProjection();
 		});
 	},
 
@@ -227,10 +238,7 @@ var Task = Backbone.Model.extend({
 			// Calculate the projections of the child tasks.
 			this.get('tasks').each(function (child) {
 
-				if (!child.get('projection')) {
-
-					child.calculateProjection();
-				}
+				child.calculateProjection();
 			});
 
 			// Sum up the projections.
