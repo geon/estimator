@@ -241,6 +241,7 @@ var Task = Backbone.Model.extend({
 				child.calculateProjection();
 			});
 
+
 			// Sum up the projections.
 			var childProjections = _.filter(this.get('tasks').pluck('projection'), function (projection) { return !!projection; });
 			var childProjectionSum = childProjections.length ? {
@@ -248,9 +249,23 @@ var Task = Backbone.Model.extend({
 				max: _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, 0)
 			} : null;
 
+			if (childProjectionSum) {
+
+				// Calculate un-projected missing time in children.
+				var numProjected = childProjections.length;
+				var factorProjected = numProjected / this.get('tasks').length;
+
+				// Add the extrapolated time from un-estimated siblings.
+				childProjectionSum.min /= factorProjected;
+				childProjectionSum.max /= factorProjected;
+			}
+
+
 			var estimate = this.getEstimate();
 
+
 			var actual = this.get('actual');
+
 
 			// Use actual data, otherwise the largest numbers of whatever information is available.
 			var projection;
