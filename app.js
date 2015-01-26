@@ -30,6 +30,13 @@ app.use(require('connect-jade-static')({
 
 var apiRouter = express.Router();
 var apiRoutes = require('./routes/api.js');
+apiRouter.use(function(req, res, next) {
+
+    // CORS-headers.
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 apiRouter.put(   '/tasks/:id',    apiRoutes.tasks.update);
 apiRouter.delete('/tasks/:id',    apiRoutes.tasks.delete);
 apiRouter.get(   '/projects/:id', apiRoutes.projects.read);
