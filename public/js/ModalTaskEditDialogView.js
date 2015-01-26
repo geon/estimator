@@ -59,8 +59,9 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.$colorInputs.filter('[value="' + this.model.get('color') + '"]').prop('checked', true);
 
 		this.$from.val(Duration.format(this.model.get('from')));
+		var defaultEstimateMax = this.model.getDefaultEstimateMax();
 		this.$to
-			.attr('placeholder', Duration.format(this.model.getDefaultEstimateMax()))
+			.attr('placeholder', defaultEstimateMax ? Duration.format(defaultEstimateMax) : 'Unknown')
 			.val(Duration.format(this.model.get('to')));
 		this.$actual.val(Duration.format(this.model.get('actual')));
 
