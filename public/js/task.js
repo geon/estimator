@@ -282,8 +282,8 @@ var Task = Backbone.Model.extend({
 			if (childProjectionSum && estimate) {
 
 				projection = {
-					min: Math.max(estimate.min, childSumMin),
-					max: Math.max(estimate.min, childSumMax)
+					min: Math.max(estimate.min, childProjectionSum.min),
+					max: Math.max(estimate.min, childProjectionSum.max)
 				};
 
 			} else if (estimate) {
