@@ -147,22 +147,8 @@ var Task = Backbone.Model.extend({
 
 		this.on('change:from change:to change:actual', function (model) {
 
-			// Clear the now obsolete projection all the way up the tree.
-			var currentTask = model;
-			while (true) {
-
-				currentTask.set('projection', null);
-
-				if (!currentTask.collection) {
-
-					break;
-				}
-
-				currentTask = currentTask.collection.parent;
-			}
-
-			// Recalculate projections from the top.
-			currentTask.calculateProjection();
+			// Recalculate all projections from the top.
+			model.projectRoot().calculateProjection();
 		});
 	},
 
@@ -215,6 +201,24 @@ var Task = Backbone.Model.extend({
 	},
 
 
+	projectRoot: function () {
+
+		var currentTask = this;
+
+		while (true) {
+
+			if (!currentTask.collection) {
+
+				break;
+			}
+
+			currentTask = currentTask.collection.parent;
+		}
+
+		return currentTask;
+	},
+
+
 	getDefaultEstimateMax: function () {
 
 		return this.get('from') * 1.5;
@@ -232,73 +236,69 @@ var Task = Backbone.Model.extend({
 
 	calculateProjection: function () {
 
-		// This is a cached value. Only recalculate if cleared.
-		if (!this.get('projection')) {
+		// Calculate the projections of the child tasks.
+		this.get('tasks').each(function (child) {
 
-			// Calculate the projections of the child tasks.
-			this.get('tasks').each(function (child) {
-
-				child.calculateProjection();
-			});
+			child.calculateProjection();
+		});
 
 
-			// Sum up the projections.
-			var childProjections = _.filter(this.get('tasks').pluck('projection'), function (projection) { return !!projection; });
-			var childProjectionSum = childProjections.length ? {
-				min: _.pluck(childProjections, 'min').reduce(function (a, b) { return a + b; }, 0),
-				max: _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, 0)
-			} : null;
+		// Sum up the projections.
+		var childProjections = _.filter(this.get('tasks').pluck('projection'), function (projection) { return !!projection; });
+		var childProjectionSum = childProjections.length ? {
+			min: _.pluck(childProjections, 'min').reduce(function (a, b) { return a + b; }, 0),
+			max: _.pluck(childProjections, 'max').reduce(function (a, b) { return a + b; }, 0)
+		} : null;
 
-			if (childProjectionSum) {
+		if (childProjectionSum) {
 
-				// Calculate un-projected missing time in children.
-				var numProjected = childProjections.length;
-				var factorProjected = numProjected / this.get('tasks').length;
+			// Calculate un-projected missing time in children.
+			var numProjected = childProjections.length;
+			var factorProjected = numProjected / this.get('tasks').length;
 
-				// Add the extrapolated time from un-estimated siblings.
-				childProjectionSum.min /= factorProjected;
-				childProjectionSum.max /= factorProjected;
-			}
-
-
-			var estimate = this.getEstimate();
+			// Add the extrapolated time from un-estimated siblings.
+			childProjectionSum.min /= factorProjected;
+			childProjectionSum.max /= factorProjected;
+		}
 
 
-			var actual = this.get('actual');
+		var estimate = this.getEstimate();
 
 
-			// Use actual data, otherwise the largest numbers of whatever information is available.
-			var projection;
-			if (actual !== null) {
+		var actual = this.get('actual');
+
+
+		// Use actual data, otherwise the largest numbers of whatever information is available.
+		var projection;
+		if (actual !== null) {
+
+			projection = {
+				min: actual,
+				max: actual
+			};
+
+		} else {
+
+			if (childProjectionSum && estimate) {
 
 				projection = {
-					min: actual,
-					max: actual
+					min: Math.max(estimate.min, childSumMin),
+					max: Math.max(estimate.min, childSumMax)
 				};
+
+			} else if (estimate) {
+
+				projection = estimate;
 
 			} else {
 
-				if (childProjectionSum && estimate) {
-
-					projection = {
-						min: Math.max(estimate.min, childSumMin),
-						max: Math.max(estimate.min, childSumMax)
-					};
-
-				} else if (estimate) {
-
-					projection = estimate;
-
-				} else {
-
-					projection = childProjectionSum;
-				}
+				projection = childProjectionSum;
 			}
-			this.set('projection', projection);
-
-			// Set the projections for the undefined children.
-			this.calculateProjectionDown();
 		}
+		this.set('projection', projection);
+
+		// Set the projections for the undefined children.
+		this.calculateProjectionDown();
 	},
 
 	calculateProjectionDown: function () {
