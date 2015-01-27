@@ -51,6 +51,8 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.model.once('destroy', this.boundOnModelDestroy);
 
 		this.model.on('change', this.applyModel, this);
+		this.model.on('change:done', this.onChangeDone, this);
+		this.model.on('change:actual', this.onChangeActual, this);
 	},
 
 
@@ -97,6 +99,24 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 			actual: Duration.parse(this.$actual.val()),
 			done: this.$done.prop('checked')
 		});
+	},
+
+
+	onChangeDone: function () {
+
+		if (this.model.get('done')) {
+
+			this.$actual.focus();
+		}
+	},
+
+
+	onChangeActual: function () {
+
+		if (this.model.get('actual') != null) {
+
+			this.model.set('done', true);
+		}
 	},
 
 
