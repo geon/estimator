@@ -55,7 +55,7 @@ $(function () {
 			});
 
 			project.fetch({
-				url: '/api/projects/'+id,
+				url: apiBaseUrl+'/api/projects/'+id,
 				dataType: 'json'
 			});
 		}

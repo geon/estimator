@@ -81,7 +81,7 @@ var Task = Backbone.Model.extend({
 
 	url: function () {
 
-		return '/api/tasks/' + this.id;
+		return apiBaseUrl+'/api/tasks/'+this.id;
 	},
 
 

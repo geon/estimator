@@ -65,6 +65,10 @@ script.js-edit-task-dialog(type='template')
 		i.fa.fa-close.button.close.js-close
 
 
+- var apiBaseUrlQuoted = JSON.stringify(apiBaseUrl || '');
+script.
+	var apiBaseUrl = !{apiBaseUrlQuoted};
+
 script(src='js/vendor/jquery-2.1.3.min.js')
 script(src='js/vendor/jquery-ui-1.11.2.drag-drop.min.js')
 script(src='js/vendor/underscore-1.7.0.min.js')
