@@ -14,7 +14,7 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 		_.extend(this.events, {
 			// Update the other views in realtime.
-			'change input.js-title, textarea.js-description, .js-estimates input, input[name="color"]': 'collectData',
+			'change input.js-title, textarea.js-description, .js-estimates input, input[name="color"], input.js-done': 'collectData',
 			'keyup input.js-title, textarea.js-description': 'collectData',
 			'paste input.js-title, textarea.js-description': 'collectData',
 
@@ -34,6 +34,8 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.$from = this.$('input.js-from');
 		this.$to = this.$('input.js-to');
 		this.$actual = this.$('input.js-actual');
+
+		this.$done = this.$('input.js-done');
 
 		this.applyModel();
 
@@ -65,6 +67,8 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 			.val(Duration.format(this.model.get('to')));
 		this.$actual.val(Duration.format(this.model.get('actual')));
 
+		this.$done.prop('checked', this.model.get('done'));
+
 		// this.$task.attr('data-color', this.model.get('color'));
 	},
 
@@ -90,7 +94,8 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 			color: this.$colorInputs.filter(':checked').val(),
 			from: Duration.parse(this.$from.val()),
 			to: Duration.parse(this.$to.val()),
-			actual: Duration.parse(this.$actual.val())
+			actual: Duration.parse(this.$actual.val()),
+			done: this.$done.prop('checked')
 		});
 	},
 

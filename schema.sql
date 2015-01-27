@@ -12,5 +12,7 @@ CREATE TABLE tasks (
 
 	"from"        INT DEFAULT NULL,
 	"to"          INT DEFAULT NULL,
-	"actual"      INT DEFAULT NULL
+	"actual"      INT DEFAULT NULL,
+
+	"done"        BOOLEAN NOT NULL DEFAULT FALSE
 );

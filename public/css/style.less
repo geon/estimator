@@ -43,6 +43,10 @@
 
 	.contrasting-color(@color, fade(@dark, @amount), fade(@light, @amount));
 }
+.contrasting-color-mixed(@color, @amount: 75%, @dark: @text-color-dark, @light: @text-color-light) {
+
+	.contrasting-color(@color, mix(@dark, @color, @amount), mix(@light, @color, @amount));
+}
 
 
 
@@ -308,28 +312,42 @@ a {
 					// Colors
 					.task-color (@color) {
 
-						.contrasting-color(@color);
-						background: @color; // url(noise-5percent.png);
+						.set-colors (@color, @title-fade, @description-fade) {
 
-						// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
-						box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
+							.contrasting-color-faded(@color, @title-fade);
+							background: @color; // url(noise-5percent.png);
 
-						// Make the description text less prominent, except for links.
-						div.description {
+							// background-image: linear-gradient(to bottom, @color 0%, darken(@color, 2%) 100%);
+							box-shadow: 0px 2px 0px 0px darken(desaturate(@color, 30%), 10%);
 
-							.contrasting-color-faded(@color);
+							// Make the description text less prominent, except for links.
+							div.description {
 
-							a {
-								.contrasting-color(@color);
-								text-decoration: none;
+								.contrasting-color-faded(@color, @description-fade);
+
+								a {
+									.contrasting-color(@color);
+									text-decoration: none;
+								}
+							}
+
+							// Make the buttons visually stay on top of the title.
+							i.button {
+
+								background: @color;
+								box-shadow: 0px 0px 5px 5px @color;
 							}
 						}
 
-						// Make the buttons visually stay on top of the title.
-						i.button {
+						&:not(.done) {
 
-							background: @color;
-							box-shadow: 0px 0px 5px 5px @color;
+							.set-colors (@color, 100%, 75%);
+						}
+
+						&.done {
+
+							opacity: .5;
+							.set-colors (lighten(desaturate(@color, 10%), 25%), 40%, 30%);
 						}
 					}
 					// Use a default color, or they will fade in from transparent when they are created. :-/.
@@ -523,6 +541,16 @@ body {
 				margin-left: 20px;
 			}
 		}
+	}
+
+	.done {
+
+		font-size: 14px;
+
+		display: block;
+		text-align: center;
+
+		margin-top: 20px;
 	}
 
 	textarea {

@@ -182,6 +182,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		this.$title.text(this.model.get('title') || String.fromCharCode(160)); // 160: &nbsp;
 		this.$task.attr('data-color', this.model.get('color'));
+		this.$task.toggleClass('done', this.model.get('done'));
 		this.$el.toggleClass('leaf', !this.model.get('tasks').length);
 		this.$description
 			.html(escapeHtml(this.model.get('description')).replace(/\n/g, '<br>'))

@@ -20,7 +20,9 @@ module.exports = {
 
 			'from',
 			'to',
-			'actual'
+			'actual',
+
+			'done'
 		]
 	})
 };
