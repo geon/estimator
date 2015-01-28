@@ -53,6 +53,8 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.model.on('change', this.applyModel, this);
 		this.model.on('change:done', this.onChangeDone, this);
 		this.model.on('change:actual', this.onChangeActual, this);
+
+		this.once('close', this.save, this);
 	},
 
 
@@ -89,8 +91,7 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 	collectData: function (){
 
-		// Save data.
-		this.model.save({
+		this.model.set({
 			title: this.$title.val(),
 			description: this.$description.val(),
 			color: this.$colorInputs.filter(':checked').val(),
@@ -99,6 +100,15 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 			actual: Duration.parse(this.$actual.val()),
 			done: this.$done.prop('checked')
 		});
+	},
+
+
+	save: function (){
+
+		if (this.model) {
+
+			this.model.save();
+		}
 	},
 
 
@@ -115,7 +125,7 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 		if (this.model.get('actual') != null) {
 
-			this.model.set('done', true);
+			this.model.set({'done': true});
 		}
 	},
 
