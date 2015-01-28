@@ -14,25 +14,30 @@ var Tasks = Backbone.Collection.extend({
 				model.get('tasks').trigger('loadProject');
 			});
 
-			// Track relative order.
-			this.on('add',    this.updateOrdering, this);
-			this.on('remove', this.updateOrdering, this);
-
-
 			// Track parent.
-
+			// (Setting parent to null on remove is dangerous and pointless.)
 			this.on('add', function (model) {
 
 				// New place in the the project tree.
-				model.save({parentId: this.parent.id});
+				model.set({parentId: this.parent.id});
+
+				// The model will probably be saved in updateOrdering, so
+				// check if the order changed (was saved), otherwise save.
+				// Don't wanna save twice.
+				var oldOrdering = model.get('ordering');
+				setTimeout(function () {
+
+					if (oldOrdering == model.get('ordering')) {
+
+						model.save()
+					}
+				}, 0);
 
 			}.bind(this));
 
-			this.on('remove', function (model) {
-
-				// No longer part of the project tree.
-				model.save({parentId: null});
-			});
+			// Track relative order.
+			this.on('add',    this.updateOrdering, this);
+			this.on('remove', this.updateOrdering, this);
 
 		}.bind(this));
 	},
@@ -61,7 +66,10 @@ var Tasks = Backbone.Collection.extend({
 
 		this.models.forEach(function (model, index) {
 
-			model.save({ordering: index});
+			if (model.get('ordering') != index) {
+
+				model.save({ordering: index});
+			}
 		});
 	}
 });
@@ -108,42 +116,6 @@ var Task = Backbone.Model.extend({
 
 		// So the subtasks can find their parentId.
 		this.get('tasks').parent = this;
-
-		// Replace save with a locally debounced version for each instance.
-		// Like _.debounce, but uses the *last* arguments.
-		// Also, *set* the data immediately.
-		var timer = null;
-		var originalSave = this.save;
-		var THIS = this;
-		this.save = function () {
-
-			var outerArguments = arguments;
-
-			THIS.set.apply(THIS, outerArguments);
-
-			if (timer) {
-
-				clearTimeout(timer);
-				timer = null;
-			}
-
-			timer = setTimeout(function () {
-
-				timer = null;
-				originalSave.apply(THIS, outerArguments);
-
-			}, 3000);
-		};
-		// Prevent debounce from re-saving after delete.
-		this.on('destroy', function () {
-
-			// The collection listens to this event and removes as well,
-			// but the remove event triggers a save...
-			THIS.collection.remove(THIS);
-
-			clearTimeout(timer);
-			timer = null;
-		});
 
 		this.on('change:from change:to change:actual', function (model) {
 
