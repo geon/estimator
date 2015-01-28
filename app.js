@@ -22,9 +22,9 @@ app.use(autoprefixer({ browsers: 'last 2 versions', cascade: false }));
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('connect-jade-static')({
-  baseDir: path.join(__dirname, '/public'),
-  baseUrl: '/',
-  jade: { pretty: false }
+	baseDir: path.join(__dirname, '/public'),
+	baseUrl: '/',
+	jade: { pretty: false }
 }));
 
 
@@ -32,11 +32,11 @@ var apiRouter = express.Router();
 var apiRoutes = require('./routes/api.js');
 apiRouter.use(function(req, res, next) {
 
-    // CORS-headers.
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+	// CORS-headers.
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
 });
 apiRouter.put(   '/tasks/:id',    apiRoutes.tasks.update);
 apiRouter.delete('/tasks/:id',    apiRoutes.tasks.delete);
@@ -46,9 +46,9 @@ app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 
 // error handlers
@@ -56,23 +56,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
+	app.use(function(err, req, res, next) {
+		res.status(err.status || 500);
+		res.render('error', {
+			message: err.message,
+			error: err
+		});
+	});
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+	res.status(err.status || 500);
+	res.render('error', {
+		message: err.message,
+		error: {}
+	});
 });
 
 
