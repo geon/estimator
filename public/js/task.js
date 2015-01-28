@@ -39,6 +39,12 @@ var Tasks = Backbone.Collection.extend({
 			this.on('add',    this.updateOrdering, this);
 			this.on('remove', this.updateOrdering, this);
 
+			// Re-project.
+			this.on('add', function (model) {
+
+				model.projectRoot().calculateProjection();
+			});
+
 		}.bind(this));
 	},
 
@@ -121,6 +127,19 @@ var Task = Backbone.Model.extend({
 
 			// Recalculate all projections from the top.
 			model.projectRoot().calculateProjection();
+		});
+
+		this.on('destroy', function (model) {
+
+			var root = model.projectRoot();
+
+			// WARNING: Ugly.
+			// Wait until *after* the object got destroyed to recalculate.
+			setTimeout(function () {
+
+				root.calculateProjection();
+
+			}, 0);
 		});
 	},
 
