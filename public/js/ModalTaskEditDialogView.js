@@ -50,7 +50,6 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		}.bind(this);
 		this.model.once('destroy', this.boundOnModelDestroy);
 
-		this.model.on('change', this.applyModel, this);
 		this.model.on('change:done', this.onChangeDone, this);
 		this.model.on('change:actual', this.onChangeActual, this);
 
