@@ -49,11 +49,6 @@ $(function () {
 
 			var project = openProject();
 
-			project.once('sync', function () {
-
-				project.get('tasks').trigger('loadProject');
-			});
-
 			project.fetch({
 				url: apiBaseUrl+'/api/projects/'+id,
 				dataType: 'json'
