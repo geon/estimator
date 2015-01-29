@@ -52,6 +52,7 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 		this.model.on('change:done', this.onChangeDone, this);
 		this.model.on('change:actual', this.onChangeActual, this);
+		this.model.on('change:from change:to change:actual change:done', this.onChangeEstimateAndActualAndDone, this);
 
 		this.once('close', this.save, this);
 	},
@@ -63,14 +64,7 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.$description.val(this.model.get('description'));
 		this.$colorInputs.filter('[value="' + this.model.get('color') + '"]').prop('checked', true);
 
-		this.$from.val(Duration.format(this.model.get('from')));
-		var defaultEstimateMax = this.model.getDefaultEstimateMax();
-		this.$to
-			.attr('placeholder', defaultEstimateMax ? Duration.format(defaultEstimateMax) : 'Unknown')
-			.val(Duration.format(this.model.get('to')));
-		this.$actual.val(Duration.format(this.model.get('actual')));
-
-		this.$done.prop('checked', this.model.get('done'));
+		this.onChangeEstimateAndActualAndDone();
 
 		// this.$task.attr('data-color', this.model.get('color'));
 	},
@@ -126,6 +120,19 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 			this.model.set({'done': true});
 		}
+	},
+
+
+	onChangeEstimateAndActualAndDone: function () {
+
+		this.$from.val(Duration.format(this.model.get('from')));
+		var defaultEstimateMax = this.model.getDefaultEstimateMax();
+		this.$to
+			.attr('placeholder', defaultEstimateMax ? Duration.format(defaultEstimateMax) : 'Unknown')
+			.val(Duration.format(this.model.get('to')));
+		this.$actual.val(Duration.format(this.model.get('actual')));
+
+		this.$done.prop('checked', this.model.get('done'));
 	},
 
 
