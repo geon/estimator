@@ -30,6 +30,27 @@ app.use(require('connect-jade-static')({
 
 var apiRouter = express.Router();
 var apiRoutes = require('./routes/api.js');
+if (process.env.DEBUG_NET) {
+
+	// 500 - 1500 ms latency.
+	apiRouter.use(function(req, res, next) {
+
+		setTimeout(next, 5000 + Math.random() * 1000);
+	});
+
+	// // Random errors 50% of the time.
+	// apiRouter.use(function(req, res, next) {
+
+	// 	if (Math.random() > .5) {
+
+	// 		res.sendStatus(500);
+
+	// 	} else {
+
+	// 		next();
+	// 	}
+	// });
+}
 apiRouter.use(function(req, res, next) {
 
 	// CORS-headers.
