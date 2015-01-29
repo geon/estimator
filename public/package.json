@@ -1,0 +1,10 @@
+{
+  "name": "estimator",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-less": "^0.12.0",
+    "grunt-autoprefixer": "^2.0.0",
+    "grunt-contrib-jade": "^0.13.0"
+  }
+}
