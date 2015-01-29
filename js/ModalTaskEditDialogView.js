@@ -5,69 +5,72 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 	// Can't define events here. Add them in initialization.
 
 
+	$template: $($.parseHTML(
+		$('script.js-edit-task-dialog[type=template]').text()
+	)),
+	
+
 	initialize: function (options) {
 
-		// On first run, set the template.
-		// Can't be done outside this initializer, since
-		// it must be run after document.ready, but before the app starts. 
-		ModalTaskEditDialogView.prototype.$template = $($.parseHTML(
-			$('script.js-edit-task-dialog[type=template]').text()
-		));
+		_.extend(this.events, {
+			// Update the other views in realtime.
+			'change input.js-title, textarea.js-description, .js-estimates input, input[name="color"], input.js-done': 'collectData',
+			'keyup input.js-title, textarea.js-description': 'collectData',
+			'paste input.js-title, textarea.js-description': 'collectData',
 
-		// Replace the initializer with the normal code.
-		ModalTaskEditDialogView.prototype.initialize = function (options) {
+			'click button.js-delete': 'onClickDelete'
+		});
 
-			_.extend(this.events, {
-				// Update the other views in realtime.
-				'change': 'collectData',
-				'keyup':  'collectData',
-				'paste':  'collectData',
+		// TODO: Send $el as option to the superclass constructor instead.
+		this.$el = this.$template.clone();
+		this.el = this.$el.get(0);
 
-				'click button.js-delete': 'onClickDelete'
-			});
+		ModalDialogView.prototype.initialize.apply(this, arguments);
 
-			// TODO: Send $el as option to the superclass constructor instead.
-			this.$el = this.$template.clone();
-			this.el = this.$el.get(0);
+		this.$title = this.$('input.js-title');
+		this.$description = this.$('textarea.js-description');
+		this.$colorInputs = this.$('input[name="color"]');
 
-			ModalDialogView.prototype.initialize.apply(this, arguments);
+		this.$from = this.$('input.js-from');
+		this.$to = this.$('input.js-to');
+		this.$actual = this.$('input.js-actual');
 
-			this.$title = this.$('input.js-title');
-			this.$description = this.$('textarea.js-description');
-			this.$colorInputs = this.$('input[name="color"]');
+		this.$done = this.$('input.js-done');
 
-			this.$from = this.$('input.js-from');
-			this.$to = this.$('input.js-to');
-			this.$actual = this.$('input.js-actual');
+		this.applyModel();
 
-			this.applyModel();
-
-			$('#modal-overlay').append(this.$el);
+		$('#modal-overlay').append(this.$el);
 
 
-			this.boundOnModelDestroy = function() {
+		this.boundOnModelDestroy = function() {
 
-				this.model = null;
-				this.hide();
+			this.model = null;
+			this.hide();
 
-			}.bind(this);
-			this.model.once('destroy', this.boundOnModelDestroy);
-		};
+		}.bind(this);
+		this.model.once('destroy', this.boundOnModelDestroy);
 
-		// Run the initializer manually the first time.
-		ModalTaskEditDialogView.prototype.initialize.apply(this, arguments);
+		this.model.on('change:done', this.onChangeDone, this);
+		this.model.on('change:actual', this.onChangeActual, this);
+
+		this.once('close', this.save, this);
 	},
 
 
 	applyModel: function () {
 
-		this.$title.val(this.model.get('title') || String.fromCharCode(160)); // 160: &nbsp;
+		this.$title.val(this.model.get('title'));
 		this.$description.val(this.model.get('description'));
 		this.$colorInputs.filter('[value="' + this.model.get('color') + '"]').prop('checked', true);
 
-		this.$from.val(this.model.get('from'));
-		this.$to.val(this.model.get('to'));
-		this.$actual.val(this.model.get('actual'));
+		this.$from.val(Duration.format(this.model.get('from')));
+		var defaultEstimateMax = this.model.getDefaultEstimateMax();
+		this.$to
+			.attr('placeholder', defaultEstimateMax ? Duration.format(defaultEstimateMax) : 'Unknown')
+			.val(Duration.format(this.model.get('to')));
+		this.$actual.val(Duration.format(this.model.get('actual')));
+
+		this.$done.prop('checked', this.model.get('done'));
 
 		// this.$task.attr('data-color', this.model.get('color'));
 	},
@@ -76,8 +79,6 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 	hide: function () {
 
 		if (this.model) {
-
-			this.collectData();
 
 			// Clean up.
 			this.model.off(null, this.boundOnModelDestroy);
@@ -89,15 +90,42 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 	collectData: function (){
 
-		// Save data.
 		this.model.set({
 			title: this.$title.val(),
 			description: this.$description.val(),
 			color: this.$colorInputs.filter(':checked').val(),
-			from: this.$from.val(),
-			to: this.$to.val(),
-			actual: this.$actual.val()
+			from: Duration.parse(this.$from.val()),
+			to: Duration.parse(this.$to.val()),
+			actual: Duration.parse(this.$actual.val()),
+			done: this.$done.prop('checked')
 		});
+	},
+
+
+	save: function (){
+
+		if (this.model) {
+
+			this.model.save();
+		}
+	},
+
+
+	onChangeDone: function () {
+
+		if (this.model.get('done')) {
+
+			this.$actual.focus();
+		}
+	},
+
+
+	onChangeActual: function () {
+
+		if (this.model.get('actual') != null) {
+
+			this.model.set({'done': true});
+		}
 	},
 
 

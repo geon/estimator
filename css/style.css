@@ -1,15 +1,65 @@
-body {
+@import 'cssreset-min.css';
+* {
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif, FontAwesome;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  color: #000000;
   background: #88ccff;
 }
-.tree-view {
+h1,
+h2,
+h3,
+p,
+hr {
+  margin-top: 1.5em;
+}
+h1 {
+  font-size: 1.5em;
+}
+h2 {
+  font-size: 1.25em;
+}
+h3 {
+  font-size: 1em;
+  font-weight: bold;
+}
+h3 + p {
+  margin-top: 0;
+}
+p {
+  line-height: 1.5em;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.project input.title {
+  font-size: 2em;
+  background: transparent;
+  color: inherit;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  padding: 8px;
+}
+.project input.title:focus {
+  outline: none;
+  border-color: inherit;
+}
+.project .tree-view {
   margin: 50px;
 }
-.tree-view ul {
+.project .tree-view ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.tree-view ul li {
+.project .tree-view ul li {
   min-height: 30px;
   margin: 0;
   padding: 0;
@@ -22,10 +72,10 @@ body {
       -ms-flex-align: stretch;
           align-items: stretch;
 }
-.tree-view ul li.insert.after {
+.project .tree-view ul li.insert.after {
   margin-bottom: 10px;
 }
-.tree-view ul li > div.task {
+.project .tree-view ul li > div.task {
   display: inline-block;
   width: 200px;
   margin: 0 16px 16px 0;
@@ -34,25 +84,21 @@ body {
           transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
   position: relative;
 }
-.tree-view ul li > div.task h1,
-.tree-view ul li > div.task input {
-  font-size: 20px;
-  font-weight: normal;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+.project .tree-view ul li > div.task h1,
+.project .tree-view ul li > div.task input {
+  font-size: 1.25em;
   padding: 6px 4px;
   margin: 7px 5px;
 }
-.tree-view ul li > div.task h1 {
+.project .tree-view ul li > div.task h1 {
   border: 1px solid transparent;
 }
-.tree-view ul li > div.task div.description {
+.project .tree-view ul li > div.task div.description {
   font-size: 14px;
-  font-weight: normal;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 14px 10px;
   margin-top: 0;
 }
-.tree-view ul li > div.task input {
+.project .tree-view ul li > div.task input {
   display: none;
   width: calc(100% - 10px);
   background: transparent;
@@ -60,16 +106,32 @@ body {
   border-radius: 3px;
   border: 1px solid;
 }
-.tree-view ul li > div.task input:focus {
+.project .tree-view ul li > div.task input:focus {
   outline: none;
 }
-.tree-view ul li > div.task.editing-title h1 {
+.project .tree-view ul li > div.task.editing-title h1 {
   display: none;
 }
-.tree-view ul li > div.task.editing-title input {
+.project .tree-view ul li > div.task.editing-title input {
   display: block;
 }
-.tree-view ul li > div.task i.button {
+.project .tree-view ul li > div.task .estimates > * {
+  margin: -8px 10px 8px 10px;
+}
+.project .tree-view ul li > div.task .estimates ::before {
+  display: inline;
+  margin-right: 5px;
+}
+.project .tree-view ul li > div.task .estimates .estimate::before {
+  content: '';
+}
+.project .tree-view ul li > div.task .estimates .projection::before {
+  content: '';
+}
+.project .tree-view ul li > div.task .estimates .actual::before {
+  content: '';
+}
+.project .tree-view ul li > div.task i.button {
   position: absolute;
   bottom: 7px;
   font-size: 22px;
@@ -77,161 +139,318 @@ body {
   -webkit-transition: opacity 0.1s;
           transition: opacity 0.1s;
 }
-.tree-view ul li > div.task:hover i.button {
+.project .tree-view ul li > div.task:hover i.button {
   opacity: 1;
   -webkit-transition: opacity 0.2s;
           transition: opacity 0.2s;
 }
-.tree-view ul li > div.task.editing-title i.button {
+.project .tree-view ul li > div.task.editing-title i.button {
   display: none;
 }
-.tree-view ul li > div.task i.add-sub-task {
+.project .tree-view ul li > div.task i.add-sub-task {
   right: 10px;
 }
-.tree-view ul li > div.task i.task-details {
+.project .tree-view ul li > div.task i.task-details {
   right: 35px;
 }
-.tree-view ul li > div.task[data-color='white'] {
-  background: #ffffff;
+.project .tree-view ul li > div.task:not(.done) {
   color: #000000;
+  background: #ffffff;
   box-shadow: 0px 2px 0px 0px #e6e6e6;
 }
-.tree-view ul li > div.task[data-color='white'] div.description {
+.project .tree-view ul li > div.task:not(.done) div.description {
   color: rgba(0, 0, 0, 0.75);
 }
-.tree-view ul li > div.task[data-color='white'] div.description a {
+.project .tree-view ul li > div.task:not(.done) div.description a {
   color: #000000;
   text-decoration: none;
 }
-.tree-view ul li > div.task[data-color='white'] i.button {
+.project .tree-view ul li > div.task:not(.done) i.button {
   background: #ffffff;
   box-shadow: 0px 0px 5px 5px #ffffff;
 }
-.tree-view ul li > div.task[data-color='black'] {
-  background: #333333;
+.project .tree-view ul li > div.task.done {
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.4);
+  background: #ffffff;
+  box-shadow: 0px 2px 0px 0px #e6e6e6;
+}
+.project .tree-view ul li > div.task.done div.description {
+  color: rgba(0, 0, 0, 0.3);
+}
+.project .tree-view ul li > div.task.done div.description a {
+  color: #000000;
+  text-decoration: none;
+}
+.project .tree-view ul li > div.task.done i.button {
+  background: #ffffff;
+  box-shadow: 0px 0px 5px 5px #ffffff;
+}
+.project .tree-view ul li > div.task[data-color='black']:not(.done) {
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
+  background: #333333;
   box-shadow: 0px 2px 0px 0px #1a1a1a;
 }
-.tree-view ul li > div.task[data-color='black'] div.description {
+.project .tree-view ul li > div.task[data-color='black']:not(.done) div.description {
+  -webkit-font-smoothing: antialiased;
   color: rgba(255, 255, 255, 0.75);
 }
-.tree-view ul li > div.task[data-color='black'] div.description a {
+.project .tree-view ul li > div.task[data-color='black']:not(.done) div.description a {
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
   text-decoration: none;
 }
-.tree-view ul li > div.task[data-color='black'] i.button {
+.project .tree-view ul li > div.task[data-color='black']:not(.done) i.button {
   background: #333333;
   box-shadow: 0px 0px 5px 5px #333333;
 }
-.tree-view ul li > div.task[data-color='blue'] {
-  background: #3388ff;
-  color: #ffffff;
-  box-shadow: 0px 2px 0px 0px #2671d9;
+.project .tree-view ul li > div.task[data-color='black'].done {
+  opacity: .5;
+  -webkit-font-smoothing: antialiased;
+  color: rgba(255, 255, 255, 0.4);
+  background: #737373;
+  box-shadow: 0px 2px 0px 0px #595959;
 }
-.tree-view ul li > div.task[data-color='blue'] div.description {
-  color: rgba(255, 255, 255, 0.75);
+.project .tree-view ul li > div.task[data-color='black'].done div.description {
+  -webkit-font-smoothing: antialiased;
+  color: rgba(255, 255, 255, 0.3);
 }
-.tree-view ul li > div.task[data-color='blue'] div.description a {
+.project .tree-view ul li > div.task[data-color='black'].done div.description a {
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
   text-decoration: none;
 }
-.tree-view ul li > div.task[data-color='blue'] i.button {
+.project .tree-view ul li > div.task[data-color='black'].done i.button {
+  background: #737373;
+  box-shadow: 0px 0px 5px 5px #737373;
+}
+.project .tree-view ul li > div.task[data-color='blue']:not(.done) {
+  -webkit-font-smoothing: antialiased;
+  color: #ffffff;
+  background: #3388ff;
+  box-shadow: 0px 2px 0px 0px #2671d9;
+}
+.project .tree-view ul li > div.task[data-color='blue']:not(.done) div.description {
+  -webkit-font-smoothing: antialiased;
+  color: rgba(255, 255, 255, 0.75);
+}
+.project .tree-view ul li > div.task[data-color='blue']:not(.done) div.description a {
+  -webkit-font-smoothing: antialiased;
+  color: #ffffff;
+  text-decoration: none;
+}
+.project .tree-view ul li > div.task[data-color='blue']:not(.done) i.button {
   background: #3388ff;
   box-shadow: 0px 0px 5px 5px #3388ff;
 }
-.tree-view ul li > div.task[data-color='purple'] {
-  background: #aa2299;
+.project .tree-view ul li > div.task[data-color='blue'].done {
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.4);
+  background: #b6d3fb;
+  box-shadow: 0px 2px 0px 0px #99b9e5;
+}
+.project .tree-view ul li > div.task[data-color='blue'].done div.description {
+  color: rgba(0, 0, 0, 0.3);
+}
+.project .tree-view ul li > div.task[data-color='blue'].done div.description a {
+  color: #000000;
+  text-decoration: none;
+}
+.project .tree-view ul li > div.task[data-color='blue'].done i.button {
+  background: #b6d3fb;
+  box-shadow: 0px 0px 5px 5px #b6d3fb;
+}
+.project .tree-view ul li > div.task[data-color='purple']:not(.done) {
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
+  background: #aa2299;
   box-shadow: 0px 2px 0px 0px #693062;
 }
-.tree-view ul li > div.task[data-color='purple'] div.description {
+.project .tree-view ul li > div.task[data-color='purple']:not(.done) div.description {
+  -webkit-font-smoothing: antialiased;
   color: rgba(255, 255, 255, 0.75);
 }
-.tree-view ul li > div.task[data-color='purple'] div.description a {
+.project .tree-view ul li > div.task[data-color='purple']:not(.done) div.description a {
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
   text-decoration: none;
 }
-.tree-view ul li > div.task[data-color='purple'] i.button {
+.project .tree-view ul li > div.task[data-color='purple']:not(.done) i.button {
   background: #aa2299;
   box-shadow: 0px 0px 5px 5px #aa2299;
 }
-.tree-view ul li > div.task[data-color='red'] {
-  background: #ff4455;
-  color: #ffffff;
-  box-shadow: 0px 2px 0px 0px #db3544;
+.project .tree-view ul li > div.task[data-color='purple'].done {
+  opacity: .5;
+  -webkit-font-smoothing: antialiased;
+  color: rgba(255, 255, 255, 0.4);
+  background: #d873cc;
+  box-shadow: 0px 2px 0px 0px #ab6ea3;
 }
-.tree-view ul li > div.task[data-color='red'] div.description {
-  color: rgba(255, 255, 255, 0.75);
+.project .tree-view ul li > div.task[data-color='purple'].done div.description {
+  -webkit-font-smoothing: antialiased;
+  color: rgba(255, 255, 255, 0.3);
 }
-.tree-view ul li > div.task[data-color='red'] div.description a {
+.project .tree-view ul li > div.task[data-color='purple'].done div.description a {
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
   text-decoration: none;
 }
-.tree-view ul li > div.task[data-color='red'] i.button {
+.project .tree-view ul li > div.task[data-color='purple'].done i.button {
+  background: #d873cc;
+  box-shadow: 0px 0px 5px 5px #d873cc;
+}
+.project .tree-view ul li > div.task[data-color='red']:not(.done) {
+  -webkit-font-smoothing: antialiased;
+  color: #ffffff;
+  background: #ff4455;
+  box-shadow: 0px 2px 0px 0px #db3544;
+}
+.project .tree-view ul li > div.task[data-color='red']:not(.done) div.description {
+  -webkit-font-smoothing: antialiased;
+  color: rgba(255, 255, 255, 0.75);
+}
+.project .tree-view ul li > div.task[data-color='red']:not(.done) div.description a {
+  -webkit-font-smoothing: antialiased;
+  color: #ffffff;
+  text-decoration: none;
+}
+.project .tree-view ul li > div.task[data-color='red']:not(.done) i.button {
   background: #ff4455;
   box-shadow: 0px 0px 5px 5px #ff4455;
 }
-.tree-view ul li > div.task[data-color='orange'] {
-  background: #ff8822;
+.project .tree-view ul li > div.task[data-color='red'].done {
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.4);
+  background: #fcc6cb;
+  box-shadow: 0px 2px 0px 0px #e9a7ad;
+}
+.project .tree-view ul li > div.task[data-color='red'].done div.description {
+  color: rgba(0, 0, 0, 0.3);
+}
+.project .tree-view ul li > div.task[data-color='red'].done div.description a {
+  color: #000000;
+  text-decoration: none;
+}
+.project .tree-view ul li > div.task[data-color='red'].done i.button {
+  background: #fcc6cb;
+  box-shadow: 0px 0px 5px 5px #fcc6cb;
+}
+.project .tree-view ul li > div.task[data-color='orange']:not(.done) {
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
+  background: #ff8822;
   box-shadow: 0px 2px 0px 0px #ca7124;
 }
-.tree-view ul li > div.task[data-color='orange'] div.description {
+.project .tree-view ul li > div.task[data-color='orange']:not(.done) div.description {
+  -webkit-font-smoothing: antialiased;
   color: rgba(255, 255, 255, 0.75);
 }
-.tree-view ul li > div.task[data-color='orange'] div.description a {
+.project .tree-view ul li > div.task[data-color='orange']:not(.done) div.description a {
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
   text-decoration: none;
 }
-.tree-view ul li > div.task[data-color='orange'] i.button {
+.project .tree-view ul li > div.task[data-color='orange']:not(.done) i.button {
   background: #ff8822;
   box-shadow: 0px 0px 5px 5px #ff8822;
 }
-.tree-view ul li > div.task[data-color='yellow'] {
-  background: #ffff55;
-  color: #000000;
-  box-shadow: 0px 2px 0px 0px #dede43;
+.project .tree-view ul li > div.task[data-color='orange'].done {
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.4);
+  background: #facda6;
+  box-shadow: 0px 2px 0px 0px #e2b38b;
 }
-.tree-view ul li > div.task[data-color='yellow'] div.description {
-  color: rgba(0, 0, 0, 0.75);
+.project .tree-view ul li > div.task[data-color='orange'].done div.description {
+  color: rgba(0, 0, 0, 0.3);
 }
-.tree-view ul li > div.task[data-color='yellow'] div.description a {
+.project .tree-view ul li > div.task[data-color='orange'].done div.description a {
   color: #000000;
   text-decoration: none;
 }
-.tree-view ul li > div.task[data-color='yellow'] i.button {
+.project .tree-view ul li > div.task[data-color='orange'].done i.button {
+  background: #facda6;
+  box-shadow: 0px 0px 5px 5px #facda6;
+}
+.project .tree-view ul li > div.task[data-color='yellow']:not(.done) {
+  color: #000000;
+  background: #ffff55;
+  box-shadow: 0px 2px 0px 0px #dede43;
+}
+.project .tree-view ul li > div.task[data-color='yellow']:not(.done) div.description {
+  color: rgba(0, 0, 0, 0.75);
+}
+.project .tree-view ul li > div.task[data-color='yellow']:not(.done) div.description a {
+  color: #000000;
+  text-decoration: none;
+}
+.project .tree-view ul li > div.task[data-color='yellow']:not(.done) i.button {
   background: #ffff55;
   box-shadow: 0px 0px 5px 5px #ffff55;
 }
-.tree-view ul li > div.task[data-color='green'] {
-  background: #66ff22;
-  color: #000000;
-  box-shadow: 0px 2px 0px 0px #57ca24;
+.project .tree-view ul li > div.task[data-color='yellow'].done {
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.4);
+  background: #fdfdd7;
+  box-shadow: 0px 2px 0px 0px #ececb4;
 }
-.tree-view ul li > div.task[data-color='green'] div.description {
-  color: rgba(0, 0, 0, 0.75);
+.project .tree-view ul li > div.task[data-color='yellow'].done div.description {
+  color: rgba(0, 0, 0, 0.3);
 }
-.tree-view ul li > div.task[data-color='green'] div.description a {
+.project .tree-view ul li > div.task[data-color='yellow'].done div.description a {
   color: #000000;
   text-decoration: none;
 }
-.tree-view ul li > div.task[data-color='green'] i.button {
+.project .tree-view ul li > div.task[data-color='yellow'].done i.button {
+  background: #fdfdd7;
+  box-shadow: 0px 0px 5px 5px #fdfdd7;
+}
+.project .tree-view ul li > div.task[data-color='green']:not(.done) {
+  color: #000000;
+  background: #66ff22;
+  box-shadow: 0px 2px 0px 0px #57ca24;
+}
+.project .tree-view ul li > div.task[data-color='green']:not(.done) div.description {
+  color: rgba(0, 0, 0, 0.75);
+}
+.project .tree-view ul li > div.task[data-color='green']:not(.done) div.description a {
+  color: #000000;
+  text-decoration: none;
+}
+.project .tree-view ul li > div.task[data-color='green']:not(.done) i.button {
   background: #66ff22;
   box-shadow: 0px 0px 5px 5px #66ff22;
 }
-.tree-view ul li > div.task > .drop-target {
+.project .tree-view ul li > div.task[data-color='green'].done {
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.4);
+  background: #c0faa6;
+  box-shadow: 0px 2px 0px 0px #a6e28b;
+}
+.project .tree-view ul li > div.task[data-color='green'].done div.description {
+  color: rgba(0, 0, 0, 0.3);
+}
+.project .tree-view ul li > div.task[data-color='green'].done div.description a {
+  color: #000000;
+  text-decoration: none;
+}
+.project .tree-view ul li > div.task[data-color='green'].done i.button {
+  background: #c0faa6;
+  box-shadow: 0px 0px 5px 5px #c0faa6;
+}
+.project .tree-view ul li > div.task > .drop-target {
   position: absolute;
   width: 200px;
 }
-.tree-view ul li > div.task > .drop-target.before {
+.project .tree-view ul li > div.task > .drop-target.before {
   top: -8px;
   bottom: 50%;
 }
-.tree-view ul li > div.task > .drop-target.after {
+.project .tree-view ul li > div.task > .drop-target.after {
   top: 50%;
   bottom: -8px;
 }
-.tree-view ul li > div.task > .drop-target.child {
+.project .tree-view ul li > div.task > .drop-target.child {
   display: none;
   width: 216px;
   right: -216px;
@@ -239,14 +458,27 @@ body {
   bottom: -8px;
   pointer-events: none;
 }
-.tree-view ul li.leaf > .task > .drop-target.child {
+.project .tree-view ul li.leaf > .task > .drop-target.child {
   display: block;
 }
-.tree-view .drop-target {
+.project .tree-view .drop-target {
   display: none;
 }
-.tree-view.dragging .drop-target {
+.project .tree-view.dragging .drop-target {
   display: block;
+}
+.project .tree-view button.add-sub-task {
+  opacity: .75;
+  display: block;
+  height: 52px;
+  width: 200px;
+  font-size: 1.25em;
+  text-shadow: 0 -1px 0 #55b6ff;
+  -webkit-font-smoothing: antialiased;
+  color: #ffffff;
+  background: transparent;
+  border-radius: 5px;
+  border: 2px dotted;
 }
 body #modal-overlay {
   display: none;
@@ -287,7 +519,7 @@ body.modal-overlay #modal-overlay {
   position: relative;
 }
 .dialog.edit-task input.title {
-  font-size: 20px;
+  font-size: 1.25em;
   width: 100%;
 }
 .dialog.edit-task .estimates {
@@ -310,15 +542,20 @@ body.modal-overlay #modal-overlay {
   width: 280px;
   text-align: right;
   font-size: 14px;
-  font-weight: normal;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .dialog.edit-task .estimates label input {
   width: 130px;
   margin-left: 20px;
 }
+.dialog.edit-task .done {
+  font-size: 14px;
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
 .dialog.edit-task textarea {
   margin: 20px 0;
+  padding: 10px;
   font-size: 14px;
   width: 100%;
   height: 100px;
@@ -330,8 +567,6 @@ body.modal-overlay #modal-overlay {
 .dialog.edit-task input.title,
 .dialog.edit-task .estimates input,
 .dialog.edit-task textarea {
-  font-weight: normal;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: transparent;
   color: inherit;
   border-radius: 3px;
@@ -559,10 +794,10 @@ body.modal-overlay #modal-overlay {
 .dialog.edit-task button.delete {
   margin: 0 auto;
   display: block;
-  font-size: 20px;
-  font-weight: normal;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1.25em;
+  font-weight: bold;
   text-shadow: 0 -1px 0 #dd2000;
+  -webkit-font-smoothing: antialiased;
   color: #ffffff;
   background: #ff3311 -webkit-linear-gradient(bottom, #f12200, #ff3311, #ff4d30);
   background: #ff3311 linear-gradient(to top, #f12200, #ff3311, #ff4d30);

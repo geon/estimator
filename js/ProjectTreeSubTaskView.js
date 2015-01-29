@@ -7,6 +7,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		'click h1': 'onTitleClick',
 		'blur input': 'onInputBlur',
 		'keyup input': 'onInputKeyUp',
+		'paste input': 'collectData',
 
 		'click .js-add-sub-task': 'addSubtask',
 		'click .js-task-details': 'taskDetails'
@@ -20,6 +21,9 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 		this.$title       = this.$task.find('h1');
 		this.$input       = this.$task.find('input');
 		this.$description = this.$task.find('.js-description');
+		this.$estimate    = this.$task.find('.js-estimate');
+		this.$projection  = this.$task.find('.js-projection');
+		this.$actual      = this.$task.find('.js-actual');
 
 		this.treeEventReciever = options.treeEventReciever;
 
@@ -63,7 +67,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		event.stopPropagation();
 
-		this.model.set({title: this.$input.val()});
+		this.collectData();
 		this.$task.toggleClass('editing-title', false);
 	},
 
@@ -81,9 +85,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		event.stopPropagation();
 
-		var model = new Task();
-		this.model.get('tasks').add(model);
-		model.trigger('focus');
+		this.model.get('tasks').create();
 	},
 
 
@@ -180,9 +182,51 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		this.$title.text(this.model.get('title') || String.fromCharCode(160)); // 160: &nbsp;
 		this.$task.attr('data-color', this.model.get('color'));
+		this.$task.toggleClass('done', !!this.model.get('done'));
 		this.$el.toggleClass('leaf', !this.model.get('tasks').length);
 		this.$description
-			.html(this.model.get('description'))
+			.html(escapeHtml(this.model.get('description')).replace(/\n/g, '<br>'))
 			.toggle(!!this.model.get('description'));
+
+		var estimate = this.model.getEstimate();
+		var projection = this.model.get('projection');
+		var projectionEqualsEstimate = (projection && estimate && projection.min == estimate.min && projection.max == estimate.max);
+
+		this.$estimate
+			.text(estimate ? (
+				Duration.formatRounded(estimate.min) +
+				' - ' + Duration.formatRounded(estimate.max)
+			) : 'No estimate')
+			.toggle(!this.model.get('actual') && !!estimate && projectionEqualsEstimate)
+		;
+
+		this.$projection
+			.text(projection ? (
+				Duration.formatRounded(projection.min) +
+				' - ' + Duration.formatRounded(projection.max)
+			) : 'No projection')
+			.toggle(!this.model.get('actual') && !!projection && !projectionEqualsEstimate)
+		;
+
+		this.$actual
+			.text(Duration.formatRounded(this.model.get('actual')) || 'No actual')
+			.toggle(!!this.model.get('actual'))
+		;
+	},
+
+
+	collectData: function (){
+
+		// Save data.
+		this.model.save({
+			title: this.$input.val()
+		});
 	}
 });
+
+
+function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+};
