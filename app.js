@@ -35,7 +35,7 @@ if (process.env.DEBUG_NET) {
 	// 500 - 1500 ms latency.
 	apiRouter.use(function(req, res, next) {
 
-		setTimeout(next, 5000 + Math.random() * 1000);
+		setTimeout(next, 500 + Math.random() * 1000);
 	});
 
 	// // Random errors 50% of the time.
