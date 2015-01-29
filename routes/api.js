@@ -17,13 +17,13 @@ module.exports = {
 
 					if (updated.length) {
 
- 						res.json(updated[0]);
+						res.sendStatus(200);
 						return;
 					}
 
 					return client.insert(tasks, req.body).then(function (created) {
 
-						res.status(201).json(created);
+						res.status(201);
 					});
 				});
 
