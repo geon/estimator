@@ -71,7 +71,7 @@ Duration.parse = function (text) {
 	
 	var timePattern = /((\d+)([.,:]))?(\d+)(\s*(years?|y|months?|mn|weeks?|w|days?|d|h|min|m))?\s*,?\s*/g;
 	var matches;
-	while ((matches = timePattern.exec(text)) !== null) {
+	while ((matches = timePattern.exec(text)) != null) {
 
 		var value;
 		if (matches[2]) {
@@ -118,7 +118,7 @@ Duration.format = function (seconds) {
 
 Duration.formatRounded = function (seconds) {
 
-	if (seconds === null) {
+	if (seconds == null) {
 
 		return Duration.formatParts(seconds);
 	}
@@ -184,7 +184,7 @@ Duration.formatParts = function (parts) {
 
 Duration.splitToParts = function (seconds) {
 
-	if (seconds === null) {
+	if (seconds == null) {
 
 		return null;
 	}

@@ -258,7 +258,7 @@ var Task = Backbone.Model.extend({
 
 		// Use actual data, otherwise the largest numbers of whatever information is available.
 		var projection;
-		if (actual !== null) {
+		if (actual != null) {
 
 			projection = {
 				min: actual,
