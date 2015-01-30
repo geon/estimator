@@ -5,47 +5,48 @@ var Tasks = Backbone.Collection.extend({
 
 	initialize: function () {
 
-		// After the first fetch...
-		this.once('loadProject', function () {
+		// Track parent.
+		// (Setting parent to null on remove is dangerous and pointless.)
+		this.on('add', function (model) {
 
-			// Recurse.
-			this.each(function (model) {
-
-				model.get('tasks').trigger('loadProject');
-			});
-
-			// Track parent.
-			// (Setting parent to null on remove is dangerous and pointless.)
-			this.on('add', function (model) {
+			var changed = false;
+			if (model.get('parentId') != this.parent.id) {
 
 				// New place in the the project tree.
 				model.set({parentId: this.parent.id});
+				changed = true;
+			}
 
-				// The model will probably be saved in updateOrdering, so
-				// check if the order changed (was saved), otherwise save.
-				// Don't wanna save twice.
-				var oldOrdering = model.get('ordering');
-				setTimeout(function () {
+			// The model will probably be saved in updateOrdering, so
+			// check if the order changed (was saved), otherwise save.
+			// Don't wanna save twice.
+			var oldOrdering = model.get('ordering');
+			setTimeout(function () {
 
-					if (oldOrdering == model.get('ordering')) {
+				var saved = true;
 
-						model.save()
-					}
-				}, 0);
+				if (oldOrdering == model.get('ordering')) {
 
-			}.bind(this));
+					saved = false;
+				}
 
-			// Track relative order.
-			this.on('add',    this.updateOrdering, this);
-			this.on('remove', this.updateOrdering, this);
+				if (changed && !saved) {
 
-			// Re-project.
-			this.on('add', function (model) {
-
-				model.projectRoot().calculateProjection();
-			});
+					model.save()
+				}
+			}, 0);
 
 		}.bind(this));
+
+		// Track relative order.
+		this.on('add',    this.updateOrdering, this);
+		this.on('remove', this.updateOrdering, this);
+
+		// Re-project.
+		this.on('add', function (model) {
+
+			model.projectRoot().calculateProjection();
+		});
 	},
 
 
@@ -96,6 +97,28 @@ var Task = Backbone.Model.extend({
 	url: function () {
 
 		return apiBaseUrl+'/api/tasks/'+this.id;
+	},
+
+	parse: function(resp, options) {
+
+		// Initialize the models with the attributes implied by the tree structure.
+		function setImpliedAttributesOnChildren (task) {
+
+			if (task.tasks) {
+
+				task.tasks.forEach(function (child, index) {
+
+					child.ordering = index;
+					child.parentId = task.id;
+
+					setImpliedAttributesOnChildren(child);
+				});
+			}
+		}
+		resp.ordering = 0;
+		setImpliedAttributesOnChildren(resp);
+
+		return Backbone.Model.prototype.parse.apply(this, arguments);
 	},
 
 
@@ -173,14 +196,14 @@ var Task = Backbone.Model.extend({
 	},
 
 
-	createProject: function () {
+	createProject: function (id) {
 
 		if (!this.isNew()) {
 
 			throw new Error('You need an unused Taks to create a project.');
 		}
 
-		var projectId = makeGuid();
+		var projectId = id || makeGuid();
 
 		this.set({
 			id: projectId,
@@ -258,7 +281,7 @@ var Task = Backbone.Model.extend({
 
 		// Use actual data, otherwise the largest numbers of whatever information is available.
 		var projection;
-		if (actual !== null) {
+		if (actual != null) {
 
 			projection = {
 				min: actual,

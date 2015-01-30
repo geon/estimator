@@ -5,15 +5,26 @@ $(function () {
 	var $projectTemplate = $($.parseHTML(
 		$('script.js-project[type=template]').text()
 	));
+	var $landingTemplate = $($.parseHTML(
+		$('script.js-landing[type=template]').text()
+	));
 
 
 	var currentProject = null;
-	function openProject () {
+	function closeCurrentProject () {
 
 		if (currentProject) {
 
 			currentProject.trigger('close');
 		}
+	}
+
+
+	function openProject () {
+
+		$('#page').children().remove();
+
+		closeCurrentProject();
 
 		currentProject = new Task();
 
@@ -29,12 +40,21 @@ $(function () {
 	var router = new (Backbone.Router.extend({
 
 		routes: {
-			"": "start",
+			"": "landingPage",
+			"createProject": "createProject",
 			"projects/:id": "project"
 		},
 
 
-		start: function() {
+		landingPage: function () {
+
+			closeCurrentProject();
+
+			$landingTemplate.clone().appendTo($('#page'));
+		},
+
+
+		createProject: function() {
 
 			var project = openProject();
 
@@ -49,18 +69,19 @@ $(function () {
 
 			var project = openProject();
 
-			project.once('sync', function () {
-
-				project.get('tasks').trigger('loadProject');
-			});
-
 			project.fetch({
 				url: apiBaseUrl+'/api/projects/'+id,
 				dataType: 'json'
+			}).then(null, function (error) {
+
+				// Does not exist yet, so create it.
+				if (error.status == 404) {
+
+					project.createProject(id);
+				}
 			});
 		}
 
 	}))();
-
 	Backbone.history.start();
 });
