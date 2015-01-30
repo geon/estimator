@@ -196,14 +196,14 @@ var Task = Backbone.Model.extend({
 	},
 
 
-	createProject: function () {
+	createProject: function (id) {
 
 		if (!this.isNew()) {
 
 			throw new Error('You need an unused Taks to create a project.');
 		}
 
-		var projectId = makeGuid();
+		var projectId = id || makeGuid();
 
 		this.set({
 			id: projectId,

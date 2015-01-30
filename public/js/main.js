@@ -23,7 +23,7 @@ $(function () {
 	function openProject () {
 
 		$('#page').children().remove();
-		
+
 		closeCurrentProject();
 
 		currentProject = new Task();
@@ -72,6 +72,13 @@ $(function () {
 			project.fetch({
 				url: apiBaseUrl+'/api/projects/'+id,
 				dataType: 'json'
+			}).then(null, function (error) {
+
+				// Does not exist yet, so create it.
+				if (error.status == 404) {
+
+					project.createProject(id);
+				}
 			});
 		}
 

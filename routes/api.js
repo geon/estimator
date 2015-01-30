@@ -65,6 +65,12 @@ module.exports = {
 					.order(tasks.parentId, tasks.ordering)
 				).then(function (tasks) {
 
+					if (!tasks.length) {
+
+						res.sendStatus(404);
+						return;
+					}
+
 					// Build lookup table.
 					var tasksById = {};
 					tasks.forEach(function (task) {
