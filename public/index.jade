@@ -7,6 +7,29 @@ body
 	#modal-overlay
 
 
+script.js-landing(type='template')
+	.landing
+		h1.logo ≈
+		p.tagline Super easy project planning and estimation
+		a.button.create(href='#createProject') Create project
+		.columns
+			div
+				img(width='160', src='landing-page-illustrations/tree.svg')
+				h2 Break it down
+				p
+					| Add tasks to your project and break them down into subtasks. The tree layout highlights the structure of your project.
+			div
+				img(width='160', src='landing-page-illustrations/drag.svg')
+				h2 Drag & drop
+				p
+					| Reorganize your project easily and intuitively. Does some subtask deserve more focus? Is some task prioritized? Just drag it over.
+			div
+				img(width='160', src='landing-page-illustrations/bell.svg')
+				h2 Estimate
+				p
+					| Get detailed estimates for your project, even with incomplete data. Just enter whatever estimates and actual values you have.
+
+
 script.js-project(type='template')
 	.project
 		input.title.js-title(placeholder='Project title')
