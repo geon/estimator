@@ -38,15 +38,16 @@ a {
 a:hover {
   text-decoration: underline;
 }
-.landing {
-  -webkit-font-smoothing: antialiased;
-  color: #ffffff;
+body[data-current-page='landing'] {
   background: #001f23 url(landing-page-background.jpg);
   background-repeat: no-repeat;
   background-position: center top;
 }
-.landing::before,
-.landing::after {
+.landing {
+  -webkit-font-smoothing: antialiased;
+  color: #ffffff;
+}
+.landing::before {
   content: ' ';
   display: block;
   overflow: hidden;
@@ -136,22 +137,16 @@ a:hover {
   margin: 0;
   margin-right: 50px;
 }
-.project {
-  padding: 50px;
-  -webkit-font-smoothing: antialiased;
-  color: #ffffff;
+body[data-current-page='project'] {
   background-size: 50px 50px;
   background-color: #8097ad;
   background-image: -webkit-linear-gradient(135deg, #778fa7 25%, transparent 25%, transparent 50%, #778fa7 50%, #778fa7 75%, transparent 75%);
   background-image: linear-gradient(-45deg, #778fa7 25%, transparent 25%, transparent 50%, #778fa7 50%, #778fa7 75%, transparent 75%);
 }
-.project::before,
-.project::after {
-  content: ' ';
-  display: block;
-  overflow: hidden;
-  width: 0;
-  height: 0;
+.project {
+  padding: 50px;
+  -webkit-font-smoothing: antialiased;
+  color: #ffffff;
 }
 .project input.title {
   font-size: 2em;
@@ -166,10 +161,13 @@ a:hover {
   outline: none;
   border-color: inherit;
 }
-.project p.estimate {
+.project > p.estimate {
   margin-top: 0;
   margin-bottom: 2em;
   color: #ffffff;
+}
+.project .tree-view {
+  margin-top: 2em;
 }
 .project .tree-view ul {
   margin: 0;
@@ -585,7 +583,6 @@ a:hover {
   display: block;
 }
 .project .tree-view button.add-sub-task {
-  opacity: .75;
   display: block;
   height: 52px;
   width: 200px;
