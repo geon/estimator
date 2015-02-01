@@ -12,7 +12,7 @@ var ProjectView = Backbone.View.extend({
 	initialize: function (options) {
 
 		this.$title = this.$el.find('input.js-title');
-		this.$projection = this.$el.find('p.estimate');
+		this.$projection = this.$el.find('p.js-estimate');
 
 		this.treeEventReciever = _.extend({}, Backbone.Events);
 
