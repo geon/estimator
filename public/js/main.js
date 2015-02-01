@@ -32,6 +32,7 @@ $(function () {
 			el: $projectTemplate.clone().appendTo($('#page')),
 			model: currentProject
 		});
+		$('body').attr('data-current-page', 'project');
 
 		return currentProject;
 	}
@@ -51,6 +52,7 @@ $(function () {
 			closeCurrentProject();
 
 			$landingTemplate.clone().appendTo($('#page'));
+			$('body').attr('data-current-page', 'landing');
 		},
 
 

@@ -116,18 +116,19 @@ a {
 
 
 
+body[data-current-page='landing'] {
 
+	background: @landing-page-background-color url(landing-page-background.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;	
+}
 
 .landing {
 
 	.contrasting-color(@landing-page-background-color);
-	background: @landing-page-background-color url(landing-page-background.jpg);
-	background-repeat: no-repeat;
-	background-position: center top;
 
 	// Prevents the margins from collapsing;
-	&::before,
-	&::after {
+	&::before{
 
 		content: ' '; // &nbsp;
 		display: block;
@@ -265,12 +266,8 @@ a {
 
 
 
+body[data-current-page='project'] {
 
-.project {
-
-	padding: 50px;
-
-	.contrasting-color(@project-background-color);
 	background-size: 50px 50px;
 	background-color: @project-background-color;
 	@stripe-color: desaturate(darken(@project-background-color, 3%), 0%);
@@ -282,18 +279,13 @@ a {
 		@stripe-color 75%,
 		transparent 75%
 	);
+}
 
+.project {
 
-	&::before,
-	&::after {
+	padding: 50px;
 
-		content: ' '; // &nbsp;
-		display: block;
-		overflow: hidden;
-		width: 0;
-		height: 0;
-	}
-
+	.contrasting-color(@project-background-color);
 
 	input.title {
 
