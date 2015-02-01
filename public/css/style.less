@@ -1,5 +1,6 @@
 
-@body-background-color: #8cf;
+@landing-page-background-color: #001f23;
+@project-background-color: #8097AD;
 
 @text-color-dark: #000;
 @text-color-light: #fff;
@@ -66,8 +67,7 @@ html {
 	font-size: @font-size;
 	letter-spacing: 0.03em; // The font is just a *tiiiny* bit too cramped.
 
-	.contrasting-color(@body-background-color);
-	background: @body-background-color; // url('noise-3percent.png');
+	background: @landing-page-background-color;
 }
 
 h1, h2, h3, p, hr {
@@ -120,8 +120,8 @@ a {
 
 .landing {
 
-	.contrasting-color(#001f23);
-	background: #001f23 url(landing-page-background.jpg);
+	.contrasting-color(@landing-page-background-color);
+	background: @landing-page-background-color url(landing-page-background.jpg);
 	background-repeat: no-repeat;
 	background-position: center top;
 
@@ -268,17 +268,45 @@ a {
 
 .project {
 
+	padding: 50px;
+
+	.contrasting-color(@project-background-color);
+	background-size: 50px 50px;
+	background-color: @project-background-color;
+	@stripe-color: desaturate(darken(@project-background-color, 3%), 0%);
+	background-image: linear-gradient(-45deg,
+		@stripe-color 25%,
+		transparent 25%,
+		transparent 50%,
+		@stripe-color 50%,
+		@stripe-color 75%,
+		transparent 75%
+	);
+
+
+	&::before,
+	&::after {
+
+		content: ' '; // &nbsp;
+		display: block;
+		overflow: hidden;
+		width: 0;
+		height: 0;
+	}
+
+
 	input.title {
 
 		font-size: 2em;
 
 		background: transparent;
-		color: inherit;
+		color: @text-color-light;
 
 		border-radius: 3px;
 		border: 1px solid transparent;
 
 		padding: 8px;
+		margin-left: -11px;
 
 		&:focus {
 
@@ -289,13 +317,19 @@ a {
 		}
 	}
 
+	p.estimate {
+
+		margin-top: 0;
+		margin-bottom: 2em;
+
+		color: @text-color-light;
+	}
+
 	.tree-view {
 
 		@task-width: 200px;
 		@task-margin: 16px;
 		@task-radius: 5px;
-
-		margin: 50px;
 
 		ul {
 
@@ -579,18 +613,20 @@ a {
 
 			@letterpress-amount: 10%;
 
-			& when (luma(@body-background-color) > 50%) {
+			& when (luma(@project-background-color) > 50%) {
 
-				text-shadow: 0 -1px 0 darken(@body-background-color, @letterpress-amount);
+				text-shadow: 0 -1px 0 darken(@project-background-color, @letterpress-amount);
 			}
-			& when (luma(@body-background-color) <= 50%) {
+			& when (luma(@project-background-color) <= 50%) {
 
-				text-shadow: 0 1px 0 lighten(@body-background-color, @letterpress-amount);
+				text-shadow: 0 1px 0 lighten(@project-background-color, @letterpress-amount);
 			}
-			.contrasting-color(#fff - @body-background-color);
+
+			color: @text-color-light;
+			// -webkit-font-smoothing: antialiased;
 			background: transparent;
 			border-radius: @task-radius;
-			border: 2px dotted;
+			border: 3px dotted;
 		}
 	}
 }
