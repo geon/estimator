@@ -112,6 +112,10 @@ a {
 	}
 }
 
+button {
+
+	cursor: pointer;
+}
 
 
 
@@ -346,7 +350,9 @@ body[data-current-page='project'] {
 					margin-bottom: 10px;
 				}
 
-				>div.task {
+				> div.task {
+
+					cursor: move;
 
 					display: inline-block;
 
@@ -362,6 +368,8 @@ body[data-current-page='project'] {
 					@title-margin-v: 10px;
 
 					h1, input {
+
+						cursor: text;
 
 						font-size: 1.25em;
 
@@ -822,6 +830,8 @@ body {
 			.task-color (@color) {
 
 				span {
+
+					cursor: pointer;
 
 					content: '';
 					display: block;
