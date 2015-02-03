@@ -45,12 +45,14 @@ script.js-task(type='template')
 			h1
 			input(placeholder='Task title')
 			.description.js-description
-			.estimates
-				p.estimate.js-estimate(title='Estimate')
-				p.projection.js-projection(title='Projection')
-				p.actual.js-actual(title='Actual')
-			i.fa.fa-plus-square.button.add-sub-task.js-add-sub-task
-			i.fa.fa-pencil-square.button.task-details.js-task-details
+
+			.bottom-row
+				button.add-sub-task.js-add-sub-task
+				button.task-details.js-task-details
+				.durations
+					p.estimate.js-estimate(title='Estimate')
+					p.projection.js-projection(title='Projection')
+					p.actual.js-actual(title='Actual')
 			.drop-target.before(rel='before')
 			.drop-target.after(rel='after')
 			.drop-target.child(rel='child')

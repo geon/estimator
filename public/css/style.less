@@ -410,66 +410,92 @@ body[data-current-page='project'] {
 						display: block;
 					}
 
-					// Estimates
-					.estimates {
+					// Estimates + buttons
+					@bottom-row-height: 30px;
+					@bottom-row-bottom-margin: 8px - 2px; // 2px: Task box shadow.
+					padding-bottom: @bottom-row-height + @bottom-row-bottom-margin;
+					.bottom-row {
 
-						> * {
+						height: @bottom-row-height;
+						width: 100%;
+						position: absolute;
+						bottom: @bottom-row-bottom-margin;
 
-							margin: -8px 10px 8px 10px;
+						> .durations {
+
+							margin: 0 10px;
+
+							> p {
+
+								margin: 0;
+								line-height: @bottom-row-height;
+							}
+
+							> ::before {
+
+								margin-right: 5px;
+							}
+
+							.estimate::before {
+
+								// fa-dot-circle-o
+								content: '\f192';
+							}
+
+							.projection::before {
+
+								// fa-arrow-circle-right
+								content: '\f0a9';
+							}
+
+							.actual::before {
+
+								// fa-check-circle
+								content: '\f058';
+							}
 						}
 
-						::before {
+						// Buttons
+						button {
+
+							display: block;
+							font-size: @bottom-row-height;
+							line-height: @bottom-row-height;
+							float: right;
+
+							padding: 0;
+							border: none;
+							color: inherit;
+							background: transparent;
 
 							display: inline;
+
+							&::before {
+
+								margin: 0;
+								display: inline;
+							}
+						}
+						.add-sub-task {
+
+							&::before {
+
+								// fa-plus-square
+								content: '\f0fe';
+							}
+
+							margin-right: 10px;
+						}
+						.task-details {
+
+							&::before {
+
+								// fa-pencil-square
+								content: '\f14b';
+							}
+
 							margin-right: 5px;
 						}
-
-						.estimate::before {
-
-							// fa-dot-circle-o
-							content: '';
-						}
-
-						.projection::before {
-
-							// fa-arrow-circle-right
-							content: '';
-						}
-
-						.actual::before {
-
-							// fa-check-circle
-							content: '';
-						}
-					}
-
-					// Buttons
-					i.button {
-
-						position: absolute;
-						bottom: 7px;
-
-						font-size: 22px;
-
-						opacity: 0;
-						transition: opacity 0.1s;
-					}
-					&:hover i.button {
-
-						opacity: 1;
-						transition: opacity 0.2s;
-					}
-					&.editing-title i.button {
-
-						display: none;
-					}
-					i.add-sub-task {
-
-						right: 10px;
-					}
-					i.task-details {
-
-						right: 35px;
 					}
 
 
@@ -495,11 +521,18 @@ body[data-current-page='project'] {
 								}
 							}
 
-							// Make the buttons visually stay on top of the title.
-							i.button {
+							.bottom-row {
 
-								background: @color;
-								box-shadow: 0px 0px 5px 5px @color;
+								button {
+
+									transition: opacity .2s;
+
+									&:not(:hover) {
+
+										opacity: .3;
+										transition: opacity .1s;
+									}
+								}
 							}
 						}
 
@@ -596,7 +629,7 @@ body[data-current-page='project'] {
 			display: block;
 		}
 
-		button.add-sub-task {
+		> button.add-sub-task {
 
 			display: block;
 			height: 52px;
