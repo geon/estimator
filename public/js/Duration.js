@@ -3,26 +3,26 @@ var Duration = {};
 
 var units = [
 	{
-		names: ['year', 'y'],
-		plurals: ['years', 'y'],
+		names: ['y', 'year'],
+		plurals: ['y', 'years'],
 		multiple: 45,
 		basedOn: 'week'
 	},
 	{
-		names: ['month', 'mn'],
-		plurals: ['months', 'mn'],
+		names: ['mn', 'month'],
+		plurals: ['mn', 'months'],
 		multiple: 4,
 		basedOn: 'week'
 	},
 	{
-		names: ['week', 'w'],
-		plurals: ['weeks', 'w'],
+		names: ['w', 'week'],
+		plurals: ['w', 'weeks'],
 		multiple: 5,
 		basedOn: 'day'
 	},
 	{
-		names: ['day', 'd'],
-		plurals: ['days', 'd'],
+		names: ['d', 'day'],
+		plurals: ['d', 'days'],
 		multiple: 8,
 		basedOn: 'h'
 	},
