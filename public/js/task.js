@@ -47,6 +47,17 @@ var Tasks = Backbone.Collection.extend({
 
 			model.projectRoot().calculateProjection();
 		});
+
+
+		// Make done propagate up.
+		this.on('change:done', function () {
+
+			if (this.parent) {
+
+				this.parent.set('done', _.every(this.pluck('done')));
+			}
+
+		}.bind(this));
 	},
 
 
