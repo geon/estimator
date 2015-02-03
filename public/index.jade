@@ -87,9 +87,13 @@ script.js-edit-task-dialog(type='template')
 
 		textarea.js-description(placeholder='Description')
 
-		button.delete.js-delete
-			i.fa.fa-remove
-			|  Delete
+		.bottom-buttons
+			button.delete.js-delete
+				i.fa.fa-trash
+				|  Delete
+			button.save.js-save
+				i.fa.fa-check
+				|  Save
 
 		i.fa.fa-close.button.close.js-close
 

@@ -892,40 +892,61 @@ body {
 		}
 	}
 
-	button.delete {
+	.bottom-buttons {
 
-		margin: 0 auto;
-		display: block;
+		button {
 
-		font-size: 1.25em;
-		font-weight: bold;
+			margin: 0 auto;
+			display: block;
 
-		@button-color-red: #f31;
-		@bulge: 6%;
-		@letterpress-amount: 10%;
+			font-size: 1.25em;
+			font-weight: bold;
 
-		& when (luma(@button-color-red) > 50%) {
+			border-radius: 5px;
+			padding: 6px 20px;
+			border: none;
 
-			text-shadow: 0 1px 0 lighten(@button-color-red, @letterpress-amount);
-		}
-		& when (luma(@button-color-red) <= 50%) {
+			.color (@color) {
 
-			text-shadow: 0 -1px 0 darken(@button-color-red, @letterpress-amount);
-		}
-		.contrasting-color(@button-color-red);
-		background: @button-color-red linear-gradient(to top, darken(@button-color-red, @bulge), @button-color-red, lighten(@button-color-red, @bulge));
-		border-radius: 5px;
-		padding: 6px 20px;
-		border: none;
+				@bulge: 6%;
+				@letterpress-amount: 10%;
 
-		&:active {
+				& when (luma(@color) > 50%) {
 
-			background: @button-color-red;
-		}
+					text-shadow: 0 1px 0 lighten(@color, @letterpress-amount);
+					box-shadow: inset 0px 0px 2px 0px darken(@color, @letterpress-amount);
+				}
+				& when (luma(@color) <= 50%) {
 
-		&:focus {
+					text-shadow: 0 -1px 0 darken(@color, @letterpress-amount);
+				}
+				.contrasting-color(@color);
+				background: @color linear-gradient(to top, darken(@color, @bulge), @color, lighten(@color, @bulge));
 
-			outline: none;
+				&:active {
+
+					background: @color;
+				}
+
+				&:focus {
+
+					outline: none;
+				}
+			}
+
+			&.delete {
+
+				.color (#f31);
+
+				float: left;
+			}
+
+			&.save {
+
+				.color (#f8f8f8);
+
+				float: right;
+			}
 		}
 	}
 
