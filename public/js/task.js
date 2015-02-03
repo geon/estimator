@@ -175,6 +175,20 @@ var Task = Backbone.Model.extend({
 
 			}, 0);
 		});
+
+		// Make done:true propagate down.
+		this.on('change:done', function () {
+
+			var tasks = this.get('tasks');
+			if (tasks && this.get('done')) {
+
+				tasks.each(function (task) {
+
+					task.set('done', true);
+				});
+			}
+
+		}.bind(this));
 	},
 
 
