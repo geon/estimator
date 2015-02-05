@@ -1,0 +1,131 @@
+
+@background-color: #fff;
+@text-color: #444;
+@accent-color-primary: #5cf;
+@accent-color-secondary: #f4a;
+
+@font-size: 16px;
+@line-height: 1.5em;
+
+
+
+@import (css) 'cssreset-min.css';
+
+// Set global font for everything.
+* {
+
+	font-family: inherit;
+	font-family: inherit;
+	letter-spacing: inherit;
+}
+html {
+
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif, FontAwesome;
+	font-size: @font-size;
+	letter-spacing: 0.03em; // The font is just a *tiiiny* bit too cramped.
+
+	background: @background-color;
+}
+
+h1, h2, h3, p, ul, pre, hr {
+
+	margin-top: @line-height;
+}
+
+h1, h2, h3 {
+
+	font-family: Georgia, serif;
+	color: @accent-color-primary;
+	font-weight: normal;
+}
+
+h1 {
+
+	font-size: 2.25em;
+}
+
+h2 {
+
+	font-size: 1.5em;
+}
+
+h3 {
+
+	font-size: 1em;
+	font-weight: bold;
+}
+
+h3 + p {
+
+	margin-top: 0;
+}
+
+p, li {
+
+	line-height: @line-height;
+}
+
+a {
+
+	text-decoration: none;
+	color: @accent-color-secondary;
+
+	&:visited {
+
+		color: @accent-color-primary;
+	}
+
+	&:hover {
+
+		text-decoration: underline;
+	}
+}
+
+ul {
+
+	> li {
+
+		margin-left: 1em;
+
+		&:before {
+
+			@size: 8px;
+
+			content: '';
+
+			display: inline-block;
+			width: @size;
+			height: @size;
+
+			background: @accent-color-primary;
+			border-radius: @size/2;
+
+			margin-right: .5em;
+			margin-bottom: calc(~'@{line-height} / 4 - @{size} / 2');
+		}
+	}
+}
+
+pre {
+
+	margin-left: 1em;
+}
+
+code {
+
+	@padding-h: 0.25em;
+	@padding-v: 0.1em;
+
+	background: #eee;
+	padding: @padding-v @padding-h;
+	border-radius: @padding-h;
+}
+
+
+
+// "Layout"
+body {
+
+	width: 600px;
+	margin: 50px auto;
+}

@@ -18,6 +18,8 @@
     "progres-convenience": "0.0.0",
     "sql": "^0.43.0",
     "moment": "^2.9.0",
-    "express-autoprefixer": "^2.1.1"
+    "express-autoprefixer": "^2.1.1",
+    "express-markdown": "0.0.6",
+    "jade": "^1.9.1"
   }
 }

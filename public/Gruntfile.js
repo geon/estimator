@@ -13,7 +13,8 @@ module.exports = function(grunt) {
 					yuicompress: false
 				},
 				files: {
-					'./css/style.css': './css/style.less'
+					'./css/style.css': './css/style.less',
+					'./css/markdown.css': './css/markdown.less'
 				}
 			}
 		},
@@ -23,7 +24,7 @@ module.exports = function(grunt) {
 			build: {
 				// expand: true,
 				// cwd: BUILD_DIR,
-				src: ['./css/style.css'],
+				src: ['./css/style.css', './css/markdown.css'],
 				// dest: BUILD_DIR
 			}
 		},
