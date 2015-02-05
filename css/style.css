@@ -38,6 +38,9 @@ a {
 a:hover {
   text-decoration: underline;
 }
+button {
+  cursor: pointer;
+}
 body[data-current-page='landing'] {
   background: #001f23 url(landing-page-background.jpg);
   background-repeat: no-repeat;
@@ -101,23 +104,19 @@ body[data-current-page='landing'] {
 .landing div.columns {
   margin: 0 auto;
   overflow: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 850px;
+  margin: 0 auto 100px auto;
 }
-@media only screen and (min-width: 960px) {
-  .landing div.columns {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: start;
-    -webkit-align-items: flex-start;
-        -ms-flex-align: start;
-            align-items: flex-start;
-    width: 850px;
-    margin: 0 auto 100px auto;
-  }
-  .landing div.columns > div:last-child {
-    margin-right: 0;
-  }
+.landing div.columns > div:last-child {
+  margin-right: 0;
 }
 .landing div.columns h2 {
   font-size: 20px;
@@ -136,6 +135,18 @@ body[data-current-page='landing'] {
   width: 250px;
   margin: 0;
   margin-right: 50px;
+}
+.landing .markdown-links {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 100px;
+}
+.landing .markdown-links a {
+  color: inherit;
+  font-weight: bold;
+}
+.landing .markdown-links a:hover {
+  text-decoration: underline;
 }
 body[data-current-page='project'] {
   background-size: 50px 50px;
@@ -191,16 +202,19 @@ body[data-current-page='project'] {
   margin-bottom: 10px;
 }
 .project .tree-view ul li > div.task {
+  cursor: move;
   display: inline-block;
   width: 200px;
   margin: 0 16px 16px 0;
   border-radius: 5px;
+  padding-bottom: 36px;
   -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
           transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
   position: relative;
 }
 .project .tree-view ul li > div.task h1,
 .project .tree-view ul li > div.task input {
+  cursor: text;
   font-size: 1.25em;
   padding: 6px 4px;
   margin: 7px 5px;
@@ -230,43 +244,57 @@ body[data-current-page='project'] {
 .project .tree-view ul li > div.task.editing-title input {
   display: block;
 }
-.project .tree-view ul li > div.task .estimates > * {
-  margin: -8px 10px 8px 10px;
+.project .tree-view ul li > div.task .bottom-row {
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  bottom: 6px;
 }
-.project .tree-view ul li > div.task .estimates ::before {
-  display: inline;
+.project .tree-view ul li > div.task .bottom-row > .durations {
+  margin: 0 10px;
+}
+.project .tree-view ul li > div.task .bottom-row > .durations > p {
+  margin: 0;
+  line-height: 30px;
+}
+.project .tree-view ul li > div.task .bottom-row > .durations > ::before {
   margin-right: 5px;
 }
-.project .tree-view ul li > div.task .estimates .estimate::before {
-  content: '';
+.project .tree-view ul li > div.task .bottom-row > .durations .estimate::before {
+  content: '\f192';
 }
-.project .tree-view ul li > div.task .estimates .projection::before {
-  content: '';
+.project .tree-view ul li > div.task .bottom-row > .durations .projection::before {
+  content: '\f0a9';
 }
-.project .tree-view ul li > div.task .estimates .actual::before {
-  content: '';
+.project .tree-view ul li > div.task .bottom-row > .durations .actual::before {
+  content: '\f058';
 }
-.project .tree-view ul li > div.task i.button {
-  position: absolute;
-  bottom: 7px;
-  font-size: 22px;
-  opacity: 0;
-  -webkit-transition: opacity 0.1s;
-          transition: opacity 0.1s;
+.project .tree-view ul li > div.task .bottom-row button {
+  display: block;
+  font-size: 30px;
+  line-height: 30px;
+  float: right;
+  padding: 0;
+  border: none;
+  color: inherit;
+  background: transparent;
+  display: inline;
 }
-.project .tree-view ul li > div.task:hover i.button {
-  opacity: 1;
-  -webkit-transition: opacity 0.2s;
-          transition: opacity 0.2s;
+.project .tree-view ul li > div.task .bottom-row button::before {
+  margin: 0;
+  display: inline;
 }
-.project .tree-view ul li > div.task.editing-title i.button {
-  display: none;
+.project .tree-view ul li > div.task .bottom-row .add-sub-task {
+  margin-right: 10px;
 }
-.project .tree-view ul li > div.task i.add-sub-task {
-  right: 10px;
+.project .tree-view ul li > div.task .bottom-row .add-sub-task::before {
+  content: '\f0fe';
 }
-.project .tree-view ul li > div.task i.task-details {
-  right: 35px;
+.project .tree-view ul li > div.task .bottom-row .task-details {
+  margin-right: 5px;
+}
+.project .tree-view ul li > div.task .bottom-row .task-details::before {
+  content: '\f14b';
 }
 .project .tree-view ul li > div.task:not(.done) {
   color: #000000;
@@ -280,9 +308,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task:not(.done) i.button {
-  background: #ffffff;
-  box-shadow: 0px 0px 5px 5px #ffffff;
+.project .tree-view ul li > div.task:not(.done) .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task:not(.done) .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task.done {
   opacity: .5;
@@ -297,9 +330,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task.done i.button {
-  background: #ffffff;
-  box-shadow: 0px 0px 5px 5px #ffffff;
+.project .tree-view ul li > div.task.done .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task.done .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='black']:not(.done) {
   -webkit-font-smoothing: antialiased;
@@ -316,9 +354,14 @@ body[data-current-page='project'] {
   color: #ffffff;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='black']:not(.done) i.button {
-  background: #333333;
-  box-shadow: 0px 0px 5px 5px #333333;
+.project .tree-view ul li > div.task[data-color='black']:not(.done) .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='black']:not(.done) .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='black'].done {
   opacity: .5;
@@ -336,9 +379,14 @@ body[data-current-page='project'] {
   color: #ffffff;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='black'].done i.button {
-  background: #737373;
-  box-shadow: 0px 0px 5px 5px #737373;
+.project .tree-view ul li > div.task[data-color='black'].done .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='black'].done .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='blue']:not(.done) {
   -webkit-font-smoothing: antialiased;
@@ -355,9 +403,14 @@ body[data-current-page='project'] {
   color: #ffffff;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='blue']:not(.done) i.button {
-  background: #3388ff;
-  box-shadow: 0px 0px 5px 5px #3388ff;
+.project .tree-view ul li > div.task[data-color='blue']:not(.done) .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='blue']:not(.done) .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='blue'].done {
   opacity: .5;
@@ -372,9 +425,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='blue'].done i.button {
-  background: #b6d3fb;
-  box-shadow: 0px 0px 5px 5px #b6d3fb;
+.project .tree-view ul li > div.task[data-color='blue'].done .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='blue'].done .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='purple']:not(.done) {
   -webkit-font-smoothing: antialiased;
@@ -391,9 +449,14 @@ body[data-current-page='project'] {
   color: #ffffff;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='purple']:not(.done) i.button {
-  background: #aa2299;
-  box-shadow: 0px 0px 5px 5px #aa2299;
+.project .tree-view ul li > div.task[data-color='purple']:not(.done) .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='purple']:not(.done) .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='purple'].done {
   opacity: .5;
@@ -411,9 +474,14 @@ body[data-current-page='project'] {
   color: #ffffff;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='purple'].done i.button {
-  background: #d873cc;
-  box-shadow: 0px 0px 5px 5px #d873cc;
+.project .tree-view ul li > div.task[data-color='purple'].done .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='purple'].done .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='red']:not(.done) {
   -webkit-font-smoothing: antialiased;
@@ -430,9 +498,14 @@ body[data-current-page='project'] {
   color: #ffffff;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='red']:not(.done) i.button {
-  background: #ff4455;
-  box-shadow: 0px 0px 5px 5px #ff4455;
+.project .tree-view ul li > div.task[data-color='red']:not(.done) .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='red']:not(.done) .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='red'].done {
   opacity: .5;
@@ -447,9 +520,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='red'].done i.button {
-  background: #fcc6cb;
-  box-shadow: 0px 0px 5px 5px #fcc6cb;
+.project .tree-view ul li > div.task[data-color='red'].done .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='red'].done .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='orange']:not(.done) {
   -webkit-font-smoothing: antialiased;
@@ -466,9 +544,14 @@ body[data-current-page='project'] {
   color: #ffffff;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='orange']:not(.done) i.button {
-  background: #ff8822;
-  box-shadow: 0px 0px 5px 5px #ff8822;
+.project .tree-view ul li > div.task[data-color='orange']:not(.done) .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='orange']:not(.done) .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='orange'].done {
   opacity: .5;
@@ -483,9 +566,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='orange'].done i.button {
-  background: #facda6;
-  box-shadow: 0px 0px 5px 5px #facda6;
+.project .tree-view ul li > div.task[data-color='orange'].done .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='orange'].done .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='yellow']:not(.done) {
   color: #000000;
@@ -499,9 +587,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='yellow']:not(.done) i.button {
-  background: #ffff55;
-  box-shadow: 0px 0px 5px 5px #ffff55;
+.project .tree-view ul li > div.task[data-color='yellow']:not(.done) .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='yellow']:not(.done) .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='yellow'].done {
   opacity: .5;
@@ -516,9 +609,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='yellow'].done i.button {
-  background: #fdfdd7;
-  box-shadow: 0px 0px 5px 5px #fdfdd7;
+.project .tree-view ul li > div.task[data-color='yellow'].done .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='yellow'].done .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='green']:not(.done) {
   color: #000000;
@@ -532,9 +630,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='green']:not(.done) i.button {
-  background: #66ff22;
-  box-shadow: 0px 0px 5px 5px #66ff22;
+.project .tree-view ul li > div.task[data-color='green']:not(.done) .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='green']:not(.done) .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task[data-color='green'].done {
   opacity: .5;
@@ -549,9 +652,14 @@ body[data-current-page='project'] {
   color: #000000;
   text-decoration: none;
 }
-.project .tree-view ul li > div.task[data-color='green'].done i.button {
-  background: #c0faa6;
-  box-shadow: 0px 0px 5px 5px #c0faa6;
+.project .tree-view ul li > div.task[data-color='green'].done .bottom-row button {
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+.project .tree-view ul li > div.task[data-color='green'].done .bottom-row button:not(:hover) {
+  opacity: .3;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
 }
 .project .tree-view ul li > div.task > .drop-target {
   position: absolute;
@@ -582,7 +690,7 @@ body[data-current-page='project'] {
 .project .tree-view.dragging .drop-target {
   display: block;
 }
-.project .tree-view button.add-sub-task {
+.project .tree-view > button.add-sub-task {
   display: block;
   height: 52px;
   width: 200px;
@@ -592,6 +700,12 @@ body[data-current-page='project'] {
   background: transparent;
   border-radius: 5px;
   border: 3px dotted;
+}
+.project p.manual a {
+  color: inherit;
+}
+.project p.manual a:hover {
+  text-decoration: underline;
 }
 body #modal-overlay {
   display: none;
@@ -718,6 +832,7 @@ body.modal-overlay #modal-overlay {
   margin: 0;
 }
 .dialog.edit-task .colors label.white span {
+  cursor: pointer;
   content: '';
   display: block;
   background: #ffffff;
@@ -742,6 +857,7 @@ body.modal-overlay #modal-overlay {
           transform: scale(1.5);
 }
 .dialog.edit-task .colors label.black span {
+  cursor: pointer;
   content: '';
   display: block;
   background: #333333;
@@ -765,6 +881,7 @@ body.modal-overlay #modal-overlay {
           transform: scale(1.5);
 }
 .dialog.edit-task .colors label.blue span {
+  cursor: pointer;
   content: '';
   display: block;
   background: #3388ff;
@@ -788,6 +905,7 @@ body.modal-overlay #modal-overlay {
           transform: scale(1.5);
 }
 .dialog.edit-task .colors label.purple span {
+  cursor: pointer;
   content: '';
   display: block;
   background: #aa2299;
@@ -811,6 +929,7 @@ body.modal-overlay #modal-overlay {
           transform: scale(1.5);
 }
 .dialog.edit-task .colors label.red span {
+  cursor: pointer;
   content: '';
   display: block;
   background: #ff4455;
@@ -834,6 +953,7 @@ body.modal-overlay #modal-overlay {
           transform: scale(1.5);
 }
 .dialog.edit-task .colors label.orange span {
+  cursor: pointer;
   content: '';
   display: block;
   background: #ff8822;
@@ -857,6 +977,7 @@ body.modal-overlay #modal-overlay {
           transform: scale(1.5);
 }
 .dialog.edit-task .colors label.yellow span {
+  cursor: pointer;
   content: '';
   display: block;
   background: #ffff55;
@@ -881,6 +1002,7 @@ body.modal-overlay #modal-overlay {
           transform: scale(1.5);
 }
 .dialog.edit-task .colors label.green span {
+  cursor: pointer;
   content: '';
   display: block;
   background: #66ff22;
@@ -904,24 +1026,41 @@ body.modal-overlay #modal-overlay {
       -ms-transform: scale(1.5);
           transform: scale(1.5);
 }
-.dialog.edit-task button.delete {
+.dialog.edit-task .bottom-buttons button {
   margin: 0 auto;
   display: block;
   font-size: 1.25em;
   font-weight: bold;
+  border-radius: 5px;
+  padding: 6px 20px;
+  border: none;
+}
+.dialog.edit-task .bottom-buttons button.delete {
   text-shadow: 0 -1px 0 #dd2000;
   -webkit-font-smoothing: antialiased;
   color: #ffffff;
   background: #ff3311 -webkit-linear-gradient(bottom, #f12200, #ff3311, #ff4d30);
   background: #ff3311 linear-gradient(to top, #f12200, #ff3311, #ff4d30);
-  border-radius: 5px;
-  padding: 6px 20px;
-  border: none;
+  float: left;
 }
-.dialog.edit-task button.delete:active {
+.dialog.edit-task .bottom-buttons button.delete:active {
   background: #ff3311;
 }
-.dialog.edit-task button.delete:focus {
+.dialog.edit-task .bottom-buttons button.delete:focus {
+  outline: none;
+}
+.dialog.edit-task .bottom-buttons button.save {
+  text-shadow: 0 1px 0 #ffffff;
+  box-shadow: inset 0px 0px 2px 0px #dfdfdf;
+  color: #000000;
+  background: #f8f8f8 -webkit-linear-gradient(bottom, #e9e9e9, #f8f8f8, #ffffff);
+  background: #f8f8f8 linear-gradient(to top, #e9e9e9, #f8f8f8, #ffffff);
+  float: right;
+}
+.dialog.edit-task .bottom-buttons button.save:active {
+  background: #f8f8f8;
+}
+.dialog.edit-task .bottom-buttons button.save:focus {
   outline: none;
 }
 .dialog.edit-task i.close {

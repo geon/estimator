@@ -47,6 +47,18 @@ var Tasks = Backbone.Collection.extend({
 
 			model.projectRoot().calculateProjection();
 		});
+
+
+		// Make done propagate up.
+		this.on('change:done', function () {
+
+			if (this.parent) {
+
+				// I'd be happier if this wasn't saved until the changed child was.
+				this.parent.save({'done': _.every(this.pluck('done'))});
+			}
+
+		}.bind(this));
 	},
 
 
@@ -164,6 +176,20 @@ var Task = Backbone.Model.extend({
 
 			}, 0);
 		});
+
+		// Make done:true propagate down.
+		this.on('change:done', function () {
+
+			var tasks = this.get('tasks');
+			if (tasks && this.get('done')) {
+
+				tasks.each(function (task) {
+
+					task.set('done', true);
+				});
+			}
+
+		}.bind(this));
 	},
 
 

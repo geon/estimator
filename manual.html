@@ -1,0 +1,65 @@
+
+<!DOCTYPE html5><head><link rel="stylesheet" href="css/markdown.css"/></head><body><h1 id="what-is-estimator-">What is Estimator?</h1>
+<p>A tool for breaking down a project in manageable tasks, and to estimate the overall time needed to complete them.</p>
+<h1 id="what-is-estimator-not-">What is Estimator <em>not</em>?</h1>
+<ul>
+<li>An issue tracker.</li>
+<li>A Scrum whiteboard.</li>
+<li>Mobile friendly.</li>
+<li>Very sophisticated and accurate.</li>
+</ul>
+<h1 id="how-do-i-use-estimator-">How do I use Estimator?</h1>
+<h2 id="projects">Projects</h2>
+<p>To create a new project, go to <a href="http://geon.github.io/estimator/">the front page</a> and click the &quot;Create project&quot; button.</p>
+<p>Your new project has a unique URL that you can bookmark or share. Anyone with access to this URL has also full rights to read and edit the project.</p>
+<p>Let&#39;s say you are preparing your vacation. Type in a suitable name for your project in the text field that appears, for example &quot;Vacation&quot;. You can change it at any time.</p>
+<h2 id="breaking-down-your-project">Breaking down your project</h2>
+<p>You should see a button with a plus symbol and a dotted outline. Click it to add a task at the top level of your project. A white box with an input field will appear. Type in a short title for your task and hit [enter] or click somewhere else. Do this as many times as needed.</p>
+<p>Top level tasks could be:</p>
+<ul>
+<li>Find interesting destinations</li>
+<li>Decide destination</li>
+<li>Arrange visa</li>
+<li>Buy tickets</li>
+<li>Get vaccinated</li>
+<li>Arrange cat sitter</li>
+<li>Pack bags</li>
+<li>Book airport parking</li>
+</ul>
+<p>As you will have noticed, the tasks are listed top to bottom in a single column. You can drag &amp; drop tasks to reorder them to indicate priority or dependencies.</p>
+<p>Each of the tasks have two buttons in the lower right corner. The button with a pen icon will open up a dialog with more options, such as a color picker and a text area for entering a more detailed description.</p>
+<p>Click the pen button on &quot;Find interesting destinations&quot;. In the dialog, click the &quot;Description&quot; text area. This is a great place to type in reminders and ideas, like &quot;Ask Mike about that place he went last year.&quot;.</p>
+<p>Again, click the pen button on &quot;Arrange cat sitter&quot; and set the color to red so you don&#39;t forget like last time. I&#39;m pretty sure your kids noticed Mittens had a new color.</p>
+<p>The button with the plus icon will add a new <em>subtask</em>. Click the plus button on the task &quot;Decide destination&quot;, and call it &quot;Check prices&quot;. This new task is placed in a new column, next to the <em>parent task</em> it belongs to.</p>
+<p>The astute reader might notice that &quot;Find interesting destinations&quot; should actually be part of the task &quot;Decide destination&quot;. Simply drag &amp; drop it over to the second column, right over &quot;Check prices&quot;. As you drop it, the box labeled &quot;Decide destination&quot; will grow in height to accommodate it&#39;s two subtasks.</p>
+<p>Any task can contain more subtasks this way, to any depth. Or as many as will fit on your screen.</p>
+<p>You will continue breaking down tasks into ever smaller subtasks until they are so small they are trivial, or you just don&#39;t know enough about them yet.</p>
+<h2 id="estimating">Estimating</h2>
+<p>In the edit dialog opened by the pen button, there are three fields for entering the time the task takes to complete.</p>
+<p>The first two are the min/max estimate. As you fill in the min estimate, the max will be suggested to you automatically. Entering one manually is optional.</p>
+<p>The last one, labeled &quot;Actual&quot; is for how much time a task <em>actually</em> took. Entering it will automatically mark your task as &quot;Done&quot;. This actual time taken will override the estimate if there is one.</p>
+<p>It is usually a good idea to only enter estimates for &quot;leaf tasks&quot; - tasks that have no subtasks, so that they are at the far right of their row.</p>
+<p>The format for entering times is:</p>
+<pre><code>number unit [, ...]
+</code></pre><p>...where <code>number</code> is an integer and <code>unit</code> is any one of <code>[year(s), month(s), weeks(s), day(s), hour(s), min]</code> or their shorter variants <code>[y, mn, w, d, h, m]</code>, respectively.</p>
+<p>Examples:</p>
+<ul>
+<li>1 day, 2 hours, 30 min</li>
+<li>1d, 2h, 30m</li>
+<li>1234 min</li>
+<li>30 h, 2 h, 2h, 1 hour</li>
+</ul>
+<p>Whatever you enter will be parsed, converted to seconds and formatted in the most sensible way.</p>
+<p>For now, conversion between units assume Swedish conditions where:</p>
+<ul>
+<li>1 day = 8 h</li>
+<li>1 week = 5 days</li>
+<li>1 month = 4 weeks</li>
+<li>1 year = 45 weeks</li>
+</ul>
+<h2 id="projected-estimates">Projected estimates</h2>
+<p>As soon as you enter the first estimate or actual time taken, Estimator will calculate projections for the entire project. At first they will most likely be outrageously improbable, but as you fill in more numbers, they will become more accurate.</p>
+<p>The projection of a task with subtasks in it will be the sum of it&#39;s subtasks. If the supertask itself has an estimate, the larger of them is used. The assumption is that a task is equal to the sum of it&#39;s parts, or sometimes more.</p>
+<p>When a task has no estimates set on itself or any of it&#39;s subtasks, it is given the average estimate of the ones that are actually set among it&#39;s siblings. This assumes that you have broken your project down into roughly equally large bites.</p>
+<p>If all else fails, time is projected down from the supertask and divided equally over the subtasks. Simply put, if ten tasks should take 30 minutes together, each one should take about 3 minutes.</p>
+</body>

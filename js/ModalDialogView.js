@@ -47,9 +47,12 @@ var ModalDialogView = Backbone.View.extend({
 	},
 
 
-	hide: function () {
+	hide: function (options) {
 
-		this.trigger('close');
+		if (!(options && options.silent)) {
+
+			this.trigger('close', options);
+		}
 
 		this.remove();
 		this.overlay.hide();

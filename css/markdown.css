@@ -1,0 +1,79 @@
+@import 'cssreset-min.css';
+* {
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif, FontAwesome;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  background: #ffffff;
+}
+h1,
+h2,
+h3,
+p,
+ul,
+pre,
+hr {
+  margin-top: 1.5em;
+}
+h1,
+h2,
+h3 {
+  font-family: Georgia, serif;
+  color: #55ccff;
+  font-weight: normal;
+}
+h1 {
+  font-size: 2.25em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1em;
+  font-weight: bold;
+}
+h3 + p {
+  margin-top: 0;
+}
+p,
+li {
+  line-height: 1.5em;
+}
+a {
+  text-decoration: none;
+  color: #ff44aa;
+}
+a:visited {
+  color: #55ccff;
+}
+a:hover {
+  text-decoration: underline;
+}
+ul > li {
+  margin-left: 1em;
+}
+ul > li:before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #55ccff;
+  border-radius: 4px;
+  margin-right: .5em;
+  margin-bottom: calc(1.5em / 4 - 8px / 2);
+}
+pre {
+  margin-left: 1em;
+}
+code {
+  background: #eee;
+  padding: 0.1em 0.25em;
+  border-radius: 0.25em;
+}
+body {
+  width: 600px;
+  margin: 50px auto;
+}

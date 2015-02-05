@@ -194,16 +194,14 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		this.$estimate
 			.text(estimate ? (
-				Duration.formatRounded(estimate.min) +
-				' - ' + Duration.formatRounded(estimate.max)
+				Duration.formatRounded((estimate.min + estimate.max) / 2)
 			) : 'No estimate')
 			.toggle(!this.model.get('actual') && !!estimate && projectionEqualsEstimate)
 		;
 
 		this.$projection
 			.text(projection ? (
-				Duration.formatRounded(projection.min) +
-				' - ' + Duration.formatRounded(projection.max)
+				Duration.formatRounded((projection.min + projection.max) / 2)
 			) : 'No projection')
 			.toggle(!this.model.get('actual') && !!projection && !projectionEqualsEstimate)
 		;

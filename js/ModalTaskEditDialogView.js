@@ -12,13 +12,17 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 	initialize: function (options) {
 
+		// Copy model attributes for cancel.
+		this.oldModelAttributes = _.extend({}, this.model.attributes);
+
 		_.extend(this.events, {
 			// Update the other views in realtime.
 			'change input.js-title, textarea.js-description, .js-estimates input, input[name="color"], input.js-done': 'collectData',
 			'keyup input.js-title, textarea.js-description': 'collectData',
 			'paste input.js-title, textarea.js-description': 'collectData',
 
-			'click button.js-delete': 'onClickDelete'
+			'click button.js-delete': 'onClickDelete',
+			'click button.js-save'  : 'onClickSave'
 		});
 
 		// TODO: Send $el as option to the superclass constructor instead.
@@ -54,7 +58,7 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 		this.model.on('change:actual', this.onChangeActual, this);
 		this.model.on('change:from change:to change:actual change:done', this.onChangeEstimateAndActualAndDone, this);
 
-		this.once('close', this.save, this);
+		this.once('close', this.cancel, this);
 	},
 
 
@@ -96,15 +100,6 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 	},
 
 
-	save: function (){
-
-		if (this.model) {
-
-			this.model.save();
-		}
-	},
-
-
 	onChangeDone: function () {
 
 		if (this.model.get('done')) {
@@ -143,5 +138,18 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 			this.model.destroy();
 		}
+	},
+
+
+	onClickSave: function () {
+
+		this.hide({silent: true});
+		this.model.save();
+	},
+
+
+	cancel: function () {
+
+		this.model.set(this.oldModelAttributes);
 	}
 });
