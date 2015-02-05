@@ -54,7 +54,8 @@ var Tasks = Backbone.Collection.extend({
 
 			if (this.parent) {
 
-				this.parent.set('done', _.every(this.pluck('done')));
+				// I'd be happier if this wasn't saved until the changed child was.
+				this.parent.save({'done': _.every(this.pluck('done'))});
 			}
 
 		}.bind(this));
