@@ -35,18 +35,39 @@ module.exports = function(grunt) {
 					data: {
 						pretty: true,
 						debug: true,
-						apiBaseUrl: 'http://estimator.topmost.se:8084'
+						// apiBaseUrl: 'http://estimator.topmost.se:8084'
+						apiBaseUrl: 'http://localhost:3000'
 					}
 				},
 				files: {
-					'index.html': 'index.jade'
+					'index.html': 'index.jade',
+					'manual.html': 'manual.jade',
+					'changelog.html': 'changelog.jade'
 				}
 			}
-		}		
+		},
+
+		// running `grunt watch` will watch for changes
+		watch: {
+
+			stylesless: {
+				options: { livereload: true },
+				files: ['./css/*.less'],
+				tasks: ['less:development', 'autoprefixer']
+			},
+
+			jade: {
+				options: { livereload: true },
+				files: ['*.jade'],
+				tasks: ['jade']
+			}
+		},
+		
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-jade');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 };
 
