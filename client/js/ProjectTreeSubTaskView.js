@@ -6,7 +6,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 
 		'click h1': 'onTitleClick',
 		'blur input': 'onInputBlur',
-		'keyup input': 'onInputKeyUp',
+		'keydown input': 'onInputKeyDown',
 		'paste input': 'collectData',
 
 		'click .js-add-sub-task': 'addSubtask',
@@ -72,7 +72,7 @@ var ProjectTreeSubTaskView = Backbone.View.extend({
 	},
 
 
-	onInputKeyUp: function (event) {
+	onInputKeyDown: function (event) {
 
 		if (event.keyCode == 13) {
 

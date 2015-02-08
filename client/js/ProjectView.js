@@ -5,7 +5,7 @@ var ProjectView = Backbone.View.extend({
 	events: {
 
 		'blur input.js-title': 'collectData',
-		'keyup input.js-title': 'onInputKeyUp'
+		'keydown input.js-title': 'onInputKeyDown'
 	},
 
 
@@ -34,7 +34,7 @@ var ProjectView = Backbone.View.extend({
 	},
 
 
-	onInputKeyUp: function (event) {
+	onInputKeyDown: function (event) {
 
 		if (event.keyCode == 13) {
 
