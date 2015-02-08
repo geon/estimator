@@ -23,7 +23,7 @@ module.exports = {
 
 					return client.insert(tasks, req.body).then(function (created) {
 
-						res.status(201);
+						res.sendStatus(201);
 					});
 				});
 
