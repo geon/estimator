@@ -43,6 +43,15 @@ Install the dependencies:
 
 	npm install
 
+Create and initialize the database:
+
+	psql -c "CREATE DATABASE estimator"
+	psql estimator < schema.sql
+
+Edit the connectionString in `config.json`. I should look something like:
+
+	"connectionString": "postgres://myusername:mypassword@localhost/estimator"
+
 Start the server
 
 	node ./bin/www
