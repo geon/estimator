@@ -150,6 +150,6 @@ var ModalTaskEditDialogView = ModalDialogView.extend({
 
 	cancel: function () {
 
-		this.model.set(this.oldModelAttributes);
+		this.model && this.model.set(this.oldModelAttributes);
 	}
 });
