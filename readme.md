@@ -27,7 +27,7 @@ Screenies
 Using Estimator
 ===============
 
-You can use Estimator right away on the [project website](http:/geon.github.io/estimator/manual.html). No account or registration needed, just click the "Create project" button.
+You can use Estimator right away on the [project website](http:/geon.github.io/estimator/). No account or registration needed, just click the "Create project" button.
 
 If you want to install the software yourself, you need a server with Node.js, Postgre SQL and grunt installed. While any OS should be fine, Estimator has been developed on Mac OS and Ubuntu.
 
