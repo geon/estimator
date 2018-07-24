@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    image: esti_db:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: estimator
+      POSTGRES_PASSWORD: postgres
+  server:
+    image: esti_server:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    command: node ./bin/www
+  frontend:
+    image: esti_frontend:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+    depends_on:
+      - server
+    ports:
+      - "8080:8080"
+    command: http-server
+
